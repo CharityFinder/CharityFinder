@@ -22,4 +22,5 @@ Run `yarn installer` in the root directory.
 - Express.js
 - Firebase
 - [Charity Navigator (CN) API](www.charitynavigator.org)
-  <img src="https://github.com/CharityFinder/CharityFinder/client/public/charitynavigator.jpg" width="200px" height="200px">
+
+<img src="https://github.com/CharityFinder/CharityFinder/client/public/charitynavigator.jpg" width="200px" height="200px">
