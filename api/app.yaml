@@ -1,0 +1,6 @@
+
+service: api
+runtime: nodejs12
+
+env_variables:
+  GOOGLE_APPLICATION_CREDENTIALS: "service-key.json"
