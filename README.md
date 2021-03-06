@@ -28,3 +28,4 @@ Run `yarn installer` in the root directory.
 # Contributors
 
 - [Shania Dhani](https://github.com/sdhani)
+- [Xing Tao Shi](https://github.com/xshi0603)
