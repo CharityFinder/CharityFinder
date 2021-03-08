@@ -30,3 +30,4 @@ Run `yarn installer` in the root directory.
 - [Shania Dhani](https://github.com/sdhani)
 - [Xing Tao Shi](https://github.com/xshi0603)
 - [Darren Liang](https://github.com/dliang2)
+- [Jessica Wong](https://github.com/wongjessica)
