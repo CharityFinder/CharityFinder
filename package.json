@@ -1,0 +1,20 @@
+{
+  "name": "charity-finder-api",
+  "description": "Remove the hassle of finding charities that you're passionate about with CharityFinder",
+  "version": "1.0.0",
+  "devDependencies": {
+    "concurrently": "^6.0.0"
+  },
+  "scripts": {
+    "installer": "yarn install && yarn install --prefix client && yarn install --prefix api",
+    "dev": "concurrently \"yarn:dev:api\" \"yarn:dev:client\"",
+    "dev:api": "yarn run dev --prefix api",
+    "dev:client": "yarn start --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CharityFinder/CharityFinder.git"
+  },
+  "author": "charity finder peeps",
+  "license": "MIT"
+}
