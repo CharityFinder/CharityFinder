@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import LogoPage from "./pages/LogoPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
 const App = () => {
   const [message, setMessage] = useState("");
@@ -20,10 +24,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>{message}</p>
-      </header>
+      <Router>
+        <Switch>
+          {/* <Route path="/" exact component={LogoPage}/> */}
+          <Route path="/" exact render={() => <LogoPage logo={logo} message={message}/>}/>
+          <Route path="/login" exact component={LoginPage}/>
+        </Switch>
+      </Router>
     </div>
   );
 };
