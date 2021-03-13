@@ -1,10 +1,8 @@
 import express from "express";
-import bodyparser from "body-parser";
 import logger from "morgan";
 import dotenv from "dotenv";
 
 dotenv.config();
-// import usersRouter from "./routes/users";
 
 (async () => {
   try {
@@ -14,12 +12,12 @@ dotenv.config();
     app.set("port", port);
 
     // Middleware
-    app.use(bodyparser.urlencoded({ extended: false }));
-    app.use(bodyparser.json());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
 
     if (process.env.NODE_ENV !== "production") {
       app.use(logger("dev"));
-      app.use(function (req, res, next) {
+      app.use((req, res, next) => {
         res.header("Access-Control-Allow-Origin", `http://localhost:3000`);
         res.header(
           "Access-Control-Allow-Headers",
@@ -28,9 +26,6 @@ dotenv.config();
         next();
       });
     }
-
-    // Importing Routes
-    // app.use("/api/users", usersRouter);
 
     // Routes
     app.get("/api", async (req, res) => {
