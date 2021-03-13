@@ -9,7 +9,6 @@ export const Home = () => {
 
   const getMessage = async () => {
     const res = await axios.get(`/api/`);
-    console.log(res.data);
     setMessage(res.data);
   };
 

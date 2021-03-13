@@ -16,6 +16,7 @@ export const Register = () => {
     });
   };
 
+  /* Register User */
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { user, error } = await registerUser(loginData);
@@ -28,6 +29,7 @@ export const Register = () => {
     console.log("Registered User", user);
   };
 
+  // TODO: Add missing fields to form
   return (
     <Container maxWidth="sm" className="register-form">
       <Navbar />

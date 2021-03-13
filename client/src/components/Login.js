@@ -9,9 +9,9 @@ export const Login = () => {
   const [loginData, setLoginData] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
 
+  /* Login User */
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { user, error } = await loginUser(loginData);
     if (error) {
       setErrorMessage(error);

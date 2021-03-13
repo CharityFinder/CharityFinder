@@ -1,6 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+// TODO: Handle Navigation B/t components better
 export const Navbar = () => {
   const history = useHistory();
 
