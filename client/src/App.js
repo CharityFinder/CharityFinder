@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { UserContext, getUser, logoutUser } from "./utils/auth";
 import { auth } from "./config/firebase";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
 import { Home } from "./components/Home";
 import "./App.css";
+import axios from "axios";
+
+import LogoPage from "./pages/LogoPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 
 const App = () => {
   const [user, setUser] = useState(auth.currentUser); // TODO: Setup Context or Redux Store
@@ -57,6 +61,7 @@ const App = () => {
           )}
         </div>
       )}
+
     </div>
   );
 };
