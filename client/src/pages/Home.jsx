@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../utils/auth";
 import axios from "axios";
-import { Navbar } from "./Navbar";
+import { Navbar } from "../components/Navbar";
 
 export const Home = () => {
   const { userData } = useContext(UserContext);
