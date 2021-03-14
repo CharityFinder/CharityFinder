@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
 import { Container, Button, TextField, Grid } from "@material-ui/core";
-import { Navbar } from "./Navbar";
+import { Navbar } from "../components/Navbar";
 
 export const Login = () => {
   const history = useHistory();
