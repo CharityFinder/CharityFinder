@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.register-form,
+.login-form,
+.App,
+.home h1,
+h2 {
+  margin-top: 4rem;
+  font-weight: 300;
+}
+
+.user-info,
+h3 {
+  text-align: left;
+  font-weight: 300;
+  padding-left: 2rem;
+  margin-top: 2rem;
+}

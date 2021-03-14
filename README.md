@@ -4,6 +4,10 @@ Remove the hassle of finding charitable organizations that you’re passionate a
 
 ## Get Started
 
+### Requirements
+
+Node >= version 12.0
+
 ### Install dependencies
 
 Run `yarn installer` in the root directory.
@@ -23,7 +27,7 @@ Run `yarn installer` in the root directory.
 - Firebase
 - [Charity Navigator (CN) API](www.charitynavigator.org)
 
-<img src="https://github.com/CharityFinder/CharityFinder/blob/main/client/public/charitynavigator.jpg" width="200px" height="200px">
+<img src="https://github.com/CharityFinder/CharityFinder/blob/main/client/public/charitynavigator.jpg" width="125px" height="110px">
 
 # Contributors
 
