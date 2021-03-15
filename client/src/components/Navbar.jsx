@@ -1,14 +1,13 @@
 import React from "react";
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
+import {Navbar as BootstrapNavbar, Nav} from 'react-bootstrap/'
 
 // TODO: Handle Navigation B/t components better
-export const NavigationBar = () => {
+export const Navbar = () => {
   return (
-    <Navbar fixed="top" bg="light" expand="lg">
-      <Navbar.Brand href="/">Charity Finder</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
+    <BootstrapNavbar fixed="top" bg="light" expand="lg">
+      <BootstrapNavbar.Brand href="/">Charity Finder</BootstrapNavbar.Brand>
+      <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
+      <BootstrapNavbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/">Home</Nav.Link>
         </Nav>
@@ -23,7 +22,7 @@ export const NavigationBar = () => {
           <Nav.Link href="/">Donations</Nav.Link>
         </Nav>
 
-      </Navbar.Collapse>
-    </Navbar>
+      </BootstrapNavbar.Collapse>
+    </BootstrapNavbar>
   );
 };

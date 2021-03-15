@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../utils/auth";
 import axios from "axios";
-import { NavigationBar } from "../components/NavigationBar";
+import { Navbar } from "../components/Navbar";
 
 export const Home = () => {
   const { userData } = useContext(UserContext);
@@ -20,7 +20,7 @@ export const Home = () => {
 
   return (
     <div className="home">
-      <NavigationBar />
+      <Navbar />
       <h1>CharityFinder</h1>
       <h2>{message}</h2> {/* Server-side message */}
       {userData && (
