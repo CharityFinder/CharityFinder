@@ -1,4 +1,4 @@
-import {Navbar as BootstrapNavbar, Nav} from 'react-bootstrap/'
+import {Navbar as BootstrapNavbar, Nav} from 'react-bootstrap'
 import React, { useContext } from "react";
 import { UserContext } from "../utils/auth";
 
