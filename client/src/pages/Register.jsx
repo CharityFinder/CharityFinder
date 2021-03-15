@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../utils/auth";
 import { Container, Button, TextField, Grid } from "@material-ui/core";
-import { Navbar } from "../components/Navbar";
+import { NavigationBar } from "../components/NavigationBar";
 
 export const Register = () => {
   const history = useHistory();
@@ -32,7 +32,7 @@ export const Register = () => {
   // TODO: Add missing fields to form
   return (
     <Container maxWidth="sm" className="register-form">
-      <Navbar />
+      <NavigationBar />
       <h3>{errorMessage}</h3>
       <form onSubmit={handleSubmit} noValidate>
         <Grid container spacing={2} alignItems="center" justify="center">
