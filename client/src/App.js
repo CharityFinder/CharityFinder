@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { UserContext, getUser, logoutUser } from "./utils/auth";
 import { auth } from "./config/firebase";
 import { Login } from "./pages/Login";
@@ -7,6 +7,7 @@ import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
+import { Footer } from "./components/Footer";
 
 const App = () => {
   const [user, setUser] = useState(auth.currentUser); // TODO: Setup Context or Redux Store
@@ -44,20 +45,19 @@ const App = () => {
         <h2>Loading...</h2>
       ) : (
         <div className="home">
-          
           <BrowserRouter>
             <UserContext.Provider value={{ user, userData }}>
-            <Navbar logoutHandler={handleLogout}/>
+              <Navbar logoutHandler={handleLogout} />
+              <Footer />
               <Switch>
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
-                <Route path="/" component={Home}/>
+                <Route path="/" component={Home} />
               </Switch>
             </UserContext.Provider>
           </BrowserRouter>
         </div>
       )}
-
     </div>
   );
 };

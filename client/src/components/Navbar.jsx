@@ -15,7 +15,7 @@ export const Navbar = ({logoutHandler}) => {
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link className = "inactive" href="/">Home</Nav.Link>
         </Nav>
 
         <Nav className="ml-auto">
