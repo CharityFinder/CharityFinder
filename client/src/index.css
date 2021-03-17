@@ -37,3 +37,8 @@ code {
   font-weight: 400;
 }
 
+.form-label {
+  text-align: left;
+  width: 50%;
+}
+

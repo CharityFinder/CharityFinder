@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
-import { Container, Button, TextField, Grid } from "@material-ui/core";
+import { Container, Button, Form } from "react-bootstrap";
 
 export const Login = () => {
   const history = useHistory();
@@ -28,38 +28,28 @@ export const Login = () => {
   };
 
   return (
-    <Container maxWidth="sm" className="login-form">
+    <Container maxwidth="sm" className="login-form">
       <h3>{errorMessage}</h3>
-      <form onSubmit={handleSubmit} noValidate>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={handleChange}
-          />
-        </Grid>
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          Log In
-        </Button>
-      </form>
+
+      <h1>Charity Finder</h1>
+      <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
+      <Form onSubmit={handleSubmit} noValidate>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="email" />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="password" type="password" />
+        </Form.Group>
+
+        <Form.Group>
+          <Button variant="primary" type="submit">
+            Log In
+          </Button>
+        </Form.Group>
+      </Form>
     </Container>
   );
 };
