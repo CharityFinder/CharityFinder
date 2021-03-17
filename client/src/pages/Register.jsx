@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../utils/auth";
-// import { Container, Button, InputGroup, Row } from "@material-ui/core";
 import { Container, Button, Form } from "react-bootstrap";
 
 export const Register = () => {
@@ -31,9 +30,9 @@ export const Register = () => {
 
   // TODO: Add missing fields to form
   return (
-    <Container maxwidth="sm" className="register-form">
+    <Container maxwidth="sm" className="mt-5 jumbotron vertical-center">
       <h3>{errorMessage}</h3>
-      <h1>Charity Finder</h1>
+      <h1 className="mt-0">Charity Finder</h1>
       <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
       <Form onSubmit={handleSubmit} noValidate>
         <Form.Group controlId="formBasicFirstName">

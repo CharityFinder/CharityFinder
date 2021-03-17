@@ -28,11 +28,11 @@ export const Login = () => {
   };
 
   return (
-    <Container maxwidth="sm" className="login-form">
+    <Container maxwidth="sm" className="mt-5 jumbotron vertical-center" >
       <h3>{errorMessage}</h3>
 
-      <h1>Charity Finder</h1>
-      <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
+      <h1 className="mt-0">Charity Finder</h1>
+      <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>  
       <Form onSubmit={handleSubmit} noValidate>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
