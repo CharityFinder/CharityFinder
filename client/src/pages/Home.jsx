@@ -18,9 +18,14 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="home">
-      <h1>CharityFinder</h1>
-      <h2>{message}</h2> {/* Server-side message */}
+    <div className="home description">
+      <h1 className="mt-0">CharityFinder</h1>
+      {/* <h2>{message}</h2> Server-side message */}
+      <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
+      <p>Search through 1000s of charitable organizations</p>
+      <p>Get recommendations for charities that match your passions</p>
+      <p>Keep track of your favorite organizations</p>
+
       {userData && (
         <h3 className="user-info">
           {/* Firebase user auth verfication of current user logged in */}
