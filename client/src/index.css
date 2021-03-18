@@ -30,3 +30,10 @@ code {
   font-weight: 400;
   line-height: 1.5;
 }
+
+.nav-item {
+  font-family: Montserrat, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
