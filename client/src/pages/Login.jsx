@@ -28,7 +28,7 @@ export const Login = () => {
   };
 
   return (
-    <Container maxwidth="sm" className="mt-5 jumbotron vertical-center" >
+    <Container className="jumbotron vertical-center shadow-container shadow-lg">
       <h3>{errorMessage}</h3>
 
       <h1 className="mt-0">Charity Finder</h1>

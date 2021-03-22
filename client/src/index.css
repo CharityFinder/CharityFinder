@@ -8,7 +8,6 @@ body {
 }
 
 nav {
-  /* background-color: #78c2ad; */
   background-color: #55b298;
 }
 
@@ -43,7 +42,14 @@ code {
 }
 
 .vertical-center {
-  display: inline-block
+  position: absolute;
+  top: 45%;
+  transform: translate(-50%, -55%);
+}
+
+.shadow-container {
+  display: inline-block;
+  border: 1px solid lightgrey;
 }
 
 .description {

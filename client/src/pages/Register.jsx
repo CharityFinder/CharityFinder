@@ -30,7 +30,7 @@ export const Register = () => {
 
   // TODO: Add missing fields to form
   return (
-    <Container maxwidth="sm" className="mt-5 jumbotron vertical-center">
+    <Container className="mt-5 jumbotron vertical-center shadow-container shadow-lg">
       <h3>{errorMessage}</h3>
       <h1 className="mt-0">Charity Finder</h1>
       <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
