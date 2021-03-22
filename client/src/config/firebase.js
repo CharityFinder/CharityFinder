@@ -13,10 +13,20 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
+var secondaryAppConfig = {
+  projectId: "REACT_APP_PROJECT_ID",
+  appId: "REACT_APP_APP_ID",
+  apiKey: "REACT_APP_API_KEY",
+  databaseURL: "https://charityfinder-default-rtdb.firebaseio.com/",
+  storageBucket: "gs://charityfinder.appspot.com",
+};
+
 // Initialize firebase only once
 if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
+
+var secondaryApp = firebase.initializeApp(secondaryAppConfig, "secondary");
 
 export const auth = firebase.auth();
 export const db = firebase.firestore(); // TODO: Move to backend logic

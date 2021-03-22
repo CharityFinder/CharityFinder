@@ -16,5 +16,8 @@
     "url": "git+https://github.com/CharityFinder/CharityFinder.git"
   },
   "author": "charity finder peeps",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^8.3.1"
+  }
 }
