@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
+import { Button } from "../components/Button";
 
 export const Login = () => {
   const history = useHistory();
@@ -45,9 +46,7 @@ export const Login = () => {
         </Form.Group>
 
         <Form.Group>
-          <Button variant="primary" type="submit">
-            Log In
-          </Button>
+          <Button text="Log In"/>
         </Form.Group>
       </Form>
     </Container>
