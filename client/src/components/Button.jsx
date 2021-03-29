@@ -5,7 +5,7 @@ export const Button = ({text}) => {
   const [hover, setHover] = useState(false);
 
   const toggleHover = () => {
-    setHover(!hover);
+    setHover(previousHoverValue => !previousHoverValue)
   };
 
   return (
