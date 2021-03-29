@@ -3,6 +3,7 @@ import React from "react";
 import Logo from "../images/charitynavigatorlogo.png"
 
 export const Footer = () => {
+  // TODO: make text-size scale with screen size
   return (
     <BootstrapNavbar fixed="bottom"  className="navbar navbar-dark ">
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />

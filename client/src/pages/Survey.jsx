@@ -27,14 +27,14 @@ export const Survey = () => {
   };
 
   return (
-    <Container className="jumbotron vertical-center shadow-container shadow-lg">
+    <Container className="jumbotron vertical-center shadow-container shadow-lg" >
 
       <h1 className="mt-0">Charity Finder</h1>
       <p>What areas are you passionate about?</p>  
 
       {/* TODO: remove onMouseEnter and swap to onSubmit */}
-      <Form onMouseEnter={handleSubmit} noValidate>
-        <div key='default-checkbox' className="mb-3">
+      <Form onMouseEnter={handleSubmit} noValidate className="mx-auto" style={{width: "240px"}}>
+        <div key='default-checkbox' className="mb-3 mx-auto" style={{width: "50%"}}>
           <Checkbox inputLabel="Healthcare" inputOnChange={handleChange} />
           <Checkbox inputLabel="Education" inputOnChange={handleChange} />
           <Checkbox inputLabel="Environment" inputOnChange={handleChange} />
