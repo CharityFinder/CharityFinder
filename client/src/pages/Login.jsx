@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
+import { Button } from "../components/Button";
 
 export const Login = () => {
   const history = useHistory();
@@ -28,7 +29,7 @@ export const Login = () => {
   };
 
   return (
-    <Container maxwidth="sm" className="mt-5 jumbotron vertical-center" >
+    <Container className="jumbotron vertical-center shadow-container shadow-lg">
       <h3>{errorMessage}</h3>
 
       <h1 className="mt-0">Charity Finder</h1>
@@ -45,9 +46,7 @@ export const Login = () => {
         </Form.Group>
 
         <Form.Group>
-          <Button variant="primary" type="submit">
-            Log In
-          </Button>
+          <Button text="Log In"/>
         </Form.Group>
       </Form>
     </Container>

@@ -10,7 +10,7 @@ export const Navbar = ({logoutHandler}) => {
   const { userData } = useContext(UserContext);
 
   return (
-    <BootstrapNavbar fixed="top" expand="lg" className="navbar navbar-dark ">
+    <BootstrapNavbar fixed="top" expand="lg" className="navbar navbar-dark" style={{margin:0}}>
       <BootstrapNavbar.Brand href="/">Charity Finder</BootstrapNavbar.Brand>
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav">
@@ -19,8 +19,6 @@ export const Navbar = ({logoutHandler}) => {
         </Nav>
 
         <Nav className="ml-auto">
-          {/* TODO: add a switch that only shows one */}
-
           {!userData ?
             <>
             <Nav.Link href="/login">Login</Nav.Link>
@@ -39,5 +37,4 @@ export const Navbar = ({logoutHandler}) => {
       </BootstrapNavbar.Collapse>
     </BootstrapNavbar>
   );
-  // #55b298
 };

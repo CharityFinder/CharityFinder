@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../utils/auth";
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
+import { Button } from "../components/Button";
 
 export const Register = () => {
   const history = useHistory();
@@ -30,7 +31,7 @@ export const Register = () => {
 
   // TODO: Add missing fields to form
   return (
-    <Container maxwidth="sm" className="mt-5 jumbotron vertical-center">
+    <Container className="mt-5 jumbotron vertical-center shadow-container shadow-lg">
       <h3>{errorMessage}</h3>
       <h1 className="mt-0">Charity Finder</h1>
       <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
@@ -56,9 +57,7 @@ export const Register = () => {
         </Form.Group>
 
         <Form.Group>
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
+          <Button text="Register"/>
         </Form.Group>
       </Form>
 

@@ -8,7 +8,6 @@ body {
 }
 
 nav {
-  /* background-color: #78c2ad; */
   background-color: #55b298;
 }
 
@@ -43,7 +42,14 @@ code {
 }
 
 .vertical-center {
-  display: inline-block
+  position: absolute;
+  top: 45%;
+  transform: translate(-50%, -55%);
+}
+
+.shadow-container {
+  display: inline-block;
+  border: 1px solid lightgrey;
 }
 
 .description {
@@ -53,9 +59,11 @@ code {
   transform: translate(-50%, -55%);
   text-align: center;
 }
+
 .description h1 {
   color: #6ab446;
 }
+
 .description p {
   font-size: 1.3rem;
   line-height: 1.5;
