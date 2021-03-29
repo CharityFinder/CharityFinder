@@ -5,18 +5,25 @@ import { Checkbox } from "../components/Checkbox";
 
 export const Survey = () => {
 
-  const [checkboxData, setCheckboxData] = useState(null);
+  const [checkboxData, setCheckboxData] = useState([]);
 
   const handleSubmit = async (e) => {
     console.log(checkboxData);
-    console.log("Submitted form");
   };
 
   const handleChange = (e) => {
-    setCheckboxData({
-      ...checkboxData,
-      [e.target.name]: e.target.checked,
-    });
+    if (e.target.checked === false) {
+      setCheckboxData(previousCheckboxData => {
+        return previousCheckboxData.filter(function(checkbox) {
+          return checkbox !== e.target.name
+        })
+      })
+    }
+    else {
+      setCheckboxData(
+        [...checkboxData, e.target.name]
+      );
+    }
   };
 
   return (
