@@ -5,6 +5,7 @@ import { auth } from "./config/firebase";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
+import { Survey } from "./pages/Survey";
 import "./App.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
@@ -52,7 +53,12 @@ const App = () => {
               <Switch>
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
-                <Route path="/" component={Home} />
+                {/* TODO: change from when logged in to when survey isnt taken yet */}
+                {!userData ?
+                  <Route path="/" component={Home} />
+                  :
+                  <Route path="/" component={Survey} />
+                }
               </Switch>
             </UserContext.Provider>
           </BrowserRouter>
