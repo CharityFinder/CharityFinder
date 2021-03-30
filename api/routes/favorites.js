@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 
     let favoriteData = [];
     favoritesSnap.forEach((doc) => {
-      favoriteData.push({ ...doc.data(), id: doc.id });
+      favoriteData.push({ ...doc.data(), id: doc.id }); // append id for update+delete
     });
     return res.status(200).json(favoriteData);
   } catch (e) {
@@ -45,7 +45,6 @@ router.post("/", async (req, res) => {
       orgName,
       orgId,
       orgAddress,
-      uid,
     });
     return res.status(204).send("Favorited :)");
   } catch (e) {
@@ -83,7 +82,7 @@ router.get("/:favoriteId", async (req, res) => {
       }
     }
   } catch (e) {
-    console.log("Could not favorite organization.");
+    console.log("Could not get favorited organization.");
   }
 });
 
