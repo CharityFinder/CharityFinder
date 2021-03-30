@@ -1,4 +1,4 @@
-import { db } from "../config/firebase";
+import { db } from "../config/firebase.js";
 import { Router } from "express";
 const router = Router();
 
@@ -9,7 +9,7 @@ const router = Router();
  * @desc GET All Favorites
  * @return
  */
-router.get("/favorites", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const { uid } = req.body;
     const favoritesRef = db
@@ -17,17 +17,13 @@ router.get("/favorites", async (req, res) => {
       .doc(uid)
       .collection("favorites");
     const favoritesSnap = await favoritesRef.get();
+    console.log(favoritesSnap);
 
-    // Check if posts collection exists
-    if (!favoritesSnap.empty) {
-      let favoriteData;
-      favoritesSnap.forEach((doc) => {
-        favoriteData.push({ ...doc.data(), id: doc.id });
-      });
-      return res.status(200).json(favoriteData); // return empty array if no posts
-    } else {
-      return res.json([]);
-    }
+    let favoriteData = [];
+    favoritesSnap.forEach((doc) => {
+      favoriteData.push({ ...doc.data(), id: doc.id });
+    });
+    return res.status(200).json(favoriteData); // return empty array if no posts
   } catch (e) {
     console.log("Could not get favorites. There's an error afoot...", e);
   }
@@ -38,7 +34,7 @@ router.get("/favorites", async (req, res) => {
  * @desc Add an Organization to your Favorites
  * @return
  */
-router.post("/favorites", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const { orgName, orgId, uid } = req.body;
 
@@ -64,7 +60,7 @@ router.post("/favorites", async (req, res) => {
  * @desc GET Favorite organization
  * @return favorite organization if exisits
  */
-router.get("/favorites/:favoriteId", async (req, res) => {
+router.get("/:favoriteId", async (req, res) => {
   try {
     const { uid } = req.body;
     const { favoriteId } = req.params;

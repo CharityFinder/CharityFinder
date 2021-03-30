@@ -1,7 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import dotenv from "dotenv";
-import favoriteRouter from "./routes/favorites";
+import favoriteRouter from "./routes/favorites.js";
 
 dotenv.config();
 
