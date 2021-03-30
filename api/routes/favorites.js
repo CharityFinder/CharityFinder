@@ -2,12 +2,13 @@ import { db } from "../config/firebase.js";
 import { Router } from "express";
 const router = Router();
 
-// TODO: UPDATE DOCUMENTATION
+// TODO: Update documentation
+// TODO: Cloud Functions to add/remove favorited items
 
 /**
- * @route
+ * @route /api/favorites/
  * @desc GET All Favorites
- * @return
+ * @return List of all "favorited" organizations
  */
 router.get("/", async (req, res) => {
   try {
@@ -30,35 +31,32 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @route
+ * @route /api/favorites/
  * @desc Add an Organization to your Favorites
- * @return
+ * @return 204 good response
  */
 router.post("/", async (req, res) => {
   try {
-    const { orgName, orgId, uid } = req.body;
+    const { orgName, orgId, orgAddress, uid } = req.body;
 
     const favoriteRef = db.collection("users").doc(uid).collection("favorites");
-
-    // TODO: Find organization from charity navigator
-    // TODO: Grab organizationId
-    // TODO: Update API Docs
 
     await favoriteRef.add({
       orgName,
       orgId,
+      orgAddress,
       uid,
     });
-    return res.status(204).send("Added :)");
+    return res.status(204).send("Favorited :)");
   } catch (e) {
     console.log("There's an error afoot...", e);
   }
 });
 
 /**
- * @route
+ * @route /api/favorites/:favoriteId
  * @desc GET Favorite organization
- * @return favorite organization if exisits
+ * @return Organization object, if in user's Favorites
  */
 router.get("/:favoriteId", async (req, res) => {
   try {
@@ -88,43 +86,5 @@ router.get("/:favoriteId", async (req, res) => {
     console.log("Could not favorite organization.");
   }
 });
-
-// TODO: Favorite status is true or false
-// Instead of update, => add/remove
-/**
- * @route
- * @desc Update
- * @return
- */
-// router.put("/favorites/:favoriteId", async (req, res) => {
-//   try {
-//     const { uid, orgName, orgId } = req.body;
-//     const { favoriteId } = req.params;
-
-//     if (postId) {
-//       const favoriteRef = db
-//         .collection("users")
-//         .doc(uid)
-//         .collection("favorites")
-//         .doc(favoriteId);
-
-//       const getFavOrg = await favoriteRef.get();
-
-//       if (uid === getFavOrg.data().uid) {
-//         await favoriteRef.update({
-//           orgName,
-//           orgId,
-//         });
-//         return res.status(204).send("Favorite Updated??");
-//       } else {
-//         return res
-//           .status(304)
-//           .send("Can't update organization's favorited status");
-//       }
-//     }
-//   } catch (e) {
-//     console.log("There's an error afoot...", e);
-//   }
-// });
 
 export default router;
