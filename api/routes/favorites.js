@@ -6,8 +6,8 @@ const router = Router();
 // TODO: Cloud Functions to add/remove favorited items
 
 /**
- * @route /api/favorites/
- * @desc GET All Favorites
+ * @route [GET] /api/favorites/
+ * @desc Get All Favorites
  * @return List of all "favorited" organizations
  */
 router.get("/", async (req, res) => {
@@ -24,14 +24,14 @@ router.get("/", async (req, res) => {
     favoritesSnap.forEach((doc) => {
       favoriteData.push({ ...doc.data(), id: doc.id });
     });
-    return res.status(200).json(favoriteData); // return empty array if no posts
+    return res.status(200).json(favoriteData);
   } catch (e) {
     console.log("Could not get favorites. There's an error afoot...", e);
   }
 });
 
 /**
- * @route /api/favorites/
+ * @route [POST] /api/favorites/
  * @desc Add an Organization to your Favorites
  * @return 204 good response
  */
@@ -54,7 +54,7 @@ router.post("/", async (req, res) => {
 });
 
 /**
- * @route /api/favorites/:favoriteId
+ * @route [GET] /api/favorites/:favoriteId
  * @desc GET Favorite organization
  * @return Organization object, if in user's Favorites
  */
