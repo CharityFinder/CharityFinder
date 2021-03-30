@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
     });
     return res.status(200).json(favoriteData);
   } catch (e) {
-    console.log("Could not get favorites. There's an error afoot...", e);
+    console.error("Could not get favorites. There's an error afoot...", e);
   }
 });
 
@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
     });
     return res.status(204).send("Favorited :)");
   } catch (e) {
-    console.log("There's an error afoot...", e);
+    console.error("There's an error afoot...", e);
   }
 });
 
@@ -83,7 +83,7 @@ router.get("/:favoriteId", async (req, res) => {
       }
     }
   } catch (e) {
-    console.log("Could not get favorited organization.");
+    console.error("Could not get favorited organization.");
   }
 });
 
