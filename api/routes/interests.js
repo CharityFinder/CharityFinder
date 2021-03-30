@@ -3,6 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 // TODO: Update documentation
+// TODO: Update Error Handling
 
 /**
  * @route [GET] /api/interests/
@@ -25,7 +26,7 @@ router.get("/", async (req, res) => {
     });
     return res.status(200).json(interestsData);
   } catch (e) {
-    console.log("Could not get favorites. There's an error afoot...", e);
+    console.error("Could not get favorites. There's an error afoot...", e);
   }
 });
 
@@ -38,7 +39,6 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { causeId, causeName, uid } = req.body;
-
     const favoriteRef = db.collection("users").doc(uid).collection("interests");
 
     await favoriteRef.add({
@@ -48,11 +48,12 @@ router.post("/", async (req, res) => {
 
     return res.status(204).send("Interest Areas Added :)");
   } catch (e) {
-    console.log("There's an error afoot...", e);
+    console.error("There's an error afoot...", e);
   }
 });
 
 /**
+ * CAUTION: Experimental Feature
  * @route [GET] /api/interests/:interestId
  * @desc GET Interest Area Information
  * @return Interests object, if exists
@@ -60,17 +61,16 @@ router.post("/", async (req, res) => {
 router.get("/:interestId", async (req, res) => {
   try {
     const { uid } = req.body;
-    const { interestsId } = req.params;
+    const { interestId } = req.params;
 
-    if (interestsId) {
+    if (interestId) {
       const interestRef = db
         .collection("users")
         .doc(uid)
         .collection("interests")
-        .doc(interestsId);
+        .doc(interestId);
 
       const interestItem = await interestRef.get();
-
       if (interestItem.exists) {
         return res
           .status(200)
@@ -83,41 +83,35 @@ router.get("/:interestId", async (req, res) => {
       }
     }
   } catch (e) {
-    console.log("Could not get interest area.");
+    console.error("Could not get interest area.");
   }
 });
 
 /**
+ * CAUTION: Experimental Feature, determining if anyone such power is useful
  * @route [PUT] /api/interests/
  * @desc Add an interest area to your profile
  * @return 204 good response / 304 Not Modified [check user authentication]
  */
-router.post("/:interestId", async (req, res) => {
+router.put("/:interestId", async (req, res) => {
   try {
-    const { causeId, causeName } = req.body;
-    const { interestsId } = req.params;
+    const { causeId, causeName, uid } = req.body;
+    const { interestId } = req.params;
 
     const interestRef = db
       .collection("users")
       .doc(uid)
       .collection("interests")
-      .doc(interestsId);
+      .doc(interestId);
 
-    const interestItem = await interestRef.get();
-
-    if (uid === interestItem.data().uid) {
-      await interestRef.update({
-        causeId,
-        causeName,
-      });
-      return res.status(204).send("Interest Areas Updated :)");
-    } else {
-      return res.status(304).json({
-        error: "Can't update interest profile for another user.",
-      });
-    }
+    await interestRef.update({
+      causeId,
+      causeName,
+    });
+    return res.status(204).send("Interest Areas Updated :)");
   } catch (e) {
-    console.log("There's an error afoot...", e);
+    console.error("There's an error afoot...", e);
   }
 });
+
 export default router;
