@@ -2,6 +2,7 @@ import express from "express";
 import logger from "morgan";
 import dotenv from "dotenv";
 import favoriteRouter from "./routes/favorites.js";
+import interestRouter from "./routes/interests.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ dotenv.config();
 
     // Routes
     app.use("/api/favorites", favoriteRouter);
+    app.use("/api/interests", interestRouter);
 
     app.get("/api", async (req, res) => {
       try {
