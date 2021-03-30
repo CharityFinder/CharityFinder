@@ -37,7 +37,7 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { causeId, causeName } = req.body;
+    const { causeId, causeName, uid } = req.body;
 
     const favoriteRef = db.collection("users").doc(uid).collection("interests");
 
@@ -76,9 +76,10 @@ router.get("/:interestId", async (req, res) => {
           .status(200)
           .json({ ...interestItem.data(), id: interestItem.id });
       } else {
-        console.log(
-          "This interest area does not exist for this user. *raises eyebrow*"
-        );
+        return res.status(304).json({
+          error:
+            "This interest area does not exist for this user. *raises eyebrow*",
+        });
       }
     }
   } catch (e) {
@@ -86,4 +87,37 @@ router.get("/:interestId", async (req, res) => {
   }
 });
 
+/**
+ * @route [PUT] /api/interests/
+ * @desc Add an interest area to your profile
+ * @return 204 good response / 304 Not Modified [check user authentication]
+ */
+router.post("/:interestId", async (req, res) => {
+  try {
+    const { causeId, causeName } = req.body;
+    const { interestsId } = req.params;
+
+    const interestRef = db
+      .collection("users")
+      .doc(uid)
+      .collection("interests")
+      .doc(interestsId);
+
+    const interestItem = await interestRef.get();
+
+    if (uid === interestItem.data().uid) {
+      await interestRef.update({
+        causeId,
+        causeName,
+      });
+      return res.status(204).send("Interest Areas Updated :)");
+    } else {
+      return res.status(304).json({
+        error: "Can't update interest profile for another user.",
+      });
+    }
+  } catch (e) {
+    console.log("There's an error afoot...", e);
+  }
+});
 export default router;

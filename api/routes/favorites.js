@@ -76,9 +76,10 @@ router.get("/:favoriteId", async (req, res) => {
           .status(200)
           .json({ ...favoriteItem.data(), id: favoriteItem.id });
       } else {
-        console.log(
-          "This organization is not favorited by this user. *raises eyebrow*"
-        );
+        return res.status(304).json({
+          error:
+            "This organization is not favorited by this user. *raises eyebrow*",
+        });
       }
     }
   } catch (e) {
