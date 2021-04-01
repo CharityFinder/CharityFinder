@@ -12,10 +12,10 @@ const router = Router();
  */
 router.get("/", async (req, res) => {
   try {
-    const { uid } = req.body;
+    const { userId } = req.body;
     const interestsRef = db.collection("interests");
 
-    const snapshot = await interestsRef.where("userId", "==", uid).get();
+    const snapshot = await interestsRef.where("userId", "==", userId).get();
 
     let userInterests = [];
     snapshot.forEach((doc) => {
@@ -37,12 +37,13 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { causeId, causeName, uid } = req.body;
-    const favoriteRef = db.collection("users").doc(uid).collection("interests");
+    const { causeId, causeName, userId } = req.body;
+    const interestRef = db.collection("interests");
 
-    await favoriteRef.add({
+    await interestRef.add({
       causeId,
       causeName,
+      userId,
     });
 
     return res.status(204).send("Interest Areas Added :)");
@@ -52,14 +53,12 @@ router.post("/", async (req, res) => {
 });
 
 /**
- * CAUTION: Experimental Feature
  * @route [GET] /api/interests/:interestId
  * @desc GET Interest Area Information
  * @return Interests object, if exists
  */
 router.get("/:interestId", async (req, res) => {
   try {
-    const { uid } = req.body;
     const { interestId } = req.params;
 
     const interestRef = db.collection("interests").doc(interestId);
@@ -70,10 +69,7 @@ router.get("/:interestId", async (req, res) => {
         .status(200)
         .json({ ...interestItem.data(), id: interestItem.id });
     } else {
-      return res.status(304).json({
-        error:
-          "This interest area does not exist for this user. *raises eyebrow*",
-      });
+      return res.status(304).json({ causeName: null, causeId: null, id: "" });
     }
   } catch (e) {
     console.error("Could not get interest area.");
@@ -81,14 +77,13 @@ router.get("/:interestId", async (req, res) => {
 });
 
 /**
- * CAUTION: Experimental Feature, determining if anyone such power is useful
  * @route [PUT] /api/interests/
  * @desc Add an interest area to your profile
  * @return 204 good response / 304 Not Modified [check user authentication]
  */
 router.put("/:interestId", async (req, res) => {
   try {
-    const { causeId, causeName, uid } = req.body;
+    const { causeId, causeName } = req.body;
     const { interestId } = req.params;
 
     const interestRef = db.collection("interests").doc(interestId);
@@ -97,7 +92,28 @@ router.put("/:interestId", async (req, res) => {
       causeId,
       causeName,
     });
-    return res.status(204).send("Interest Areas Updated :)");
+
+    return res.status(204).send(`${causeName} was updated`);
+  } catch (e) {
+    console.error("There's an error afoot...", e);
+  }
+});
+
+/**
+ * @route [DEL] /api/interests/
+ * @desc Add an interest area to your profile
+ * @return 204 good response / 304 Not Modified [check user authentication]
+ */
+router.delete("/:interestId", async (req, res) => {
+  try {
+    const { causeId, causeName } = req.body;
+    const { interestId } = req.params;
+
+    const interestRef = db.collection("interests").doc(interestId);
+
+    await interestRef.delete();
+
+    return res.status(204).send(`${causeName} was removed from your causes`);
   } catch (e) {
     console.error("There's an error afoot...", e);
   }
