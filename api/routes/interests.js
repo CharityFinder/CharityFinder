@@ -13,18 +13,17 @@ const router = Router();
 router.get("/", async (req, res) => {
   try {
     const { uid } = req.body;
-    const interestsRef = db
-      .collection("users")
-      .doc(uid)
-      .collection("interests");
-    const interestsSnap = await interestsRef.get();
-    console.log(interestsSnap);
+    const interestsRef = db.collection("interests");
 
-    let interestsData = [];
-    interestsSnap.forEach((doc) => {
-      interestsData.push({ ...doc.data(), id: doc.id }); // append id for update+delete
+    const snapshot = await interestsRef.where("userId", "==", uid).get();
+
+    let userInterests = [];
+    snapshot.forEach((doc) => {
+      userInterests.push({ ...doc.data(), id: doc.id });
+      console.log(doc.id, "=>", doc.data());
     });
-    return res.status(200).json(interestsData);
+
+    return res.status(200).json(userInterests);
   } catch (e) {
     console.error("Could not get favorites. There's an error afoot...", e);
   }
@@ -63,24 +62,18 @@ router.get("/:interestId", async (req, res) => {
     const { uid } = req.body;
     const { interestId } = req.params;
 
-    if (interestId) {
-      const interestRef = db
-        .collection("users")
-        .doc(uid)
-        .collection("interests")
-        .doc(interestId);
+    const interestRef = db.collection("interests").doc(interestId);
 
-      const interestItem = await interestRef.get();
-      if (interestItem.exists) {
-        return res
-          .status(200)
-          .json({ ...interestItem.data(), id: interestItem.id });
-      } else {
-        return res.status(304).json({
-          error:
-            "This interest area does not exist for this user. *raises eyebrow*",
-        });
-      }
+    const interestItem = await interestRef.get();
+    if (interestItem.exists) {
+      return res
+        .status(200)
+        .json({ ...interestItem.data(), id: interestItem.id });
+    } else {
+      return res.status(304).json({
+        error:
+          "This interest area does not exist for this user. *raises eyebrow*",
+      });
     }
   } catch (e) {
     console.error("Could not get interest area.");
@@ -98,11 +91,7 @@ router.put("/:interestId", async (req, res) => {
     const { causeId, causeName, uid } = req.body;
     const { interestId } = req.params;
 
-    const interestRef = db
-      .collection("users")
-      .doc(uid)
-      .collection("interests")
-      .doc(interestId);
+    const interestRef = db.collection("interests").doc(interestId);
 
     await interestRef.update({
       causeId,
