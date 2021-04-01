@@ -20,7 +20,6 @@ router.get("/", async (req, res) => {
     let userInterests = [];
     snapshot.forEach((doc) => {
       userInterests.push({ ...doc.data(), id: doc.id });
-      console.log(doc.id, "=>", doc.data());
     });
 
     return res.status(200).json(userInterests);
@@ -69,7 +68,9 @@ router.get("/:interestId", async (req, res) => {
         .status(200)
         .json({ ...interestItem.data(), id: interestItem.id });
     } else {
-      return res.status(304).json({ causeName: null, causeId: null, id: "" });
+      return res
+        .status(304)
+        .json({ error: "This interest area does not exist...*thinking*" });
     }
   } catch (e) {
     console.error("Could not get interest area.");
@@ -77,8 +78,9 @@ router.get("/:interestId", async (req, res) => {
 });
 
 /**
+ * EXPERIMENTAL
  * @route [PUT] /api/interests/
- * @desc Add an interest area to your profile
+ * @desc Update interest area in your profile
  * @return 204 good response / 304 Not Modified [check user authentication]
  */
 router.put("/:interestId", async (req, res) => {
@@ -101,12 +103,12 @@ router.put("/:interestId", async (req, res) => {
 
 /**
  * @route [DEL] /api/interests/
- * @desc Add an interest area to your profile
- * @return 204 good response / 304 Not Modified [check user authentication]
+ * @desc Remove interest area from your profile
+ * @return 204 good response
  */
 router.delete("/:interestId", async (req, res) => {
   try {
-    const { causeId, causeName } = req.body;
+    const { causeName } = req.body;
     const { interestId } = req.params;
 
     const interestRef = db.collection("interests").doc(interestId);

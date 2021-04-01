@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 // TODO: Update documentation
-// TODO: Cloud Functions to add/remove favorited items
+// TODO: Update Error Handling
 
 /**
  * @route [GET] /api/favorites/
@@ -12,19 +12,17 @@ const router = Router();
  */
 router.get("/", async (req, res) => {
   try {
-    const { uid } = req.body;
-    const favoritesRef = db
-      .collection("users")
-      .doc(uid)
-      .collection("favorites");
-    const favoritesSnap = await favoritesRef.get();
-    console.log(favoritesSnap);
+    const { userId } = req.body;
+    const favoritesRef = db.collection("favorites");
 
-    let favoriteData = [];
-    favoritesSnap.forEach((doc) => {
-      favoriteData.push({ ...doc.data(), id: doc.id }); // append id for update+delete
+    const snapshot = await favoritesRef.where("userId", "==", userId).get();
+
+    let userFavorites = [];
+
+    snapshot.forEach((doc) => {
+      userFavorites.push({ ...doc.data(), id: doc.id });
     });
-    return res.status(200).json(favoriteData);
+    return res.status(200).json(userFavorites);
   } catch (e) {
     console.error("Could not get favorites. There's an error afoot...", e);
   }
@@ -37,14 +35,15 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { orgName, orgId, orgAddress, uid } = req.body;
+    const { orgName, orgId, orgAddress, userId } = req.body;
 
-    const favoriteRef = db.collection("users").doc(uid).collection("favorites");
+    const favoriteRef = db.collection("favorites");
 
     await favoriteRef.add({
       orgName,
       orgId,
       orgAddress,
+      userId,
     });
     return res.status(204).send("Favorited :)");
   } catch (e) {
@@ -59,32 +58,69 @@ router.post("/", async (req, res) => {
  */
 router.get("/:favoriteId", async (req, res) => {
   try {
-    const { uid } = req.body;
     const { favoriteId } = req.params;
 
-    if (favoriteId) {
-      const favoriteRef = db
-        .collection("users")
-        .doc(uid)
-        .collection("favorites")
-        .doc(favoriteId);
+    const favoriteRef = db.collection("favorites").doc(favoriteId);
 
-      const favoriteItem = await favoriteRef.get();
+    const favoriteItem = await favoriteRef.get();
 
-      if (favoriteItem.exists) {
-        return res
-          .status(200)
-          .json({ ...favoriteItem.data(), id: favoriteItem.id });
-      } else {
-        return res.status(304).json({
-          error:
-            "This organization is not favorited by this user. *raises eyebrow*",
-        });
-      }
+    console.log(favoriteItem);
+    if (favoriteItem.exists) {
+      return res
+        .status(200)
+        .json({ ...favoriteItem.data(), id: favoriteItem.id });
+    } else {
+      return res.status(304).json({
+        error: "This organization is not favorited",
+      });
     }
   } catch (e) {
     console.error("Could not get favorited organization.");
   }
 });
 
+/**
+ * EXPERIMENTAL
+ * @route [PUT] /api/favorites/
+ * @desc Update Favorited organization to your profile
+ * @return 204 good response / 304 Not Modified [check user authentication]
+ */
+router.put("/:favoriteId", async (req, res) => {
+  try {
+    const { orgName, orgId, orgAddress } = req.body;
+    const { favoriteId } = req.params;
+
+    const favoriteRef = db.collection("favorites").doc(favoriteId);
+
+    await favoriteRef.update({
+      orgName,
+      orgId,
+      orgAddress,
+    });
+
+    return res.status(204).send(`${orgName} was updated`);
+  } catch (e) {
+    console.error("There's an error afoot...", e);
+  }
+});
+
+/**
+ * @route [DEL] /api/favorites/
+ * @desc Remove favorited organization from to your profile
+ * @return 204 good response
+ */
+router.delete("/:favoriteId", async (req, res) => {
+  try {
+    const { orgName } = req.body;
+    const { favoriteId } = req.params;
+
+    const favoriteRef = db.collection("favorites").doc(favoriteId);
+
+    await favoriteRef.delete();
+
+    return res.status(204).send(`${orgName} was removed from your causes`);
+  } catch (e) {
+    console.error("There's an error afoot...", e);
+  }
+});
 export default router;
