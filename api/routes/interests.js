@@ -6,7 +6,7 @@ const router = Router();
 // TODO: Update Error Handling
 
 /**
- * @route [GET] /api/interests/
+ * @route [GET] /api/interests
  * @desc Get All Interest Areas
  * @return List of all "interest" areas
  */
@@ -24,13 +24,13 @@ router.get("/", async (req, res) => {
 
     return res.status(200).json(userInterests);
   } catch (e) {
-    console.error("Could not get favorites. There's an error afoot...", e);
+    console.error("Could not get user interests. There's an error afoot...", e);
   }
 });
 
 // TODO: Switch to accept a list of interests, and update db selection
 /**
- * @route [POST] /api/interests/
+ * @route [POST] /api/interests
  * @desc Add an interest area to your profile
  * @return 204 good response
  */
@@ -79,7 +79,7 @@ router.get("/:interestId", async (req, res) => {
 
 /**
  * EXPERIMENTAL
- * @route [PUT] /api/interests/
+ * @route [PUT] /api/interests
  * @desc Update interest area in your profile
  * @return 204 good response / 304 Not Modified [check user authentication]
  */
@@ -102,7 +102,7 @@ router.put("/:interestId", async (req, res) => {
 });
 
 /**
- * @route [DEL] /api/interests/
+ * @route [DEL] /api/interests
  * @desc Remove interest area from your profile
  * @return 204 good response
  */
