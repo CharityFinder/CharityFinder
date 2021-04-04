@@ -1,9 +1,10 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
+import "../styles/Search.css"
 
 export const Organization = ({name}) => {
     return (
-        <Card border="warning" style={{ width: '18rem' }}>
+        <Card className="column" border="warning" style={{ width: '18rem', margin: 5, }}>
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Text>

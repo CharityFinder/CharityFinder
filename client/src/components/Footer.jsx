@@ -5,7 +5,7 @@ import Logo from "../images/charitynavigatorlogo.png"
 export const Footer = () => {
   // TODO: make text-size scale with screen size
   return (
-    <BootstrapNavbar fixed="bottom"  className="navbar navbar-dark ">
+    <BootstrapNavbar fixed="bottom" className="navbar navbar-dark" style={{marginBottom: 0}}>
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-0">
@@ -20,5 +20,6 @@ export const Footer = () => {
 
       </BootstrapNavbar.Collapse>
     </BootstrapNavbar>
+ 
   );
 };

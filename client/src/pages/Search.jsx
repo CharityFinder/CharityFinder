@@ -3,6 +3,9 @@ import { UserContext } from "../utils/auth";
 import axios from "axios";
 import { Organization } from "../components/Organization";
 import "../styles/Search.css"
+import { Container, Row } from "react-bootstrap"
+
+import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 export const Search = () => {
     const [organizations, setOrganization] = useState(""); /* REST API enpoint */
@@ -29,10 +32,21 @@ export const Search = () => {
         }
       }
 
-    return (
-        <div>
-            <h2>{generateOrganization()}</h2> Server-side message
-        </div>
+    return ( 
+        <Container style={{paddingTop: 60, paddingBottom: 83, }}>
+          <InputGroup className="mx-auto" style={{width:"50%", paddingTop: 60, marginTop: "5%",}}>
+            <FormControl 
+                placeholder="Search for a Charity"
+                aria-label="Search for a Charity"
+                aria-describedby="basic-addon2"
+            />
+            <InputGroup.Append>
+                <Button variant="outline-secondary">Search</Button>
+            </InputGroup.Append>
+        </InputGroup>
+            Recommendations 
+            <Row>{generateOrganization()}</Row>
+        </Container>
     )
 }
 
