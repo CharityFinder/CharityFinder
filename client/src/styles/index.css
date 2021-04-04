@@ -36,35 +36,9 @@ code {
   font-weight: 400;
 }
 
-.form-label {
-  text-align: left;
-  width: 50%;
-}
-
 .vertical-center {
   position: absolute;
   top: 45%;
   transform: translate(-50%, -50%);
 }
 
-.shadow-container {
-  display: inline-block;
-  border: 1px solid lightgrey;
-}
-
-.description {
-  left: 50%;
-  position: absolute;
-  top: 45%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.description h1 {
-  color: #6ab446;
-}
-
-.description p {
-  font-size: 1.3rem;
-  line-height: 1.5;
-}

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../utils/auth";
 import axios from "axios";
 import { Organization } from "../components/Organization";
+import "../styles/Search.css"
 
 export const Search = () => {
     const [organizations, setOrganization] = useState(""); /* REST API enpoint */
