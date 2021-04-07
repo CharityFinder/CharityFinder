@@ -1,0 +1,14 @@
+@media screen and (max-width: 500px) {
+    .column {
+        width: 100%;
+    }
+}
+
+.column {
+    flex: 20%;
+  }
+  
+  /* Clearfix (clear floats) */
+  .row {
+    clear: both;
+  }

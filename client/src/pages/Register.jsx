@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { registerUser } from "../utils/auth";
 import { Container, Form } from "react-bootstrap";
 import { Button } from "../components/Button";
+import "../styles/Form.css";
 
 export const Register = () => {
   const history = useHistory();

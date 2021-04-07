@@ -1,0 +1,9 @@
+.shadow-container {
+  display: inline-block;
+  border: 1px solid lightgrey;
+}
+
+.form-label {
+  text-align: left;
+  width: 50%;
+}

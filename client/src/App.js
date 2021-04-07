@@ -6,9 +6,11 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { Survey } from "./pages/Survey";
-import "./App.css";
+import { Search } from "./pages/Search";
+import "./styles/App.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+
 
 const App = () => {
   const [user, setUser] = useState(auth.currentUser); // TODO: Setup Context or Redux Store
@@ -49,17 +51,20 @@ const App = () => {
           <BrowserRouter>
             <UserContext.Provider value={{ user, userData }}>
               <Navbar logoutHandler={handleLogout} />
-              <Footer />
+              
               <Switch>
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
+                <Route path="/search" component={Search} />
                 {/* TODO: change from when logged in to when survey isnt taken yet */}
                 {!userData ?
                   <Route path="/" component={Home} />
                   :
                   <Route path="/" component={Survey} />
                 }
+
               </Switch>
+              <Footer />
             </UserContext.Provider>
           </BrowserRouter>
         </div>

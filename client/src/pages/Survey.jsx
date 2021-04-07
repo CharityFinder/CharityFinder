@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import { Button } from "../components/Button";
 import { Checkbox } from "../components/Checkbox";
+import "../styles/Form.css";
 
 export const Survey = () => {
 
