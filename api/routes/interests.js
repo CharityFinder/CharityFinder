@@ -12,7 +12,7 @@ const router = Router();
  */
 router.get("/", async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
     const interestsRef = db.collection("interests");
 
     const snapshot = await interestsRef.where("userId", "==", userId).get();
@@ -36,7 +36,7 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { causeId, causeName, userId } = req.body;
+    const { causeId, causeName, userId } = req.query;
     const interestRef = db.collection("interests");
 
     await interestRef.add({
@@ -85,7 +85,7 @@ router.get("/:interestId", async (req, res) => {
  */
 router.put("/:interestId", async (req, res) => {
   try {
-    const { causeId, causeName } = req.body;
+    const { causeId, causeName } = req.query;
     const { interestId } = req.params;
 
     const interestRef = db.collection("interests").doc(interestId);
@@ -108,7 +108,7 @@ router.put("/:interestId", async (req, res) => {
  */
 router.delete("/:interestId", async (req, res) => {
   try {
-    const { causeName } = req.body;
+    const { causeName } = req.query;
     const { interestId } = req.params;
 
     const interestRef = db.collection("interests").doc(interestId);
