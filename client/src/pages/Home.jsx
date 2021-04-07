@@ -1,36 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../utils/auth";
-import axios from "axios";
 import "../styles/Home.css";
 
 export const Home = () => {
   const { userData } = useContext(UserContext);
-  const [message, setMessage] = useState(""); /* REST API enpoint */
-
-  const getMessage = async () => {
-    const res = await axios.get(`/api/`);
-    setMessage(res.data);
-  };
-
-  const getOrganization = async () => {
-    const res = await axios.get(`/api/cn/organizations`, {
-        params: {
-          search: "feeding america"
-        }
-      });
-      console.log("Frontend Response", res)
-};
-
-  useEffect(() => {
-    (async () => {
-      await getOrganization();
-    })();
-  }, []);
 
   return (
     <div className="home description">
       <h1 className="mt-0">CharityFinder</h1>
-      {/* <h2>{message}</h2> Server-side message */}
       <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
       <p>Search through 1000s of charitable organizations</p>
       <p>Get recommendations for charities that match your passions</p>

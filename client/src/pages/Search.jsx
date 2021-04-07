@@ -1,29 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../utils/auth";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Organization } from "../components/Organization";
 import "../styles/Search.css"
-import { InputGroup, FormControl, Button, Container, Row } from "react-bootstrap";
+import { InputGroup, FormControl, Button, Container, Row, Form } from "react-bootstrap";
 
 export const Search = () => {
-    const history = useHistory();
     const [organizations, setOrganization] = useState([]); /* REST API enpoint */
     const [searchData, setSearchData] = useState("");
     const [hasSearched, setHasSearched] = useState(false);
 
+    // This should become recommendations later on
     const getOrganization = async () => {
-        const res = await axios.get(`/api/cn/organizations`, {
-            params: {
-              search: "feeding america"
-            }
-          });
+        const res = await axios.get(`/api/cn/organizations`);
         setOrganization(res.data);
     };
 
     const getSearchResults = async () => {
         const res = await axios.get('/api/cn/organizations', {
-            body: {
+            params: {
                 search: searchData
             }
         })
@@ -36,9 +30,9 @@ export const Search = () => {
         })();
     }, []);
 
-      /* Search */
+    /* Search */
     const handleSubmit = async (e) => {
-        console.log(searchData);
+        e.preventDefault();
         setHasSearched(true);
         getSearchResults();
     };
@@ -60,16 +54,19 @@ export const Search = () => {
 
     return ( 
         <Container style={{paddingTop: 60, paddingBottom: 83, }}>
-          <InputGroup onChange={handleChange} className="mx-auto" style={{width:"50%", paddingTop: 60, marginTop: "5%",}}>
-            <FormControl 
-                placeholder="Search for a Charity"
-                aria-label="Search for a Charity"
-                aria-describedby="basic-addon2"
-            />
-            <InputGroup.Append>
-                <Button onClick={handleSubmit} noValidate variant="outline-secondary" type="submit">Search</Button>
-            </InputGroup.Append>
-        </InputGroup>
+            <Form onSubmit={handleSubmit} noValidate> 
+                <InputGroup onChange={handleChange} className="mx-auto" style={{width:"50%", paddingTop: 60, marginTop: "5%",}}>
+                    <FormControl 
+                        placeholder="Search for a Charity"
+                        aria-label="Search for a Charity"
+                        aria-describedby="basic-addon2"
+                    />
+                    <InputGroup.Append>
+                        <Button variant="outline-secondary" type="submit">Search</Button>
+                    </InputGroup.Append>
+                </InputGroup>
+            </Form>
+
         {!hasSearched ?
             <>
             Recommendations
