@@ -37,7 +37,7 @@ router.get("/organizations", async (req, res) => {
       donorPrivacy,
       scopeOfWork,
       cfcCharities,
-    } = req.body;
+    } = req.query;
 
     let orgs = `${BASE_URL}/Organizations${CREDENTIALS}`;
 
@@ -54,7 +54,6 @@ router.get("/organizations", async (req, res) => {
 
     const orgSnapshot = await axios.get(orgs);
 
-    console.log("It's data", orgSnapshot.data);
     return res.status(200).send(orgSnapshot.data);
   } catch (e) {
     console.error("Could not get organizations :( [CN API ERROR]", e);
@@ -74,7 +73,6 @@ router.get("/organizations/:ein", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}${CREDENTIALS}`
     );
 
-    console.log("It's an organization", orgSnapshot.data);
     return res.status(200).send(orgSnapshot.data);
   } catch (e) {
     console.error(`Could not get organization ${ein} :( [CN API ERROR]`, e);
@@ -94,7 +92,6 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}/advisories${CREDENTIALS}`
     );
 
-    console.log("It's data", orgSnapshot.data);
     return res.status(200).send(orgSnapshot.data);
   } catch (e) {
     console.error("Could not get organization advisories :( [CN API ERROR]", e);

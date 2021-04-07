@@ -12,9 +12,18 @@ export const Home = () => {
     setMessage(res.data);
   };
 
+  const getOrganization = async () => {
+    const res = await axios.get(`/api/cn/organizations`, {
+        params: {
+          search: "feeding america"
+        }
+      });
+      console.log("Frontend Response", res)
+};
+
   useEffect(() => {
     (async () => {
-      await getMessage();
+      await getOrganization();
     })();
   }, []);
 
