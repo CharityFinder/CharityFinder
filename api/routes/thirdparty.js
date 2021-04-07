@@ -67,7 +67,7 @@ router.get("/organizations", async (req, res) => {
  */
 router.get("/organizations/:ein", async (req, res) => {
   try {
-    const { ein } = req.query;
+    const { ein } = req.params;
 
     const orgSnapshot = await axios.get(
       `${BASE_URL}/Organizations/${ein}${CREDENTIALS}`
@@ -86,7 +86,7 @@ router.get("/organizations/:ein", async (req, res) => {
  */
 router.get("/organizations/:ein/advisories", async (req, res) => {
   try {
-    const { ein } = req.query;
+    const { ein } = req.params;
 
     const orgSnapshot = await axios.get(
       `${BASE_URL}/Organizations/${ein}/advisories${CREDENTIALS}`
