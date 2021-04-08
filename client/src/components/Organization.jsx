@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
+import { Favorite } from '../components/Favorite'
 import "../styles/Search.css"
 
 export const Organization = ({name}) => {
@@ -10,6 +11,7 @@ export const Organization = ({name}) => {
           <Card.Text>
 
           </Card.Text>
+          <Favorite />
         </Card.Body>
       </Card>
     )
