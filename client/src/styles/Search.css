@@ -1,14 +1,43 @@
-@media screen and (max-width: 500px) {
-    .column {
-        width: 100%;
+@media screen and (max-width: 1000px) {
+    body .column {
+      width: 100%;
+      flex: 30%;
+    }
+    body .row {
+      display: flex;
+      margin: auto;
     }
 }
 
+@media screen and (max-width: 768px) {
+  body .column {
+    width: 100%;
+    flex: 40%;
+  }
+  body .row {
+    display: flex;
+    margin: auto;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  body .column {
+    width: 100%;
+  }
+  body .row {
+    display: block;
+    margin: auto;
+  }
+}
+
 .column {
+    width: 100%;
     flex: 20%;
   }
   
   /* Clearfix (clear floats) */
   .row {
     clear: both;
+    display: flex;
   }
