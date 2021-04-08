@@ -5,16 +5,23 @@ import { Container, Form } from "react-bootstrap";
 import { Button } from "../components/Button";
 import { Checkbox } from "../components/Checkbox";
 import "../styles/Form.css";
+import { useHistory } from "react-router-dom";
 
 export const Survey = () => {
+  const history = useHistory();
   const { user } = useContext(UserContext);
 
+  // TODO: should probably pull which ones they already have checked and set those to checked
   const [checkboxData, setCheckboxData] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // getInterests();
-    setInterests();
+    if (checkboxData.length !== 0) {
+      setInterests();
+    }
+    else {
+      console.log("user did not input anything");
+    }
   };
 
   const handleChange = (e) => {
@@ -32,23 +39,21 @@ export const Survey = () => {
     }
   };
 
-  const getInterests = async () => {
-    const res = await axios.get('/api/interests', {
-      params: {
-        userId: user.uid
-      }
-    })
-    console.log(res.data);
-  }
-
-  const setInterests = async () => {
+  const addInterest = async (inputId, inputName) => {
     await axios.post('/api/interests', null, {
       params: {
         userId: user.uid,
-        causeId: "111123",
-        causeName: "testing name 2"
+        causeId: inputId,
+        causeName: inputName
       }
     })
+  }
+
+  const setInterests = async () => {
+    checkboxData.forEach(element => {
+      addInterest("111", element);
+    });
+    history.push("/search");
   }
 
   return (

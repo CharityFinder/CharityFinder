@@ -56,13 +56,8 @@ const App = () => {
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
                 <Route path="/search" component={Search} />
-                {/* TODO: change from when logged in to when survey isnt taken yet */}
-                {!userData ?
-                  <Route path="/" component={Home} />
-                  :
-                  <Route path="/" component={Survey} />
-                }
-
+                <Route path="/survey" component={Survey} />
+                <Route path="/" component={Home} />
               </Switch>
               <Footer />
             </UserContext.Provider>
