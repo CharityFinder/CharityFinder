@@ -1,0 +1,14 @@
+.column {
+    width: auto;
+  }
+  
+.row {
+  justify-content: center;
+  clear: both;
+  display: block;
+}
+
+.card {
+  width: 16rem;
+  height: 16rem;
+}

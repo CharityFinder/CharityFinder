@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
 import { Favorite } from '../components/Favorite'
-import "../styles/Search.css"
+import "../styles/Cards.css"
 
 export const Organization = ({name, ein, isFavorited}) => {
     return (

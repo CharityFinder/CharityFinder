@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Organization } from "../components/Organization";
-import "../styles/Favorites.css"
 import { Container, Row, } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
 

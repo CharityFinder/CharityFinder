@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Organization } from "../components/Organization";
-import "../styles/Search.css"
 import { InputGroup, FormControl, Button, Container, Row, Form } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
 
