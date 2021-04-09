@@ -14,7 +14,9 @@ export const Organization = ({name, ein, isFavorited}) => {
             cause
           </Card.Text>
           <Favorite name={name} ein={ein} isFavorited={isFavorited}/>
-          <Link to={`/information/?${queryString.stringify({ein})}`}>More</Link>
+          <Link to={`/information/?${queryString.stringify({ein})}`} style={{textAlign:"center", position:"absolute", bottom:25, left: 89.5}}>
+            Learn More
+          </Link>
         </Card.Body>
       </Card>
     )
