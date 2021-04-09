@@ -9,13 +9,14 @@ export const Favorite = ({name, ein, isFavorited}) => {
   const [favorite, setFavorite] = useState(isFavorited);
 
   const toggleFavorite = () => {
+    setFavorite(previousFavoriteValue => !previousFavoriteValue);
     if (favorite) { //already favorited, delete from favorites
       removeFavorite();
     }
     else {
       addFavorite();
     }
-    setFavorite(previousFavoriteValue => !previousFavoriteValue);
+
   };
 
   const addFavorite = async () => {
