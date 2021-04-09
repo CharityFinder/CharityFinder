@@ -7,6 +7,7 @@ import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { Survey } from "./pages/Survey";
 import { Search } from "./pages/Search";
+import { Favorites } from "./pages/Favorites";
 import "./styles/App.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
@@ -57,6 +58,7 @@ const App = () => {
                 <Route path="/login" component={Login} />
                 <Route path="/search" component={Search} />
                 <Route path="/survey" component={Survey} />
+                <Route path="/favorites" component={Favorites} />
                 <Route path="/" component={Home} />
               </Switch>
               <Footer />
