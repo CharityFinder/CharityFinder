@@ -37,14 +37,19 @@ router.post("/", async (req, res) => {
   try {
     const { orgName, orgId, orgAddress, userId } = req.query;
 
-    const favoriteRef = db.collection("favorites");
+    const favoritesRef = db.collection("favorites");
 
-    await favoriteRef.add({
-      orgName,
-      orgId,
-      orgAddress,
-      userId,
-    });
+    const snapshot = await favoritesRef.where("orgId", "==", orgId).where("userId", "==", userId).get(); // does not favorite the same organization more than once for each user
+
+    if (snapshot._size === 0) {
+      await favoritesRef.add({
+        orgName,
+        orgId,
+        orgAddress,
+        userId,
+      });
+    }
+
     return res.status(204).send("Favorited :)");
   } catch (e) {
     console.error("There's an error afoot...", e);
