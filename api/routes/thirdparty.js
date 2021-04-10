@@ -106,14 +106,14 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
  */
 router.get("/suggestions", async (req, res) => {
   try {
-    const { userId } = req.query;
+    const { userId } = req.body;
 
     const interestsRef = db.collection("interests");
     const snapshot = await interestsRef.where("userId", "==", userId).get();
 
     let userInterests = [];
     snapshot.forEach((doc) => {
-      userInterests.push({ ...doc.data(), id: doc.id });
+      userInterests.push(doc.data().causeName);
     });
 
     // Naive: Randomly select an interest area and provide suggested organizations
