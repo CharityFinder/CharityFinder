@@ -22,7 +22,7 @@ export const Home = () => {
     if (user && interestsSize === -1) { // user logged on and never before been set
       getInterests();
     }
-  }, [user]);
+  }, [user, interestsSize]);
 
   useEffect(() => {
     if (interestsSize === 0) {
