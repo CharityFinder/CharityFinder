@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
 
     const favoritesRef = db.collection("favorites");
 
-    const snapshot = await favoritesRef.where("orgId", "==", orgId).get(); // does not favorite the same organization more than once
+    const snapshot = await favoritesRef.where("orgId", "==", orgId).where("userId", "==", userId).get(); // does not favorite the same organization more than once for each user
 
     if (snapshot._size === 0) {
       await favoritesRef.add({
