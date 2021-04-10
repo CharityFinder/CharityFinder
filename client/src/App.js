@@ -8,6 +8,7 @@ import { Home } from "./pages/Home";
 import { Survey } from "./pages/Survey";
 import { Search } from "./pages/Search";
 import { Favorites } from "./pages/Favorites";
+import { Information } from "./pages/Information";
 import "./styles/App.css";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
@@ -59,6 +60,7 @@ const App = () => {
                 <Route path="/search" component={Search} />
                 <Route path="/survey" component={Survey} />
                 <Route path="/favorites" component={Favorites} />
+                <Route path="/information" component={Information} />
                 <Route path="/" component={Home} />
               </Switch>
               <Footer />

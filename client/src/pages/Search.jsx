@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Organization } from "../components/Organization";
-import "../styles/Search.css"
 import { InputGroup, FormControl, Button, Container, Row, Form } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
 
@@ -81,7 +80,7 @@ export const Search = () => {
     return ( 
         <Container style={{paddingTop: 60, paddingBottom: 83, }}>
             <Form onSubmit={handleSubmit} noValidate> 
-                <InputGroup onChange={handleChange} className="mx-auto" style={{width:"50%", paddingTop: 60, marginTop: "5%",}}>
+                <InputGroup onChange={handleChange} className="mx-auto" style={{width:"50%", paddingTop: 30,}}>
                     <FormControl 
                         placeholder="Search for a Charity"
                         aria-label="Search for a Charity"
