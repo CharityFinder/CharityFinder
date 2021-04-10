@@ -3,35 +3,57 @@ import axios from "axios";
 import queryString from 'query-string'
 import { Container, Row, } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
-import { Favorite } from '../components/Favorite'
 import { Organization } from '../components/Organization';
 
 
 export const Information = (props) => {
     const { user } = useContext(UserContext);
-    const [userFavorites, setUserFavorites] = useState([]);
     const [info, setInfo] = useState([]);
+    const [userFavorites, setUserFavorites] = useState([]);
+
+    // gets user favorites and passes it down to the organization/favorite component whether or not it is favorited
+    useEffect(() => {
+      const getFavorites = async () => {
+        const res = await axios.get('/api/favorites', {
+          params: {
+            userId: user.uid
+          }
+        })
+        setUserFavorites(res.data);
+      }
+  
+      getFavorites();
+    }, [user]);
 
     const params = queryString.parse(props.location.search, {
         parseBooleans: true
-      });
+    });
     
     const {ein} = params;
 
-    const getInfo = async () => {
-        const res = await axios.get(`/api/cn/organizations/` + ein);
-        setInfo(res.data);
-    }
-
     useEffect(() => {
+        const getInfo = async () => {
+            const res = await axios.get(`/api/cn/organizations/` + ein);
+            setInfo(res.data);
+        }
+
         (async () => {
             await getInfo();
         })();
-    }, [userFavorites]);
+    }, [ein]);
+
+    const checkFavorited = (ein) => { // checks if this ein exists in userfavorites
+        for (let i = 0; i < userFavorites.length; i++) {
+            if (ein === userFavorites[i].orgId) {
+                return userFavorites[i].id;
+            }
+        }
+        return false;
+    };
 
     // TODO: make new card component for this page specifically
     const generateCard = () => {
-        return <Organization key={ein} name={info.charityName} ein={ein} />
+        return <Organization key={ein} name={info.charityName} ein={ein} isFavorited={checkFavorited(ein)}/>
     }
 
     return (

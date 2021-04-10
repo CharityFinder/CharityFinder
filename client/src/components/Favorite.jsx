@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../utils/auth";
 import { Star, StarFill } from "react-bootstrap-icons";
 import axios from "axios";
@@ -6,7 +6,12 @@ import axios from "axios";
 export const Favorite = ({name, ein, isFavorited}) => {
   // isFavorited is either false or the favoriteId
   const { user } = useContext(UserContext);
-  const [favorite, setFavorite] = useState(isFavorited);
+  const [favorite, setFavorite] = useState(null);
+
+  useEffect(() => {
+    // code to run on component mount
+    setFavorite(isFavorited);
+  }, [isFavorited])
 
   const toggleFavorite = () => {
     setFavorite(previousFavoriteValue => !previousFavoriteValue);
@@ -16,7 +21,6 @@ export const Favorite = ({name, ein, isFavorited}) => {
     else {
       addFavorite();
     }
-
   };
 
   const addFavorite = async () => {
@@ -31,7 +35,6 @@ export const Favorite = ({name, ein, isFavorited}) => {
   }
 
   const removeFavorite = async () => {
-    console.log("trying to remove");
     await axios.delete('/api/favorites/' + isFavorited, {
       params: {
         orgName: name
