@@ -120,10 +120,8 @@ router.get("/suggestions", async (req, res) => {
     if (userInterests.length > 0) {
       const rand = Math.floor(Math.random() * userInterests.length);
       const randInterest = userInterests[rand];
-      console.log("RANDOM INTEREST", randInterest);
 
       let orgs = `${BASE_URL}/Organizations${CREDENTIALS}&search=${randInterest}`;
-
       const orgSnapshot = await axios.get(orgs);
 
       return res.status(200).send(orgSnapshot.data);
