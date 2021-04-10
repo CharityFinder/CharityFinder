@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { db } from "../config/firebase.js";
 import axios from "axios";
 
 const router = Router();
@@ -95,6 +96,44 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
     return res.status(200).send(orgSnapshot.data);
   } catch (e) {
     console.error("Could not get organization advisories :( [CN API ERROR]", e);
+  }
+});
+
+/**
+ * @route [GET] /api/cn/suggestions
+ * @desc GET Interest Area Information
+ * @return Interests object, if exists
+ */
+router.get("/suggestions", async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    const interestsRef = db.collection("interests");
+    const snapshot = await interestsRef.where("userId", "==", userId).get();
+
+    let userInterests = [];
+    snapshot.forEach((doc) => {
+      userInterests.push({ ...doc.data(), id: doc.id });
+    });
+
+    // Naive: Randomly select an interest area and provide suggested organizations
+    if (userInterests.length > 0) {
+      const rand = Math.floor(Math.random() * userInterests.length);
+      const randInterest = userInterests[rand];
+      console.log("RANDOM INTEREST", randInterest);
+
+      let orgs = `${BASE_URL}/Organizations${CREDENTIALS}&search=${randInterest}`;
+
+      const orgSnapshot = await axios.get(orgs);
+
+      return res.status(200).send(orgSnapshot.data);
+    } else {
+      res.status(304).json([]);
+    }
+    // TODO: Aggregate organizations from all interest areas
+    // POST-MVP: Keep a search history to provide suggestions
+  } catch (e) {
+    console.error("Could not get suggestions. There's an error afoot...");
   }
 });
 
