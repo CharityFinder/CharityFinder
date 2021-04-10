@@ -12,7 +12,7 @@ const router = Router();
  */
 router.get("/", async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
     const favoritesRef = db.collection("favorites");
 
     const snapshot = await favoritesRef.where("userId", "==", userId).get();
@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { orgName, orgId, orgAddress, userId } = req.body;
+    const { orgName, orgId, orgAddress, userId } = req.query;
 
     const favoritesRef = db.collection("favorites");
 
