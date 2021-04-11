@@ -5,7 +5,6 @@ import { Container, Row, } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
 import { Organization } from '../components/Organization';
 
-
 export const Information = (props) => {
     const { user } = useContext(UserContext);
     const [info, setInfo] = useState([]);

@@ -25,12 +25,6 @@ export const Search = () => {
       getFavorites();
     }, [user]);
 
-    // This should become recommendations later on
-    const getOrganization = async () => {
-        const res = await axios.get(`/api/cn/organizations`);
-        setOrganization(res.data);
-    };
-
     const getSearchResults = async () => {
         const res = await axios.get('/api/cn/organizations', {
             params: {
@@ -41,10 +35,19 @@ export const Search = () => {
     }
 
     useEffect(() => {
+        const getSuggestions = async () => {
+            const res = await axios.get('/api/cn/suggestions', {
+                params: {
+                    userId: user.uid
+                }
+            })
+            setOrganization(res.data);
+        };
+
         (async () => {
-            await getOrganization();
+            await getSuggestions();
         })();
-    }, [userFavorites]);
+    }, [user]);
 
     /* Search */
     const handleSubmit = async (e) => {
