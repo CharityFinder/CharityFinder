@@ -106,7 +106,7 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
  */
 router.get("/suggestions", async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
 
     const interestsRef = db.collection("interests");
     const snapshot = await interestsRef.where("userId", "==", userId).get();
