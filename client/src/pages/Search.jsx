@@ -47,7 +47,7 @@ export const Search = () => {
         (async () => {
             await getSuggestions();
         })();
-    }, [userFavorites, user]);
+    }, [user]);
 
     /* Search */
     const handleSubmit = async (e) => {
