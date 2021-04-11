@@ -28,9 +28,10 @@ export const Search = () => {
     const getSearchResults = async () => {
         const res = await axios.get('/api/cn/organizations', {
             params: {
-                search: searchData
+                search: searchData,
+                rated: true
             }
-        })
+        });
         setOrganization(res.data);
     }
 
@@ -40,7 +41,7 @@ export const Search = () => {
                 params: {
                     userId: user.uid
                 }
-            })
+            });
             setOrganization(res.data);
         };
 
