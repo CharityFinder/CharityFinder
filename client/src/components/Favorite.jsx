@@ -3,7 +3,7 @@ import { UserContext } from "../utils/auth";
 import { Star, StarFill } from "react-bootstrap-icons";
 import axios from "axios";
 
-export const Favorite = ({name, ein, isFavorited}) => {
+export const Favorite = ({name, ein, isFavorited, organization}) => {
   // isFavorited is either false or the favoriteId
   const { user } = useContext(UserContext);
   const [favorite, setFavorite] = useState(null);
@@ -29,7 +29,8 @@ export const Favorite = ({name, ein, isFavorited}) => {
         orgName: name,
         orgId: ein, 
         userId: user.uid,
-        orgAddress: "not really an address"
+        orgAddress: "not really an address",
+        tagLine: organization.tagLine
       }
     })
   }

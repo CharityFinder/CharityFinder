@@ -42,6 +42,7 @@ export const Search = () => {
                     userId: user.uid
                 }
             });
+
             setOrganization(res.data);
         };
 
@@ -76,7 +77,7 @@ export const Search = () => {
         }
         else {
             return organizations.map(organization => {
-                return <Organization key={organization.ein} name={organization.charityName} ein={organization.ein} isFavorited={checkFavorited(organization.ein)}/>
+                return <Organization key={organization.ein} name={organization.charityName} ein={organization.ein} isFavorited={checkFavorited(organization.ein) } organization={organization} />
             });
         }
     }
