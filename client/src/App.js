@@ -5,6 +5,7 @@ import { auth } from "./config/firebase";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
+import { About } from "./pages/About";
 import { Survey } from "./pages/Survey";
 import { Search } from "./pages/Search";
 import { Favorites } from "./pages/Favorites";
@@ -55,6 +56,7 @@ const App = () => {
               <Navbar logoutHandler={handleLogout} />
               
               <Switch>
+                <Route path="/about" component={About} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />
                 <Route path="/search" component={Search} />
