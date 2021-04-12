@@ -35,7 +35,7 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { orgName, orgId, orgAddress, userId } = req.query;
+    const { orgName, orgId, orgAddress, userId, tagLine } = req.query;
 
     const favoritesRef = db.collection("favorites");
 
@@ -47,6 +47,7 @@ router.post("/", async (req, res) => {
         orgId,
         orgAddress,
         userId,
+        tagLine,
       });
     }
 

@@ -20,7 +20,7 @@ export const Survey = () => {
       setInterests();
     }
     else {
-      console.log("user did not input anything");
+      console.log("User did not input anything");
     }
   };
 

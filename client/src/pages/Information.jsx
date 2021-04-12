@@ -3,7 +3,7 @@ import axios from "axios";
 import queryString from 'query-string'
 import { Container, Row, } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
-import { Organization } from '../components/Organization';
+import { Card } from "../components/Card";
 
 export const Information = (props) => {
     const { user } = useContext(UserContext);
@@ -50,9 +50,8 @@ export const Information = (props) => {
         return false;
     };
 
-    // TODO: make new card component for this page specifically
     const generateCard = () => {
-        return <Organization key={ein} name={info.charityName} ein={ein} isFavorited={checkFavorited(ein)}/>
+        return <Card key={ein} name={info.charityName} ein={ein} isFavorited={checkFavorited(ein)} organization={info}/>
     }
 
     return (

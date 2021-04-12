@@ -26,9 +26,8 @@ export const Favorites = () => {
       return "No Favorites";
     }
     else {
-      console.log(userFavorites)
       return userFavorites.map(userFavorite => {
-        return <Organization key={userFavorite.orgId} name={userFavorite.orgName} ein={userFavorite.orgId} isFavorited={userFavorite.id} />
+        return <Organization key={userFavorite.orgId} name={userFavorite.orgName} ein={userFavorite.orgId} isFavorited={userFavorite.id} organization={userFavorite}/>
       });
     }
   }
