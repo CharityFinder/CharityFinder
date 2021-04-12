@@ -15,7 +15,9 @@ export const Footer = () => {
           <Nav.Item>Powered by: <a style={{color: "white"}} href="https://www.CharityNavigator.org" target=" ">Charity Navigator</a></Nav.Item>
       </Nav>
       <Nav className="ml-auto">
-        <Nav.Item>Contact Us: charityfinder.company@gmail.com</Nav.Item>          
+        <Nav.Item>
+          Contact Us: <a href="mailto:contact@charityfinder.us">contact@charityfinder.us</a>  
+        </Nav.Item>          
       </Nav>
 
       </BootstrapNavbar.Collapse>

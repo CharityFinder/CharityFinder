@@ -84,6 +84,9 @@ export const Search = () => {
 
     return ( 
         <Container style={{paddingTop: 60, paddingBottom: 83, }}>
+            <div>
+                <br />
+            </div>
             <Form onSubmit={handleSubmit} noValidate> 
                 <InputGroup onChange={handleChange} className="mx-auto" style={{width:"50%", paddingTop: 30,}}>
                     <FormControl 
