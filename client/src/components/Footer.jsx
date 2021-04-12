@@ -9,7 +9,7 @@ export const Footer = () => {
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
       <BootstrapNavbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-0">
-          <Image src={Logo} width={82} height={71} />
+          <Image src={Logo} width="auto" height="auto" />
       </Nav>
       <Nav className="mr-auto">
           <Nav.Item>Powered by: <a style={{color: "white"}} href="https://www.CharityNavigator.org" target=" ">Charity Navigator</a></Nav.Item>
