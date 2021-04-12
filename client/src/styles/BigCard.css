@@ -1,0 +1,10 @@
+.bigcard {
+  width: 40rem;
+  height: auto;
+  justify-content: center;
+  
+}
+
+.row {
+  margin-bottom: 150px;
+}
