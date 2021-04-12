@@ -1,4 +1,6 @@
-# CharityFinder
+<img src="https://raw.githubusercontent.com/CharityFinder/CharityFinder/ui/client/src/images/charityfinderlogo.png" width="300" height="100">
+
+## CharityFinder
 
 Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder
 
