@@ -14,7 +14,7 @@ export const Navbar = ({logoutHandler}) => {
     <BootstrapNavbar fixed="top" expand="lg" className="navbar navbar-dark" style={{margin:0}}>
       <BootstrapNavbar.Brand href="/">
       <Nav style={{marginRight: 170}}>
-          <Image src={cfLogo} width={200} height={53} style={{position: "absolute", top:2, left:5, }}/>
+          <Image src={cfLogo} width={200} height={53} style={{position: "absolute", top:2, left:5, paddingBottom: "1px"}}/>
       </Nav>
       </BootstrapNavbar.Brand>
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
