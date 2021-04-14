@@ -7,7 +7,7 @@ import "../styles/Cards.css"
 
 export const Organization = ({name, ein, isFavorited, organization}) => {
     return (
-        <Card className="column" border="warning" style={{margin: 5, }}>
+        <Card className="column" style={{margin: 5}}>
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Text>

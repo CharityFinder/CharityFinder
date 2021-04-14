@@ -13,7 +13,7 @@ export const Card = ({name, ein, isFavorited, organization}) => {
   }, [organization]);
 
   return (
-    <BootstrapCard className="column bigcard" border="warning" style={{margin: 5, }}>
+    <BootstrapCard className="column bigcard" style={{margin: 5}}>
       <BootstrapCard.Body>
         <BootstrapCard.Title>{name}</BootstrapCard.Title>
         <BootstrapCard.Text>
