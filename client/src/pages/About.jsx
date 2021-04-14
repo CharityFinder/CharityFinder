@@ -7,7 +7,7 @@ import { UserContext } from "../utils/auth";
 export const About = () => {
   return (
     <Container>
-        <div>
+        <div >
             <br />
             <br />
             <br />
@@ -15,7 +15,7 @@ export const About = () => {
             <br />
         </div>
 
-        <div className="about">
+        <div className="about" style={{marginBottom:"100px"}}> 
         <h1 className="mt-0">About Us</h1>
         <p>
         
