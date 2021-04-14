@@ -55,7 +55,8 @@ export const Favorite = ({name, ein, isFavorited, organization}) => {
         <StarFill size={25} type="submit" onClick={toggleFavorite} style={{
             position:"absolute",
             bottom:25,
-            right:25}}
+            right:25,
+            color: "#ffeb00"}}
         />
       }
     </>
