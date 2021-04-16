@@ -33,7 +33,7 @@ export const Navbar = ({logoutHandler}) => {
             :
             <>
             <Nav.Link href="/favorites">Favorites</Nav.Link>
-            <Nav.Link href="/">Profile</Nav.Link>
+            <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="/">Donations</Nav.Link>
             <Nav.Link href="/" onClick={logoutHandler}>Logout</Nav.Link>
             </>
