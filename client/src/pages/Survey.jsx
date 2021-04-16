@@ -13,6 +13,7 @@ export const Survey = () => {
 
   // TODO: should probably pull which ones they already have checked and set those to checked
   const [checkboxData, setCheckboxData] = useState(["init"]);
+  const [initCauses, setInitCauses] =  useState(null); //used to know what to delete later on
 
   useEffect(() => {
     const getInterests = async () => {
@@ -21,6 +22,7 @@ export const Survey = () => {
           userId: user.uid
         }
       })
+      setInitCauses(res.data);
       setCheckboxData(res.data.map((element)=> {
         return element["causeName"];
       }));
@@ -31,9 +33,21 @@ export const Survey = () => {
     }
   }, [checkboxData, user])
 
+  const removeInterests = async (interestId, causeName) => {
+    console.log("removing interests");
+    await axios.delete('/api/interests/' + interestId, {
+      params: {
+        causeName: causeName
+      }
+    })
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (checkboxData.length !== 0) {
+      initCauses.forEach(element => {
+        removeInterests(element.id, element.causeName);
+      });
       setInterests();
     }
     else {
