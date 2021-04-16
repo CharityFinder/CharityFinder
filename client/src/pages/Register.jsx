@@ -22,20 +22,20 @@ export const Register = () => {
     e.preventDefault();
     const { user, error } = await registerUser(loginData);
     if (error) {
-      setErrorMessage(error);
+      setErrorMessage(error["message"]);
     } else {
       history.push("/");
     }
-
     console.log("Registered User", user);
   };
 
   // TODO: Add missing fields to form
   return (
     <Container className="mt-5 jumbotron vertical-center shadow-container shadow-lg">
-      <h3>{errorMessage}</h3>
+      
       <h1 className="mt-0">Charity Finder</h1>
       <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
+      <h4 >{errorMessage}</h4>
       <Form onSubmit={handleSubmit} noValidate>
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>First Name</Form.Label>
