@@ -7,26 +7,50 @@ import "../styles/Form.css";
 
 export const Login = () => {
   const history = useHistory();
-  const [loginData, setLoginData] = useState(null);
+  const [loginData, setLoginData] = useState({email: "", password: ""});
+  const [errors, setErrors] = useState({})
   const [errorMessage, setErrorMessage] = useState("");
-
-  /* Login User */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { user, error } = await loginUser(loginData);
-    if (error) {
-      setErrorMessage(error["message"]);
-    } else {
-      console.log("Logged In User", user);
-      history.push("/");
-    }
-  };
 
   const handleChange = (e) => {
     setLoginData({
       ...loginData,
       [e.target.name]: e.target.value,
     });
+    // Check and see if errors exist, and remove them from the error object:
+    if ( !!errors[e.target.name] ) setErrors({
+      ...errors,
+      [e.target.name]: null
+    })
+  };
+
+  const findFormErrors = () => {
+    const { email, password } = loginData
+    const newErrors = {}
+    // email errors
+    if ( email === '' ) newErrors.email = 'cannot be blank!'
+    // password errors
+    if ( password === '' ) newErrors.password = 'cannot be blank!'
+
+    return newErrors
+  }
+
+  /* Login User */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = findFormErrors()
+    if ( Object.keys(newErrors).length > 0 ) {
+      // We got errors!
+      setErrors(newErrors)
+    } else {
+      // No errors! Put any logic here for the form submission!
+      const { user, error } = await loginUser(loginData);
+      if (error) {
+        setErrorMessage(error["message"]);
+      } else {
+        console.log("Logged In User", user);
+        history.push("/");
+      }
+    }
   };
 
   return (
@@ -37,12 +61,12 @@ export const Login = () => {
       <Form onSubmit={handleSubmit} noValidate>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
-          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="email" />
+          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="email" isInvalid={ !!errors.email } />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="password" type="password" />
+          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="password" type="password" isInvalid={ !!errors.password }/>
         </Form.Group>
 
         <Form.Group>

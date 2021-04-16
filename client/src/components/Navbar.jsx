@@ -8,7 +8,7 @@ import cfLogo from "../images/charityfinderlogo.png";
 // TODO: brighten up the color for navbar links
 
 export const Navbar = ({logoutHandler}) => {
-  const { userData } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   return (
     <BootstrapNavbar fixed="top" expand="lg" className="navbar navbar-dark" style={{margin:0}}>
@@ -25,7 +25,7 @@ export const Navbar = ({logoutHandler}) => {
         </Nav>
 
         <Nav className="ml-auto">
-          {!userData ?
+          {!user ?
             <>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/register">Register</Nav.Link>
