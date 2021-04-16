@@ -15,7 +15,7 @@ export const Login = () => {
     e.preventDefault();
     const { user, error } = await loginUser(loginData);
     if (error) {
-      setErrorMessage(error);
+      setErrorMessage(error["message"]);
     } else {
       console.log("Logged In User", user);
       history.push("/");
@@ -31,10 +31,9 @@ export const Login = () => {
 
   return (
     <Container className="jumbotron vertical-center shadow-container shadow-lg">
-      <h3>{errorMessage}</h3>
-
       <h1 className="mt-0">Charity Finder</h1>
       <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>  
+      <h4>{errorMessage}</h4>
       <Form onSubmit={handleSubmit} noValidate>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
