@@ -1,8 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { Organization } from "../components/Organization";
-import { Container, Row, } from "react-bootstrap";
-import { UserContext } from "../utils/auth";
+import { Container,  } from "react-bootstrap";
 
 export const About = () => {
   return (

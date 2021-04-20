@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { UserContext } from "../utils/auth";
 import { Container, Form } from "react-bootstrap";
@@ -12,11 +12,42 @@ export const Survey = () => {
   const { user } = useContext(UserContext);
 
   // TODO: should probably pull which ones they already have checked and set those to checked
-  const [checkboxData, setCheckboxData] = useState([]);
+  const [checkboxData, setCheckboxData] = useState(["init"]);
+  const [initCauses, setInitCauses] =  useState(null); //used to know what to delete later on
+
+  useEffect(() => {
+    const getInterests = async () => {
+      const res = await axios.get('/api/interests', {
+        params: {
+          userId: user.uid
+        }
+      })
+      setInitCauses(res.data);
+      setCheckboxData(res.data.map((element)=> {
+        return element["causeName"];
+      }));
+    }
+
+    if (checkboxData.length === 1 && checkboxData[0] === "init") {
+      getInterests();
+    }
+  }, [checkboxData, user])
+
+  const removeInterests = async (interestId, causeName) => {
+    console.log("removing interests");
+    await axios.delete('/api/interests/' + interestId, {
+      params: {
+        causeName: causeName
+      }
+    })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (checkboxData.length !== 0) {
+      initCauses.forEach(element => {
+        removeInterests(element.id, element.causeName);
+      });
       setInterests();
     }
     else {
@@ -64,11 +95,11 @@ export const Survey = () => {
 
       <Form onSubmit={handleSubmit} noValidate className="mx-auto" style={{width: "240px"}}>
         <div key='default-checkbox' className="mb-3 mx-auto" style={{width: "50%"}}>
-          <Checkbox inputLabel="Healthcare" inputOnChange={handleChange} />
-          <Checkbox inputLabel="Education" inputOnChange={handleChange} />
-          <Checkbox inputLabel="Environment" inputOnChange={handleChange} />
-          <Checkbox inputLabel="Food Scarcity" inputOnChange={handleChange} />
-          <Checkbox inputLabel="Animal Rights" inputOnChange={handleChange} />
+          <Checkbox inputLabel="Healthcare" inputOnChange={handleChange} inputChecked={checkboxData}/>
+          <Checkbox inputLabel="Education" inputOnChange={handleChange} inputChecked={checkboxData}/>
+          <Checkbox inputLabel="Environment" inputOnChange={handleChange} inputChecked={checkboxData}/>
+          <Checkbox inputLabel="Food Scarcity" inputOnChange={handleChange} inputChecked={checkboxData}/>
+          <Checkbox inputLabel="Animal Rights" inputOnChange={handleChange} inputChecked={checkboxData}/>
         </div>
         <Form.Group>
           <Button text="Submit"/>
