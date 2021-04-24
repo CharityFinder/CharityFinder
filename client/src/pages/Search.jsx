@@ -5,7 +5,6 @@ import { Container, Row, Form } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
 import { Searchbar } from "../components/Searchbar";
 import { AdvancedSearchbar } from "../components/AdvancedSearchbar";
-import { Checkbox } from "../components/Checkbox";
 
 export const Search = () => {
   const { user } = useContext(UserContext);
@@ -33,9 +32,12 @@ export const Search = () => {
     getFavorites();
   }, [user]);
 
+  // used for printing out changes in searchData in testing
+  // useEffect(() => {console.log(searchData)}, [searchData]);
+
   //used to filter out fields that the user didn't input
   const removeEmpty = (obj) => {
-    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ""));
+    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== "" && v !== "State"));
   };
 
   const getSearchResults = async () => {
@@ -81,6 +83,12 @@ export const Search = () => {
 
   const toggleAdvanced = (e) => {
     setIsAdvancedSearch((previousAdvancedValue) => !previousAdvancedValue);
+    const newSearchData = {
+      search: searchData["search"],
+      city: "",
+      state: "",
+    }
+    setSearchData(newSearchData);
   };
 
   const checkFavorited = (ein) => {
@@ -119,7 +127,7 @@ export const Search = () => {
         <Form.Check
           className="mx-auto"
           type="checkbox"
-          id={"default-checkbox-" + "Toggle Advanced Search"}
+          id={"default-checkbox-Toggle Advanced Search"}
           style={{ textAlign: "left", width: "50%" }}
         >
           <Form.Check.Input
