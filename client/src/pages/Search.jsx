@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Organization } from "../components/Organization";
-import {
-  Container,
-  Row,
-  Form,
-} from "react-bootstrap";
+import { Container, Row, Form } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
 import { Searchbar } from "../components/Searchbar";
+import { AdvancedSearchbar } from "../components/AdvancedSearchbar";
 
 export const Search = () => {
   const { user } = useContext(UserContext);
   const [organizations, setOrganization] = useState([]); /* REST API enpoint */
-  const [searchData, setSearchData] = useState("");
+  const [searchData, setSearchData] = useState({
+    search: "",
+    city: "",
+    state: "",
+  });
   const [hasSearched, setHasSearched] = useState(false);
+  const [isAdvancedSearch, setIsAdvancedSearch] = useState(false);
   const [userFavorites, setUserFavorites] = useState([]);
 
   // gets user favorites and passes it down to the organization/favorite component whether or not it is favorited
@@ -30,10 +32,16 @@ export const Search = () => {
     getFavorites();
   }, [user]);
 
+  //used to filter out fields that the user didn't input
+  const removeEmpty = (obj) => {
+    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ""));
+  }
+
   const getSearchResults = async () => {
+    const empty = removeEmpty(searchData);
     const res = await axios.get("/api/cn/organizations", {
       params: {
-        search: searchData,
+        ...empty,
         rated: true,
       },
     });
@@ -64,7 +72,14 @@ export const Search = () => {
   };
 
   const handleChange = (e) => {
-    setSearchData(e.target.value);
+    setSearchData({
+      ...searchData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const toggleAdvanced = () => {
+    setIsAdvancedSearch((previousAdvancedValue) => !previousAdvancedValue);
   };
 
   const checkFavorited = (ein) => {
@@ -97,13 +112,15 @@ export const Search = () => {
 
   return (
     <Container style={{ paddingTop: 60, paddingBottom: 83 }}>
-      <div>
-        <br />
-      </div>
       <Form onSubmit={handleSubmit} noValidate>
-        <Searchbar changeHandler={handleChange}/>
+        {!isAdvancedSearch ? (
+          <Searchbar changeHandler={handleChange} />
+        ) : (
+          <AdvancedSearchbar changeHandler={handleChange} />
+        )}
       </Form>
-
+      <br />
+      <p onClick={toggleAdvanced}>Toggle Advanced Search</p>
       {!hasSearched ? <>Recommendations</> : <>Results</>}
       <Row>{generateOrganizations()}</Row>
     </Container>
