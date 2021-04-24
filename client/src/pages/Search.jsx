@@ -5,6 +5,7 @@ import { Container, Row, Form } from "react-bootstrap";
 import { UserContext } from "../utils/auth";
 import { Searchbar } from "../components/Searchbar";
 import { AdvancedSearchbar } from "../components/AdvancedSearchbar";
+import { Checkbox } from "../components/Checkbox";
 
 export const Search = () => {
   const { user } = useContext(UserContext);
@@ -35,7 +36,7 @@ export const Search = () => {
   //used to filter out fields that the user didn't input
   const removeEmpty = (obj) => {
     return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v != ""));
-  }
+  };
 
   const getSearchResults = async () => {
     const empty = removeEmpty(searchData);
@@ -78,7 +79,7 @@ export const Search = () => {
     });
   };
 
-  const toggleAdvanced = () => {
+  const toggleAdvanced = (e) => {
     setIsAdvancedSearch((previousAdvancedValue) => !previousAdvancedValue);
   };
 
@@ -113,14 +114,28 @@ export const Search = () => {
   return (
     <Container style={{ paddingTop: 60, paddingBottom: 83 }}>
       <Form onSubmit={handleSubmit} noValidate>
+        <Searchbar changeHandler={handleChange} />
+
+        <Form.Check
+          className="mx-auto"
+          type="checkbox"
+          id={"default-checkbox-" + "Toggle Advanced Search"}
+          style={{ textAlign: "left", width: "50%" }}
+        >
+          <Form.Check.Input
+            type="checkbox"
+            name={"Toggle Advanced Search"}
+            onChange={toggleAdvanced}
+          />
+          <Form.Check.Label> {"Toggle Advanced Search"} </Form.Check.Label>
+        </Form.Check>
+
         {!isAdvancedSearch ? (
-          <Searchbar changeHandler={handleChange} />
+          <> </>
         ) : (
           <AdvancedSearchbar changeHandler={handleChange} />
         )}
       </Form>
-      <br />
-      <p onClick={toggleAdvanced}>Toggle Advanced Search</p>
       {!hasSearched ? <>Recommendations</> : <>Results</>}
       <Row>{generateOrganizations()}</Row>
     </Container>

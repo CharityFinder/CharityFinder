@@ -11,7 +11,6 @@ export const Survey = () => {
   const history = useHistory();
   const { user } = useContext(UserContext);
 
-  // TODO: should probably pull which ones they already have checked and set those to checked
   const [checkboxData, setCheckboxData] = useState(["init"]);
   const [initCauses, setInitCauses] =  useState(null); //used to know what to delete later on
 
