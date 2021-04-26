@@ -54,10 +54,10 @@ router.get("/organizations", async (req, res) => {
 
     const orgSnapshot = await axios.get(orgs);
 
-    return res.status(200).send(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data);
   } catch (e) {
-    console.error("No organizations meet the requirements");
-    return res.status(404).send([]);
+    // console.error("No organizations meet the requirements");
+    return res.status(200).json([]);
   }
 });
 
@@ -74,10 +74,10 @@ router.get("/organizations/:ein", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}${CREDENTIALS}`
     );
 
-    return res.status(200).send(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data);
   } catch (e) {
-    console.error("No organizations meet the requirements");
-    return res.status(404).send([]);
+    // console.error("No organizations meet the requirements");
+    return res.status(200).json([]);
   }
 });
 
@@ -94,10 +94,10 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}/advisories${CREDENTIALS}`
     );
 
-    return res.status(200).send(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data);
   } catch (e) {
-    console.error("No organizations meet the requirements");
-    return res.status(404).send([]);
+    // console.error("No organizations meet the requirements");
+    return res.status(200).json([]);
   }
 });
 
@@ -139,7 +139,7 @@ router.get("/suggestions", async (req, res) => {
     // POST-MVP: Keep a search history to provide suggestions
   } catch (e) {
     console.error("No organizations meet these requirements");
-    return res.status(304).json([]);
+    return res.status(200).json([]);
   }
 });
 
