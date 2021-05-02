@@ -138,6 +138,8 @@ export const Search = () => {
           <Form.Check.Label> {"Toggle Advanced Search"} </Form.Check.Label>
         </Form.Check>
 
+        
+
         {!isAdvancedSearch ? (
           <> </>
         ) : (

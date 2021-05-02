@@ -23,7 +23,7 @@ export const Card = ({name, ein, isFavorited, organization}) => {
         </BootstrapCard.Text>
         <Favorite name={name} ein={ein} isFavorited={isFavorited} organization={organization} />
         <a href={organization.websiteURL} rel="noreferrer" target='_blank' style={{textAlign:"center", position:"absolute", bottom:25, left: 25}}>
-          Website Here
+          Link to Website
         </a>
       </BootstrapCard.Body>
     </BootstrapCard>
