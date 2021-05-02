@@ -8,8 +8,7 @@ const BASE_URL = process.env.CN_BASE_URL;
 const CREDENTIALS = `?app_id=${process.env.CN_APP_ID}&app_key=${process.env.CN_APP_KEY}`;
 
 // TODO: Determine the appropriate `pageSize` and `pageNum` for organization response
-// TODO: Add type checking and error handling
-// TODO: Clean up logic
+
 /**
  * @route [GET] /api/cn/organizations
  * @desc Get All Organizations [No filters]
@@ -55,9 +54,10 @@ router.get("/organizations", async (req, res) => {
 
     const orgSnapshot = await axios.get(orgs);
 
-    return res.status(200).send(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data);
   } catch (e) {
-    console.error("Could not get organizations :( [CN API ERROR]", e);
+    // console.error("No organizations meet the requirements");
+    return res.status(200).json([]);
   }
 });
 
@@ -74,9 +74,10 @@ router.get("/organizations/:ein", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}${CREDENTIALS}`
     );
 
-    return res.status(200).send(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data);
   } catch (e) {
-    console.error(`Could not get organization ${ein} :( [CN API ERROR]`, e);
+    // console.error("No organizations meet the requirements");
+    return res.status(200).json([]);
   }
 });
 
@@ -93,9 +94,10 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}/advisories${CREDENTIALS}`
     );
 
-    return res.status(200).send(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data);
   } catch (e) {
-    console.error("Could not get organization advisories :( [CN API ERROR]", e);
+    // console.error("No organizations meet the requirements");
+    return res.status(200).json([]);
   }
 });
 
@@ -108,30 +110,36 @@ router.get("/suggestions", async (req, res) => {
   try {
     const { userId } = req.query;
 
+    /* Grab Interests */
     const interestsRef = db.collection("interests");
     const snapshot = await interestsRef.where("userId", "==", userId).get();
-
     let userInterests = [];
+
     snapshot.forEach((doc) => {
-      userInterests.push(doc.data().causeName);
+      userInterests.push({
+        causeId: doc.data().causeId,
+        causeName: doc.data().causeName,
+      });
     });
 
-    // Naive: Randomly select an interest area and provide suggested organizations
-    if (userInterests.length > 0) {
-      const rand = Math.floor(Math.random() * userInterests.length);
-      const randInterest = userInterests[rand];
+    // const pageNum = Math.floor(Math.random() * 2);
+    const pageSize = 3;
+    const suggestions = [];
 
-      let orgs = `${BASE_URL}/Organizations${CREDENTIALS}&search=${randInterest}&rated=true`;
+    for (let i = 0; i < userInterests.length; i++) {
+      const causeID = userInterests[i].causeId;
+
+      let orgs = `${BASE_URL}/Organizations${CREDENTIALS}&causeID=${causeID}&rated=true&pageSize=${pageSize}`;
+
       const orgSnapshot = await axios.get(orgs);
-
-      return res.status(200).send(orgSnapshot.data);
-    } else {
-      res.status(304).json([]);
+      suggestions.push(...orgSnapshot.data);
     }
-    // TODO: Aggregate organizations from all interest areas
+    return res.status(200).json(suggestions);
+
     // POST-MVP: Keep a search history to provide suggestions
   } catch (e) {
-    console.error("Could not get suggestions. There's an error afoot...");
+    console.error("No organizations meet these requirements");
+    return res.status(200).json([]);
   }
 });
 
