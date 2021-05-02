@@ -2,7 +2,7 @@ import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 export const Searchbar = ({ changeHandler }) => {
   return (
-    <InputGroup className="mx-auto" style={{ width: "50%", paddingTop: 30 }}>
+    <InputGroup className="mx-auto" style={{ width: "31.8vw", minWidth: "250px", paddingTop: 30 }}>
       <FormControl
         placeholder="Search for a Charity"
         aria-label="Search for a Charity"

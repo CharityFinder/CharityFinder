@@ -13,7 +13,7 @@ export const AdvancedSearchbar = ({ changeHandler }) => {
     <InputGroup
       onChange={changeHandler}
       className="mx-auto"
-      style={{ width: "50%" }}
+      style={{ width: "31.8vw", minWidth: "250px" }}
     >
       <FormControl
         placeholder="City"
