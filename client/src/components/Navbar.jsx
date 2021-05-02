@@ -1,7 +1,7 @@
 import {Navbar as BootstrapNavbar, Nav, Image} from 'react-bootstrap'
 import React, { useContext } from "react";
 import { UserContext } from "../utils/auth";
-import cfLogo from "../images/charityfinderlogo.png";
+import cfLogo from "../images/logo.png";
 
 // TODO: Handle Navigation B/t components better
 // TODO: add color changing on phone dropdowns
@@ -13,8 +13,8 @@ export const Navbar = ({logoutHandler}) => {
   return (
     <BootstrapNavbar fixed="top" expand="lg" className="navbar navbar-dark" style={{margin:0}}>
       <BootstrapNavbar.Brand href="/">
-      <Nav style={{marginRight: 170}}>
-          <Image src={cfLogo} width={200} height={53} style={{position: "absolute", top:2, left:5, paddingBottom: "1px"}}/>
+      <Nav style={{marginRight: 30}}>
+          <Image src={cfLogo} width={50} height={50} style={{position: "absolute", top:2, left:5, paddingBottom: "1px"}}/>
       </Nav>
       </BootstrapNavbar.Brand>
       <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
