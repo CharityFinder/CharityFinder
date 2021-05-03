@@ -128,7 +128,7 @@ export const Search = () => {
           className="mx-auto"
           type="checkbox"
           id={"default-checkbox-Toggle Advanced Search"}
-          style={{ textAlign: "left", width: "50%" }}
+          style={{ textAlign: "left", width: "31.8vw", minWidth: "250px" }}
         >
           <Form.Check.Input
             type="checkbox"
@@ -137,6 +137,8 @@ export const Search = () => {
           />
           <Form.Check.Label> {"Toggle Advanced Search"} </Form.Check.Label>
         </Form.Check>
+
+        
 
         {!isAdvancedSearch ? (
           <> </>

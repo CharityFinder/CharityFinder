@@ -15,6 +15,7 @@ import { Search } from "./pages/Search";
 import { Favorites } from "./pages/Favorites";
 import { Information } from "./pages/Information";
 import { Profile } from "./pages/Profile";
+import { Donations } from "./pages/Donations";
 
 const App = () => {
   const [user, setUser] = useState(auth.currentUser); // TODO: Setup Context or Redux Store
@@ -63,6 +64,7 @@ const App = () => {
                 <Route path="/search" component={Search} />
                 <Route path="/survey" component={Survey} />
                 <Route path="/favorites" component={Favorites} />
+                <Route path="/donations" component={Donations} />
                 <Route path="/information" component={Information} />
                 <Route path="/profile" component={Profile} />
                 <Route path="/" component={Home} />
