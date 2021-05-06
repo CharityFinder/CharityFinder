@@ -35,16 +35,15 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { orgName, orgId, orgAddress, userId, tagLine } = req.body;
-
+    const { orgName, orgId, orgAddress, userId, tagLine } = req.query;
     const favoritesRef = db.collection("favorites");
-
-    const snapshot = await favoritesRef
+    const favSnapshot = await favoritesRef
       .where("orgId", "==", orgId)
       .where("userId", "==", userId)
-      .get(); // does not favorite the same organization more than once for each user
+      .get();
 
-    if (snapshot._size === 0) {
+    /* Add to Favorites, Avoid Duplicates */
+    if (favSnapshot.docs.length === 0) {
       await favoritesRef.add({
         orgName,
         orgId,
@@ -54,41 +53,30 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // append stats table to keep track of most favorited organization
-    const statsCollectionRef = db.collection("stats");
-    const statsSnapshot = await statsCollectionRef
-      .where("orgId", "==", orgId)
-      .get();
+    /* Append stats table to keep track of most favorited Organizations */
+    const statsRef = db.collection("stats");
+    const statsSnapshot = await statsRef.where("orgId", "==", orgId).get();
 
-    const ans = {};
-    statsSnapshot._doc((doc) => {
-      ans = { ...doc.data(), id: doc.id };
-      console.log("ans", ans);
-    });
+    if (statsSnapshot.docs.length > 0) {
+      const documentSnapshot = statsSnapshot.docs[0];
+      const totalFavorites = documentSnapshot.data().totalFavorites + 1;
+      const statsDocRef = db.collection("stats").doc(documentSnapshot.id);
 
-    statsSnapshot && console.log("statsSnapshot??", statsSnapshot);
-    const totalFavorites = statsSnapshot._doc.data().totalFavorites;
-    console.log("total Favorites??", totalFavorites);
-
-    const statsDocRef = db.collection("stats").doc(statsSnapshot.id);
-    totalFavorites += 1;
-    console.log("total Favorites after", totalFavorites);
-
-    if (statsSnapshot._size === 0) {
+      /* Increment Count for Charity */
       await statsDocRef.update({ totalFavorites });
     } else {
-      await statsDocRef.add({
+      await statsRef.add({
         orgId,
         orgName,
         tagLine,
         orgAddress,
-        totalFavorites,
+        totalFavorites: 1,
       });
     }
 
     return res.status(204).send("Favorited :)");
   } catch (e) {
-    console.error("There's an error afoot...", e);
+    return res.status(304).send("Something went wrong");
   }
 });
 
