@@ -136,7 +136,7 @@ router.get("/suggestions", async (req, res) => {
     }
     return res.status(200).json(suggestions);
 
-    // POST-MVP: Keep a search history to provide suggestions
+    /* TODO: REMOVE DUPLICATE SUGGESTIONS */
   } catch (e) {
     console.error("No organizations meet these requirements");
     return res.status(200).json([]);
