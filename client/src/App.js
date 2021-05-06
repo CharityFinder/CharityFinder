@@ -55,7 +55,7 @@ const App = () => {
           <BrowserRouter>
             <UserContext.Provider value={{ user, userData }}>
               <Navbar logoutHandler={handleLogout} />
-              
+
               <Switch>
                 <Route path="/about" component={About} />
                 <Route path="/register" component={Register} />
@@ -67,7 +67,7 @@ const App = () => {
                 <Route path="/profile" component={Profile} />
                 <Route path="/" component={Home} />
               </Switch>
-              <Footer />
+              {/* <Footer /> */}
             </UserContext.Provider>
           </BrowserRouter>
         </div>
