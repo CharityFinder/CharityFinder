@@ -1,6 +1,7 @@
 import express from "express";
 import logger from "morgan";
 import favoriteRouter from "./routes/favorites.js";
+import statsRouter from "./routes/stats.js";
 import interestRouter from "./routes/interests.js";
 import thirdpartyRouter from "./routes/thirdparty.js";
 
@@ -29,6 +30,7 @@ import thirdpartyRouter from "./routes/thirdparty.js";
 
     // Routes
     app.use("/api/favorites", favoriteRouter);
+    app.use("/api/stats", statsRouter);
     app.use("/api/interests", interestRouter);
     app.use("/api/cn", thirdpartyRouter);
 
