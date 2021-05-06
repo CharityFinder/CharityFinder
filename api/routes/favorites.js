@@ -2,9 +2,6 @@ import { db } from "../config/firebase.js";
 import { Router } from "express";
 const router = Router();
 
-// TODO: Update documentation
-// TODO: Update Error Handling
-
 /**
  * @route [GET] /api/favorites
  * @desc Get All Favorites
@@ -144,7 +141,6 @@ router.delete("/:favoriteId", async (req, res) => {
     const { favoriteId } = req.params;
 
     const favoriteRef = db.collection("favorites").doc(favoriteId);
-
     await favoriteRef.delete();
 
     return res.status(204).send(`${orgName} was removed from your causes`);

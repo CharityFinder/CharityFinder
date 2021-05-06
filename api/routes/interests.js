@@ -2,9 +2,6 @@ import { db } from "../config/firebase.js";
 import { Router } from "express";
 const router = Router();
 
-// TODO: Update documentation
-// TODO: Update Error Handling
-
 /**
  * @route [GET] /api/interests
  * @desc Get All Interest Areas
@@ -28,7 +25,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// TODO: Switch to accept a list of interests, and update db selection
 /**
  * @route [POST] /api/interests
  * @desc Add an interest area to your profile
@@ -42,8 +38,9 @@ router.post("/", async (req, res) => {
     const snapshot = await interestRef
       .where("causeId", "==", causeId)
       .where("userId", "==", userId)
-      .get(); // does not favorite the same organization more than once for each user
+      .get();
 
+    // Check if organization has already been favorited
     if (snapshot._size === 0) {
       await interestRef.add({
         causeId,
