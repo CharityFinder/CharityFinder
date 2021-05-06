@@ -35,11 +35,14 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { orgName, orgId, orgAddress, userId, tagLine } = req.query;
+    const { orgName, orgId, orgAddress, userId, tagLine } = req.body;
 
     const favoritesRef = db.collection("favorites");
 
-    const snapshot = await favoritesRef.where("orgId", "==", orgId).where("userId", "==", userId).get(); // does not favorite the same organization more than once for each user
+    const snapshot = await favoritesRef
+      .where("orgId", "==", orgId)
+      .where("userId", "==", userId)
+      .get(); // does not favorite the same organization more than once for each user
 
     if (snapshot._size === 0) {
       await favoritesRef.add({
@@ -48,6 +51,38 @@ router.post("/", async (req, res) => {
         orgAddress,
         userId,
         tagLine,
+      });
+    }
+
+    // append stats table to keep track of most favorited organization
+    const statsCollectionRef = db.collection("stats");
+    const statsSnapshot = await statsCollectionRef
+      .where("orgId", "==", orgId)
+      .get();
+
+    const ans = {};
+    statsSnapshot._doc((doc) => {
+      ans = { ...doc.data(), id: doc.id };
+      console.log("ans", ans);
+    });
+
+    statsSnapshot && console.log("statsSnapshot??", statsSnapshot);
+    const totalFavorites = statsSnapshot._doc.data().totalFavorites;
+    console.log("total Favorites??", totalFavorites);
+
+    const statsDocRef = db.collection("stats").doc(statsSnapshot.id);
+    totalFavorites += 1;
+    console.log("total Favorites after", totalFavorites);
+
+    if (statsSnapshot._size === 0) {
+      await statsDocRef.update({ totalFavorites });
+    } else {
+      await statsDocRef.add({
+        orgId,
+        orgName,
+        tagLine,
+        orgAddress,
+        totalFavorites,
       });
     }
 
