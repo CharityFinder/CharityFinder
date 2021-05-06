@@ -37,7 +37,9 @@ export const Search = () => {
 
   //used to filter out fields that the user didn't input
   const removeEmpty = (obj) => {
-    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== "" && v !== "State"));
+    return Object.fromEntries(
+      Object.entries(obj).filter(([_, v]) => v !== "" && v !== "State")
+    );
   };
 
   const getSearchResults = async () => {
@@ -87,7 +89,7 @@ export const Search = () => {
       search: searchData["search"],
       city: "",
       state: "",
-    }
+    };
     setSearchData(newSearchData);
   };
 

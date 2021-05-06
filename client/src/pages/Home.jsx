@@ -11,15 +11,16 @@ export const Home = () => {
 
   useEffect(() => {
     const getInterests = async () => {
-      const res = await axios.get('/api/interests', {
+      const res = await axios.get("/api/interests", {
         params: {
-          userId: user.uid
-        }
-      })
+          userId: user.uid,
+        },
+      });
       setInterestsSize(res.data.length);
-    }
+    };
 
-    if (user && interestsSize === -1) { // user logged on and never before been set
+    if (user && interestsSize === -1) {
+      // user logged on and never before been set
       getInterests();
     }
   }, [user, interestsSize]);
@@ -27,8 +28,8 @@ export const Home = () => {
   useEffect(() => {
     if (interestsSize === 0) {
       history.push("/survey");
-    }
-    else if (interestsSize >= 1) { // they have already had an interest, go to search
+    } else if (interestsSize >= 1) {
+      // they have already had an interest, go to search
       history.push("/search");
     }
   }, [interestsSize, history]);
@@ -36,7 +37,10 @@ export const Home = () => {
   return (
     <div className="home description">
       <h1 className="mt-0">CharityFinder</h1>
-      <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>
+      <p>
+        Remove the hassle of finding charitable organizations that you’re
+        passionate about with CharityFinder
+      </p>
       <p>Search through 1000s of charitable organizations</p>
       <p>Get recommendations for charities that match your passions</p>
       <p>Keep track of your favorite organizations</p>
