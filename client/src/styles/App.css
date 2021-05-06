@@ -42,7 +42,6 @@
 .App,
 .home h1,
 h2 {
-  /* margin-top: 4rem; */
   font-weight: 300;
 }
 
@@ -51,5 +50,4 @@ h3 {
   text-align: left;
   font-weight: 300;
   padding-left: 2rem;
-  /* margin-top: 2rem; */
 }
