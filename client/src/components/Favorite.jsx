@@ -3,7 +3,7 @@ import { UserContext } from "../utils/auth";
 import { Star, StarFill } from "react-bootstrap-icons";
 import axios from "axios";
 
-export const Favorite = ({name, ein, isFavorited, organization}) => {
+export const Favorite = ({ name, ein, isFavorited, organization }) => {
   // isFavorited is either false or the favoriteId
   const { user } = useContext(UserContext);
   const [favorite, setFavorite] = useState(null);
@@ -11,54 +11,66 @@ export const Favorite = ({name, ein, isFavorited, organization}) => {
   useEffect(() => {
     // code to run on component mount
     setFavorite(isFavorited);
-  }, [isFavorited])
+  }, [isFavorited]);
 
   const toggleFavorite = () => {
-    setFavorite(previousFavoriteValue => !previousFavoriteValue);
-    if (favorite) { //already favorited, delete from favorites
+    setFavorite((previousFavoriteValue) => !previousFavoriteValue);
+    if (favorite) {
+      //already favorited, delete from favorites
       removeFavorite();
-    }
-    else {
+    } else {
       addFavorite();
     }
   };
 
   const addFavorite = async () => {
-    await axios.post('/api/favorites', null, {
-      params: {
-        orgName: name,
-        orgId: ein, 
-        userId: user.uid,
-        orgAddress: "not really an address",
-        tagLine: organization.tagLine
-      }
-    })
-  }
+    if (ein && user.uid) {
+      await axios.post("/api/favorites", null, {
+        params: {
+          orgName: name || "",
+          orgId: ein,
+          userId: user.uid,
+          orgAddress: organization.orgAddress || "",
+          tagLine: organization.tagLine || "",
+        },
+      });
+    }
+  };
 
   const removeFavorite = async () => {
-    await axios.delete('/api/favorites/' + isFavorited, {
+    await axios.delete("/api/favorites/" + isFavorited, {
       params: {
-        orgName: name
-      }
-    })
-  }
+        orgName: name,
+      },
+    });
+  };
 
   return (
     <>
-      {!favorite ?
-        <Star size={25} type="submit" onClick={toggleFavorite} style={{
-            position:"absolute",
-            bottom:25,
-            right:25}}
+      {!favorite ? (
+        <Star
+          size={25}
+          type="submit"
+          onClick={toggleFavorite}
+          style={{
+            position: "absolute",
+            bottom: 25,
+            right: 25,
+          }}
         />
-        :
-        <StarFill size={25} type="submit" onClick={toggleFavorite} style={{
-            position:"absolute",
-            bottom:25,
-            right:25,
-            color: "#ffeb00"}}
+      ) : (
+        <StarFill
+          size={25}
+          type="submit"
+          onClick={toggleFavorite}
+          style={{
+            position: "absolute",
+            bottom: 25,
+            right: 25,
+            color: "#ffeb00",
+          }}
         />
-      }
+      )}
     </>
-  )
-}
+  );
+};
