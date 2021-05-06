@@ -36,14 +36,20 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { causeId, causeName, userId } = req.query;
+    const { causeId, userId } = req.query;
     const interestRef = db.collection("interests");
 
-    await interestRef.add({
-      causeId,
-      causeName,
-      userId,
-    });
+    const snapshot = await interestRef
+      .where("causeId", "==", causeId)
+      .where("userId", "==", userId)
+      .get(); // does not favorite the same organization more than once for each user
+
+    if (snapshot._size === 0) {
+      await interestRef.add({
+        causeId,
+        userId,
+      });
+    }
 
     return res.status(204).send("Interest Areas Added :)");
   } catch (e) {
@@ -85,17 +91,16 @@ router.get("/:interestId", async (req, res) => {
  */
 router.put("/:interestId", async (req, res) => {
   try {
-    const { causeId, causeName } = req.query;
+    const { causeId } = req.query;
     const { interestId } = req.params;
 
     const interestRef = db.collection("interests").doc(interestId);
 
     await interestRef.update({
       causeId,
-      causeName,
     });
 
-    return res.status(204).send(`${causeName} was updated`);
+    return res.status(204).send(`It was updated`);
   } catch (e) {
     console.error("There's an error afoot...", e);
   }
@@ -108,14 +113,14 @@ router.put("/:interestId", async (req, res) => {
  */
 router.delete("/:interestId", async (req, res) => {
   try {
-    const { causeName } = req.query;
+    const { causeId } = req.query;
     const { interestId } = req.params;
 
     const interestRef = db.collection("interests").doc(interestId);
 
     await interestRef.delete();
 
-    return res.status(204).send(`${causeName} was removed from your causes`);
+    return res.status(204).send(`${causeId} was removed from your causes`);
   } catch (e) {
     console.error("There's an error afoot...", e);
   }
