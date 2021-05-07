@@ -34,6 +34,7 @@ router.get("/organizations", async (req, res) => {
       donorPrivacy,
       scopeOfWork,
       cfcCharities,
+      sort /* NAME, RATING, RELEVANCE && APPEND :ASC, :DESC */,
     } = req.query;
 
     let orgs = `${BASE_URL}/Organizations${CREDENTIALS}`;
@@ -48,6 +49,15 @@ router.get("/organizations", async (req, res) => {
     orgs = donorPrivacy ? orgs.concat(`&donorPrivacy=${donorPrivacy}`) : orgs;
     orgs = scopeOfWork ? orgs.concat(`&scopeOfWork=${scopeOfWork}`) : orgs;
     orgs = cfcCharities ? orgs.concat(`&cfcCharities=${cfcCharities}`) : orgs;
+    orgs =
+      sort === "NAME%3AASC" ||
+      sort === "NAME%3ADESC" ||
+      sort === "RATING%3AASC" ||
+      sort === "RATING%3ADESC" ||
+      sort === "RELEVANCE%3AASC" ||
+      sort === "RELEVANCE%3ADESC"
+        ? orgs.concat(`&sort=${sort}`)
+        : orgs;
 
     const orgSnapshot = await axios.get(orgs);
 
