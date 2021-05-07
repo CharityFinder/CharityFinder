@@ -3,11 +3,8 @@ import { db } from "../config/firebase.js";
 import axios from "axios";
 
 const router = Router();
-
 const BASE_URL = process.env.CN_BASE_URL;
 const CREDENTIALS = `?app_id=${process.env.CN_APP_ID}&app_key=${process.env.CN_APP_KEY}`;
-
-// TODO: Determine the appropriate `pageSize` and `pageNum` for organization response
 
 /**
  * @route [GET] /api/cn/organizations
@@ -103,12 +100,16 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
 
 /**
  * @route [GET] /api/cn/suggestions
- * @desc GET Interest Area Information
- * @return Interests object, if exists
+ * @desc GET List of Suggested Organizations
+ * @return List of organization objects, if exists
  */
 router.get("/suggestions", async (req, res) => {
   try {
     const { userId } = req.query;
+    const userSnapshot = await db.collection("users").doc(userId).get();
+    const userLocation = userSnapshot.data().state
+      ? userSnapshot.data().state
+      : undefined; // grab state that the user is in
 
     /* Grab Interests */
     const interestsRef = db.collection("interests");
@@ -130,11 +131,13 @@ router.get("/suggestions", async (req, res) => {
       const causeID = userInterests[i].causeId;
 
       let orgs = `${BASE_URL}/Organizations${CREDENTIALS}&causeID=${causeID}&rated=true&pageSize=${pageSize}`;
+      orgs = state ? orgs.concat(`&state=${userLocation}`) : orgs;
 
       const orgSnapshot = await axios.get(orgs);
       suggestions.push(...orgSnapshot.data);
     }
-    return res.status(200).json(suggestions);
+
+    return res.status(200).json(removeDuplicates(suggestions));
 
     /* TODO: REMOVE DUPLICATE SUGGESTIONS */
   } catch (e) {
@@ -143,4 +146,11 @@ router.get("/suggestions", async (req, res) => {
   }
 });
 
+/* Remove Duplicates */
+const removeDuplicates = (arr) => {
+  return arr.filter(
+    (el, index, self) =>
+      index === self.findIndex((t) => t.ein === el.ein && t.name === el.name)
+  );
+};
 export default router;
