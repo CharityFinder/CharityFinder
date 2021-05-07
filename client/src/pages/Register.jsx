@@ -93,6 +93,34 @@ export const Register = () => {
           />
         </Form.Group>
 
+        <Form.Group controlId="formBasicCity">
+          <Form.Label>City</Form.Label>
+          <Form.Control
+            style={{ width: "50%", marginLeft: "25%" }}
+            onChange={handleChange}
+            name="city"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicState">
+          <Form.Label>State</Form.Label>
+          <Form.Control
+            style={{ width: "50%", marginLeft: "25%" }}
+            onChange={handleChange}
+            name="state"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicZipcode">
+          <Form.Label>Zipcode</Form.Label>
+          <Form.Control
+            style={{ width: "50%", marginLeft: "25%" }}
+            onChange={handleChange}
+            name="zipcode"
+            type="number"
+          />
+        </Form.Group>
+
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
