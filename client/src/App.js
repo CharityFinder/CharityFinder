@@ -67,7 +67,7 @@ const App = () => {
                 <Route path="/profile" component={Profile} />
                 <Route path="/" component={Home} />
               </Switch>
-              {/* <Footer /> */}
+              <Footer />
             </UserContext.Provider>
           </BrowserRouter>
         </div>
