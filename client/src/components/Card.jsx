@@ -5,14 +5,18 @@ import "../styles/BigCard.css";
 
 export const Card = ({ name, ein, isFavorited, organization }) => {
   const [mailingAddress, setMailingAddress] = useState({
-    city: "LOADING",
+    city: "",
     stateOrProvince: "",
     postalCode: "",
   }); //used so that you don't try to render data before it is loaded
 
   useEffect(() => {
     if (organization.length !== 0) {
-      // setMailingAddress({city: organization.mailingAddress.city, stateOrProvince: organization.mailingAddress.stateOrProvince, postalCode: organization.mailingAddress.postalCode});
+      setMailingAddress({
+        city: organization.mailingAddress.city,
+        stateOrProvince: organization.mailingAddress.stateOrProvince,
+        postalCode: organization.mailingAddress.postalCode,
+      });
     }
   }, [organization]);
 

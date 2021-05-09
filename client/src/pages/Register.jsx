@@ -5,6 +5,7 @@ import { Form } from "react-bootstrap";
 import { Button } from "../components/Button";
 import "../styles/Login.css";
 import { Bubble } from "../components/Bubble";
+import { STATE_ABBREVIATIONS } from "../utils/constants";
 
 export const Register = () => {
   const history = useHistory();
@@ -99,7 +100,18 @@ export const Register = () => {
 
         <Form.Group controlId="formBasicState">
           <Form.Label>State</Form.Label>
-          <Form.Control onChange={handleChange} name="state" />
+          <Form.Control
+            as="select"
+            defaultValue="State"
+            aria-label="State"
+            name="state"
+            aria-describedby="basic-addon2"
+            onChange={handleChange}
+          >
+            {STATE_ABBREVIATIONS.map((state) => (
+              <option key={state}>{state}</option>
+            ))}
+          </Form.Control>
         </Form.Group>
 
         <Form.Group controlId="formBasicZipcode">

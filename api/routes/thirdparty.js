@@ -133,7 +133,6 @@ router.get("/suggestions", async (req, res) => {
       });
     });
 
-    // const pageNum = Math.floor(Math.random() * 2);
     const pageSize = 3;
     const suggestions = [];
 
@@ -141,17 +140,16 @@ router.get("/suggestions", async (req, res) => {
       const causeID = userInterests[i].causeId;
 
       let orgs = `${BASE_URL}/Organizations${CREDENTIALS}&causeID=${causeID}&rated=true&pageSize=${pageSize}`;
-      orgs = state ? orgs.concat(`&state=${userLocation}`) : orgs;
+      orgs = userLocation ? orgs.concat(`&state=${userLocation}`) : orgs;
 
-      const orgSnapshot = await axios.get(orgs);
-      suggestions.push(...orgSnapshot.data);
+      try {
+        let orgSnapshot = await axios.get(orgs);
+        suggestions.push(...orgSnapshot.data);
+      } catch (e) {}
     }
-
     return res.status(200).json(removeDuplicates(suggestions));
-
-    /* TODO: REMOVE DUPLICATE SUGGESTIONS */
   } catch (e) {
-    console.error("No organizations meet these requirements");
+    console.error("Suggestions: ", e);
     return res.status(200).json([]);
   }
 });

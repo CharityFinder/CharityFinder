@@ -1,10 +1,9 @@
-import { InputGroup, FormControl, Form } from "react-bootstrap";
+import { InputGroup, FormControl } from "react-bootstrap";
+import { STATE_ABBREVIATIONS } from "../utils/constants";
 
 export const AdvancedSearchbar = ({ changeHandler }) => {
-  let states = [ "State", "AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
-
   const generateOptions = () => {
-    return states.map((state) => {
+    return STATE_ABBREVIATIONS.map((state) => {
       return <option key={state}> {state} </option>;
     });
   };
@@ -13,13 +12,19 @@ export const AdvancedSearchbar = ({ changeHandler }) => {
     <InputGroup
       onChange={changeHandler}
       className="mx-auto"
-      style={{ width: "50%" }}
+      style={{
+        width: "50%",
+        borderRadius: "1rem",
+      }}
     >
       <FormControl
         placeholder="City"
         aria-label="City"
         name="city"
         aria-describedby="basic-addon2"
+        style={{
+          border: "1px solid var(--primary)",
+        }}
       />
       <FormControl
         as="select"
@@ -27,6 +32,10 @@ export const AdvancedSearchbar = ({ changeHandler }) => {
         aria-label="State"
         name="state"
         aria-describedby="basic-addon2"
+        style={{
+          borderTopRightRadius: "1rem",
+          borderBottomRightRadius: "1rem",
+        }}
       >
         {generateOptions()}
       </FormControl>

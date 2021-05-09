@@ -23,6 +23,7 @@ export const Home = () => {
 
           return `${++prev}`.padStart(4, "0");
         });
+        console.log("Home setInterval");
       }, 1);
     };
 
