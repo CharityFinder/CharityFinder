@@ -65,7 +65,7 @@ export const Register = () => {
 
   // TODO: Add missing fields to form
   return (
-    <Container className="mt-5 jumbotron vertical-center shadow-container shadow-lg">
+    <Container className="m-5 jumbotron shadow-container shadow-lg">
       <h1 className="mt-0">Charity Finder</h1>
       <p>
         Remove the hassle of finding charitable organizations that you’re

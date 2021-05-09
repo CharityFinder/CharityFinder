@@ -38,7 +38,7 @@ export const Survey = () => {
   return (
     <div className="interests-survey">
       <h1>Charity Finder</h1>
-      <p>What areas are you passionate about?</p>
+      <p>What causes are you passionate about?</p>
       <div className="options">
         {CAUSES.map((e, idx) => (
           <SurveyCard

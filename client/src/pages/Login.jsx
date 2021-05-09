@@ -55,7 +55,7 @@ export const Login = () => {
   };
 
   return (
-    <Container className="jumbotron vertical-center shadow-container shadow-lg">
+    <Container className="jumbotron shadow-container shadow-lg">
       <h1 className="mt-0">Charity Finder</h1>
       <p>
         Remove the hassle of finding charitable organizations that you’re

@@ -1,7 +1,7 @@
 .interests-survey {
   text-align: center;
-  margin-top: 10%;
-  margin: 5%;
+  padding-top: 5rem;
+  padding-bottom: 7rem;
 }
 
 .options {
@@ -19,6 +19,7 @@
   padding-top: 1rem;
   margin-bottom: 0.25rem;
   margin-top: 0.25rem;
+  border-color: rgba(173, 233, 235, 0.466);
 }
 
 .options .card.true {
@@ -50,3 +51,22 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+
+.submit-survey.btn-primary {
+  color: rgb(46, 102, 116);
+  background-color: rgba(135, 216, 213, 0.76);
+  border-color: #94d8d5;
+  margin-top: 2rem;
+}
+
+.submit-survey.btn-primary:hover {
+  color: rgb(46, 102, 116);
+  background-color: #94d8d5;
+  border-color: #94d8d5;
+}
+
+/* .btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+} */

@@ -65,10 +65,7 @@ export const Information = (props) => {
 
   return (
     <Container>
-      <h2
-        className="mx-auto"
-        style={{ width: "50%", paddingTop: 60, marginTop: "5%" }}
-      >
+      <h2 className="mx-auto" style={{ width: "50%", paddingTop: "5rem" }}>
         Information:{" "}
       </h2>
       <Row>{generateCard()}</Row>
