@@ -1,3 +1,7 @@
+export const CONTACT = {
+  contact_us: "Contact Us:",
+  email: "contact@charityfinder.us",
+};
 /* Cause Areas In CharityNavigator */
 export const CAUSES = [
   /* ANIMALS */
