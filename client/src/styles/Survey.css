@@ -1,7 +1,6 @@
 .interests-survey {
   text-align: center;
-  padding-top: 5rem;
-  padding-bottom: 7rem;
+  padding-bottom: 2.5rem;
 }
 
 .options {
@@ -20,6 +19,11 @@
   margin-bottom: 0.25rem;
   margin-top: 0.25rem;
   border-color: rgba(173, 233, 235, 0.466);
+  cursor: pointer;
+}
+
+.options .card:hover {
+  background: rgb(245, 254, 255);
 }
 
 .options .card.true {
@@ -40,8 +44,7 @@
 
 .options .card svg {
   /* margin-top: 0.25rem; */
-  width: 2rem;
-  height: 2rem;
+  height: 1.7rem;
 }
 
 .options .card .cause {
@@ -53,20 +56,16 @@
 }
 
 .submit-survey.btn-primary {
-  color: rgb(46, 102, 116);
-  background-color: rgba(135, 216, 213, 0.76);
-  border-color: #94d8d5;
+  color: white;
+  background-color: var(--primary);
+  border: none;
   margin-top: 2rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  text-transform: lowercase;
+  letter-spacing: 3px;
 }
 
 .submit-survey.btn-primary:hover {
-  color: rgb(46, 102, 116);
-  background-color: #94d8d5;
-  border-color: #94d8d5;
+  background-color: var(--primary-dark);
 }
-
-/* .btn-primary {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-} */

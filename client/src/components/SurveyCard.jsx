@@ -5,7 +5,6 @@ export const SurveyCard = ({ icon, cause, causeID, updateSelection }) => {
   const [selectedCard, setSelectedCard] = useState(false);
 
   const handleSelection = () => {
-    console.log("id", causeID);
     updateSelection(causeID);
     setSelectedCard((prevSelectedCard) => !prevSelectedCard);
   };
@@ -13,7 +12,7 @@ export const SurveyCard = ({ icon, cause, causeID, updateSelection }) => {
   return (
     <div className={`card ${selectedCard} m-2`} onClick={handleSelection}>
       <Icon icon={icon} />
-      <p className="cause">{cause}</p>
+      <p className="cause mt-1">{cause}</p>
     </div>
   );
 };

@@ -37,7 +37,6 @@ export const Survey = () => {
 
   return (
     <div className="interests-survey">
-      <h1>Charity Finder</h1>
       <p>What causes are you passionate about?</p>
       <div className="options">
         {CAUSES.map((e, idx) => (
@@ -51,7 +50,7 @@ export const Survey = () => {
         ))}
       </div>
       <Button className="submit-survey" onClick={handleAddInterests}>
-        GET SUGGESTIONS!
+        Show me suggestions
       </Button>
     </div>
   );
