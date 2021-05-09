@@ -67,7 +67,7 @@ export const Favorite = ({ name, ein, isFavorited, organization }) => {
             position: "absolute",
             bottom: 25,
             right: 25,
-            color: "#ffeb00",
+            color: "rgb(249 233 151)",
           }}
         />
       )}

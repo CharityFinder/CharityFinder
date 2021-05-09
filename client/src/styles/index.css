@@ -26,7 +26,7 @@ body {
   --dark: rgb(33, 33, 33);
 }
 
-* {
+*:not(path) {
   color: var(--dark);
 }
 
