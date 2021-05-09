@@ -1,3 +1,12 @@
+export const APP_NAME = "CharityFinder";
+
+export const PROJECT_PEEPS = [
+  { name: "Shania Dhani", link: "https://github.com/sdhani" },
+  { name: "Xing Tao Shi", link: "https://github.com/xshi0603" },
+  { name: "Darren Liang", link: "https://github.com/dliang2" },
+  { name: "Jessica Wong", link: "https://github.com/wongjessica" },
+];
+
 export const CONTACT = {
   contact_us: "Contact Us:",
   email: "contact@charityfinder.us",
