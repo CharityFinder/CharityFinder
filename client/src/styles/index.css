@@ -1,19 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;700&display=swap");
+@import "./FormOverride.css";
 
 #root {
   margin: 0;
   text-align: center;
   min-height: 100vh;
   --footer-height: 3rem;
-  --primary: #bfb75a;
+
   --primary: #67a5a5;
+  --primary-extra-light: #e5f5f4;
   --primary-light: #b6dfde;
   --primary-dark: #477674;
 
-  --secondary: #c8b4f7;
-  --secondary-light: #c8b4f7;
-  --secondary-dark: #c8b4f7;
+  --secondary: pink;
+  --secondary-light: rgb(245, 233, 235);
 }
 
 body {
@@ -71,4 +72,35 @@ a {
 .nav-item {
   font-size: clamp(11px, 1vw, 16px);
   font-weight: 400;
+}
+
+/* For the bubble component, should be moved */
+.bubble {
+  width: 95%;
+  min-height: 80vh;
+  margin: auto;
+  margin-top: 1rem;
+  background: var(--primary);
+  border-radius: 1rem;
+}
+
+/* For the register component, should be moved */
+.register-form,
+.register-container p {
+  width: 80%;
+  min-width: 15rem;
+  max-width: 30rem;
+  margin: auto;
+}
+.register-form {
+  text-align: left;
+}
+.register-container h3 {
+  width: fit-content;
+  margin: auto;
+}
+.register-container p {
+  color: var(--light);
+  font-size: 0.8rem;
+  width: 60%;
 }

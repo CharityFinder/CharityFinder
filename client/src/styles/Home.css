@@ -1,14 +1,3 @@
-.bubble {
-  width: 95%;
-  height: 80vh;
-  margin: auto;
-  margin-top: 1rem;
-  background: var(--primary);
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-}
-
 .home-about p {
   width: 70%;
   margin: 0.7rem auto;

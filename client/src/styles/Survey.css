@@ -20,26 +20,31 @@
   margin-top: 0.25rem;
   border-color: rgba(173, 233, 235, 0.466);
   cursor: pointer;
+  background: var(--primary-extra-light);
 }
 
 .options .card:hover {
-  background: rgb(245, 254, 255);
+  background: var(--primary-light);
 }
 
 .options .card.true {
-  background: rgb(215, 243, 247);
+  background: var(--primary-light);
 }
 
-.options .card:before {
+.options .card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  box-shadow: inset 0 0 2000px rgba(156, 222, 224, 0.5);
-  filter: blur(5rem);
-  background: inherit;
+  z-index: -1;
+  opacity: 0.5;
+  /* background-image: linear-gradient(
+    130deg,
+    var(--primary-light) 10%,
+    pink 120%
+  ); */
 }
 
 .options .card svg {
@@ -62,8 +67,6 @@
   margin-top: 2rem;
   padding: 0.5rem 1.5rem;
   border-radius: 2rem;
-  text-transform: lowercase;
-  letter-spacing: 3px;
 }
 
 .submit-survey.btn-primary:hover {

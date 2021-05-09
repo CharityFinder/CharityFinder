@@ -24,8 +24,8 @@ export const About = () => {
         <li>Keep track of your favorite organizations</li>
       </ul>
       <p>This app was developed by a group of motivated college students.</p>
-      {PROJECT_PEEPS.map((peep) => (
-        <Peeps {...peep} />
+      {PROJECT_PEEPS.map((peep, index) => (
+        <Peeps {...peep} key={index} />
       ))}
     </div>
   );

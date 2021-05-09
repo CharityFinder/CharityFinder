@@ -2,8 +2,16 @@ import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 export const Searchbar = ({ changeHandler }) => {
   return (
-    <InputGroup className="mx-auto" style={{ width: "50%", paddingTop: 30 }}>
+    <InputGroup
+      className="mx-auto mb-3"
+      style={{
+        borderRadius: "1rem",
+      }}
+    >
       <FormControl
+        style={{
+          border: "1px solid var(--primary)",
+        }}
         placeholder="Search for a Charity"
         aria-label="Search for a Charity"
         name="search"
@@ -11,7 +19,13 @@ export const Searchbar = ({ changeHandler }) => {
         onChange={changeHandler}
       />
       <InputGroup.Append>
-        <Button variant="outline-secondary" type="submit">
+        <Button
+          type="submit"
+          style={{
+            borderTopRightRadius: "1rem",
+            borderBottomRightRadius: "1rem",
+          }}
+        >
           Search
         </Button>
       </InputGroup.Append>

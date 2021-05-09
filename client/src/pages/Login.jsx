@@ -50,7 +50,6 @@ export const Login = () => {
         setErrorMessage(error["message"]);
       } else {
         console.log("Logged In User", user);
-        history.push("/");
       }
     }
   };
@@ -81,9 +80,13 @@ export const Login = () => {
           />
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="submit">
           <Button text="Log In" />
         </Form.Group>
+
+        <a href="/register" className="register-link">
+          New? Register here
+        </a>
       </Form>
       {errorMessage && <h6>{errorMessage}</h6>}
     </div>

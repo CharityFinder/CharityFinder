@@ -1,41 +1,11 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
-import { UserContext } from "../utils/auth";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
+import { Bubble } from "../components/Bubble";
 import "../styles/Home.css";
-import { useHistory } from "react-router-dom";
 import { Login } from "./Login";
 
 export const Home = () => {
-  const history = useHistory();
-  const { user } = useContext(UserContext);
-  const [interestsSize, setInterestsSize] = useState(-1);
   const [count, setCount] = useState("0000");
   const countInterval = useRef();
-
-  useEffect(() => {
-    const getInterests = async () => {
-      const res = await axios.get("/api/interests", {
-        params: {
-          userId: user.uid,
-        },
-      });
-      setInterestsSize(res.data.length);
-    };
-
-    if (user && interestsSize === -1) {
-      // user logged on and never before been set
-      getInterests();
-    }
-  }, [user, interestsSize]);
-
-  useEffect(() => {
-    if (interestsSize === 0) {
-      history.push("/survey");
-    } else if (interestsSize >= 1) {
-      // they have already had an interest, go to search
-      history.push("/search");
-    }
-  }, [interestsSize, history]);
 
   useEffect(() => {
     /* Set an interval to count up to 1000 */
@@ -60,10 +30,12 @@ export const Home = () => {
       clearInterval(countInterval.current);
     };
     countUp();
+
+    return clearIt;
   }, []);
 
   return (
-    <div className="bubble">
+    <Bubble className="d-flex align-items-center">
       <div className="home-about">
         <p>
           Remove the hassle of finding charitable organizations that you’re
@@ -78,6 +50,6 @@ export const Home = () => {
       </div>
 
       <Login />
-    </div>
+    </Bubble>
   );
 };

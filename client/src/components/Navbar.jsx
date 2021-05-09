@@ -18,7 +18,6 @@ export const Navbar = ({ logoutHandler }) => {
         <Nav className="ml-auto mr-3">
           {!user ? (
             <>
-              <Nav.Link href="/login">Login</Nav.Link>
               <Nav.Link href="/register">Register</Nav.Link>
             </>
           ) : (

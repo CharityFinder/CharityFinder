@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../utils/auth";
-import { Container, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Button } from "../components/Button";
 import "../styles/Login.css";
+import { Bubble } from "../components/Bubble";
 
 export const Register = () => {
   const history = useHistory();
@@ -65,18 +66,17 @@ export const Register = () => {
 
   // TODO: Add missing fields to form
   return (
-    <Container className="shadow-container shadow-lg">
-      <h1 className="mt-0">Charity Finder</h1>
+    <Bubble className="py-3 register-container">
+      <h3 className="mt-0 charity-finder">Register</h3>
       <p>
         Remove the hassle of finding charitable organizations that you’re
         passionate about with CharityFinder
       </p>
       <h4>{errorMessage}</h4>
-      <Form onSubmit={handleSubmit} noValidate>
+      <Form onSubmit={handleSubmit} noValidate className="register-form">
         <Form.Group controlId="formBasicFirstName">
           <Form.Label>First Name</Form.Label>
           <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
             onChange={handleChange}
             name="firstName"
             isInvalid={!!errors.firstName}
@@ -86,7 +86,6 @@ export const Register = () => {
         <Form.Group controlId="formBasicLastName">
           <Form.Label>Last Name</Form.Label>
           <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
             onChange={handleChange}
             name="lastName"
             isInvalid={!!errors.lastName}
@@ -95,36 +94,22 @@ export const Register = () => {
 
         <Form.Group controlId="formBasicCity">
           <Form.Label>City</Form.Label>
-          <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
-            onChange={handleChange}
-            name="city"
-          />
+          <Form.Control onChange={handleChange} name="city" />
         </Form.Group>
 
         <Form.Group controlId="formBasicState">
           <Form.Label>State</Form.Label>
-          <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
-            onChange={handleChange}
-            name="state"
-          />
+          <Form.Control onChange={handleChange} name="state" />
         </Form.Group>
 
         <Form.Group controlId="formBasicZipcode">
           <Form.Label>Zipcode</Form.Label>
-          <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
-            onChange={handleChange}
-            name="zipcode"
-            type="number"
-          />
+          <Form.Control onChange={handleChange} name="zipcode" type="number" />
         </Form.Group>
 
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
             onChange={handleChange}
             name="email"
             isInvalid={!!errors.email}
@@ -134,7 +119,6 @@ export const Register = () => {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
             onChange={handleChange}
             name="password"
             type="password"
@@ -146,6 +130,6 @@ export const Register = () => {
           <Button text="Register" />
         </Form.Group>
       </Form>
-    </Container>
+    </Bubble>
   );
 };

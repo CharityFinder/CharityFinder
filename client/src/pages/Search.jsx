@@ -125,26 +125,16 @@ export const Search = () => {
     <Container style={{ paddingTop: 60, paddingBottom: 83 }}>
       <Form onSubmit={handleSubmit} noValidate>
         <Searchbar changeHandler={handleChange} />
-
-        <Form.Check
-          className="mx-auto"
-          type="checkbox"
-          id={"default-checkbox-Toggle Advanced Search"}
-          style={{ textAlign: "left", width: "50%" }}
-        >
+        <Form.Check className="mx-auto" type="checkbox">
           <Form.Check.Input
             type="checkbox"
-            name={"Toggle Advanced Search"}
+            name="Advanced Search"
             onChange={toggleAdvanced}
           />
-          <Form.Check.Label> {"Toggle Advanced Search"} </Form.Check.Label>
+          <Form.Check.Label>Advanced Search</Form.Check.Label>
         </Form.Check>
 
-        {!isAdvancedSearch ? (
-          <> </>
-        ) : (
-          <AdvancedSearchbar changeHandler={handleChange} />
-        )}
+        {isAdvancedSearch && <AdvancedSearchbar changeHandler={handleChange} />}
       </Form>
       {!hasSearched ? <>Recommendations</> : <>Results</>}
       <Row>{generateOrganizations()}</Row>
