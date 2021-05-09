@@ -1,48 +1,21 @@
 footer {
-  position: absolute;
-  bottom: 0;
   width: 100%;
-  height: 4.5rem; /* Footer height */
+  height: var(--footer-height);
   color: rgb(55, 74, 75);
-  padding-top: 0.3rem;
-  text-transform: capitalize;
   font-weight: 400;
+  font-size: 80%;
+  padding: 0.6rem 0;
 }
 
-footer img {
-  float: left;
-  margin-left: 0.5rem;
-  height: 3.75rem;
-  width: 4.3rem;
-}
-
-.cnlogo,
-.contact {
-  font-size: 1rem;
-  margin-top: 1.25rem;
-}
-
-.cnlogo {
-  float: left;
-  padding-left: 0.75rem;
-}
-
-.contact {
+footer .contact {
+  display: inline-block;
   float: right;
-  padding-right: 0.9rem;
+  margin-right: 1rem;
+  display: flex;
+  height: 100%;
+  align-items: center;
 }
 
-@media (max-width: 768px) {
-  /* For mobile phones: */
-  .cnlogo,
-  .contact {
-    font-size: 0.75rem;
-    float: right;
-    margin-top: 0.5rem;
-    padding-right: 0.75rem;
-  }
-
-  footer {
-    padding-top: 0.5rem;
-  }
+footer .powered-by-cn {
+  float: left;
 }

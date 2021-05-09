@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 #root {
-  /* position: relative; */
-  min-height: 100vh;
   margin: 0;
+  text-align: center;
+  min-height: 100vh;
+  --footer-height: 3rem;
+  --primary: #c4f2ed;
+  --primary-medium: #5abfb3;
+  --primary-dark: #7b9492;
 }
 
 body {
@@ -15,57 +19,30 @@ body {
 
 nav,
 footer {
-  background-color: #b9f1eaf6;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  background-color: var(--primary);
 }
 
 .navbar-brand {
-  font-family: Montserrat, -apple-system, system-ui, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
 }
 
 .nav-link {
-  font-family: Montserrat, -apple-system, system-ui, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
 }
 
 .navbar-cf.navbar-dark .navbar-nav .nav-link {
-  color: rgb(34, 142, 150);
+  color: var(--primary-dark);
 }
 
 .navbar-cf.navbar-dark .navbar-nav .nav-link:hover {
-  color: rgb(42, 184, 194);
-}
-
-.toggle-cf:hover {
-  color: rgb(42, 184, 194);
+  color: var(--primary-medium);
 }
 
 .nav-item {
-  font-family: Montserrat, -apple-system, system-ui, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(11px, 1vw, 16px);
   font-weight: 400;
-}
-
-.vertical-center {
-  position: absolute;
-  top: 45%;
-  transform: translate(-50%, -50%);
-}
-
-img {
-  max-width: 100%;
-  max-height: 9vh;
-  min-height: 4.5vh;
 }

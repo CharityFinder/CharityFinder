@@ -1,4 +1,4 @@
-.shadow-container {
+/* .shadow-container {
   display: inline-block;
   border: 1px solid lightgrey;
 }
@@ -6,4 +6,12 @@
 .form-label {
   text-align: left;
   width: 50%;
+} */
+
+.register-page {
+  height: 50vh;
+}
+.register-form {
+  box-sizing: border-box;
+  height: 5rem;
 }
