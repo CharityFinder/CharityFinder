@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
-import { Container, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Button } from "../components/Button";
-import "../styles/Form.css";
+import "../styles/Login.css";
+import { APP_NAME } from "../utils/constants";
 
 export const Login = () => {
   const history = useHistory();
@@ -55,18 +56,15 @@ export const Login = () => {
   };
 
   return (
-    <Container className="jumbotron shadow-container shadow-lg">
-      <h1 className="mt-0">Charity Finder</h1>
-      <p>
-        Remove the hassle of finding charitable organizations that you’re
-        passionate about with CharityFinder
-      </p>
-      <h4>{errorMessage}</h4>
-      <Form onSubmit={handleSubmit} noValidate>
+    <div className="login-container">
+      <h5>
+        Welcome to <span className="charity-finder">{APP_NAME}</span>
+        {/* Welcome to {APP_NAME} */}
+      </h5>
+      <Form onSubmit={handleSubmit} noValidate className="login-form">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
             onChange={handleChange}
             name="email"
             isInvalid={!!errors.email}
@@ -76,7 +74,6 @@ export const Login = () => {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            style={{ width: "50%", marginLeft: "25%" }}
             onChange={handleChange}
             name="password"
             type="password"
@@ -88,6 +85,7 @@ export const Login = () => {
           <Button text="Log In" />
         </Form.Group>
       </Form>
-    </Container>
+      {errorMessage && <h6>{errorMessage}</h6>}
+    </div>
   );
 };

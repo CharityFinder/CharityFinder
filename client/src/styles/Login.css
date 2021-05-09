@@ -1,0 +1,46 @@
+.login-container {
+  width: 20rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-container h5 {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--light);
+}
+
+.login-container .charity-finder {
+  font-size: 140%;
+}
+
+.login-form {
+  text-align: left;
+}
+
+.form-label {
+  /* color: var(--light); */
+  /* font-weight: bold; */
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.login-form .btn {
+  border: none;
+  background: var(--primary-dark) !important;
+}
+
+input.form-control {
+  border-radius: 1rem;
+  border: none;
+}
+
+@media (max-width: 500px) {
+  .login-container {
+    width: 100%;
+  }
+}
