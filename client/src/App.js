@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { UserContext, getUser, logoutUser } from "./utils/auth";
 import { auth } from "./config/firebase";
-import "./styles/App.css";
+import axios from "axios";
+
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 
@@ -14,7 +15,8 @@ import { Search } from "./pages/Search";
 import { Favorites } from "./pages/Favorites";
 import { Information } from "./pages/Information";
 import { Profile } from "./pages/Profile";
-import axios from "axios";
+import { Donations } from "./pages/Donations";
+import "./styles/App.css";
 
 const App = () => {
   const [user, setUser] = useState(auth.currentUser); // TODO: Setup Context or Redux Store
@@ -72,6 +74,7 @@ const App = () => {
                   <Route path="/search" component={Search} />
                   <Route path="/survey" component={Survey} />
                   <Route path="/favorites" component={Favorites} />
+                  <Route path="/donations" component={Donations} />
                   <Route path="/information" component={Information} />
                   <Route path="/profile" component={Profile} />
                   {user &&
