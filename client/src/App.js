@@ -47,32 +47,33 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <>
       {loading ? (
         <h2>Loading...</h2>
       ) : (
-        <div className="home">
+        <>
           <BrowserRouter>
             <UserContext.Provider value={{ user, userData }}>
-              <Navbar logoutHandler={handleLogout} />
-
-              <Switch>
-                <Route path="/about" component={About} />
-                <Route path="/register" component={Register} />
-                <Route path="/login" component={Login} />
-                <Route path="/search" component={Search} />
-                <Route path="/survey" component={Survey} />
-                <Route path="/favorites" component={Favorites} />
-                <Route path="/information" component={Information} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/" component={Home} />
-              </Switch>
+              <div className="App">
+                <Navbar logoutHandler={handleLogout} />
+                <Switch>
+                  <Route path="/about" component={About} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/search" component={Search} />
+                  <Route path="/survey" component={Survey} />
+                  <Route path="/favorites" component={Favorites} />
+                  <Route path="/information" component={Information} />
+                  <Route path="/profile" component={Profile} />
+                  <Route path="/" component={Home} />
+                </Switch>
+              </div>
               <Footer />
             </UserContext.Provider>
           </BrowserRouter>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 
