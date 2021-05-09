@@ -35,7 +35,7 @@ export const Home = () => {
   }, [interestsSize, history]);
 
   return (
-    <div className="home description">
+    <div>
       <h1 className="mt-0">CharityFinder</h1>
       <p>
         Remove the hassle of finding charitable organizations that you’re
