@@ -41,10 +41,7 @@ export const Favorites = () => {
 
   return (
     <Container>
-      <h2
-        className="mx-auto"
-        style={{ width: "50%", paddingTop: 60, marginTop: "5%" }}
-      >
+      <h2 className="mx-auto" style={{ width: "50%", paddingTop: "5rem" }}>
         User Favorites:{" "}
       </h2>
       <Row>{generateFavorites()}</Row>
