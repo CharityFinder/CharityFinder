@@ -34,27 +34,45 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
     try {
-      const { orgId, userId, donationAmount } = req.query;
+      const { orgName, userId, donationAmount } = req.query;
       // query parameters we are passing
       const donationsRef = db.collection("donations");
-    //   const favSnapshot = await favoritesRef
-    //     .where("orgId", "==", orgId)
-    //     .where("userId", "==", userId)
-    //     .get();
-  
-      /* Add to Donations Log & Avoid Duplicates */
-    //   if (donSnapshot.docs.length === 0) {
+
         await donationsRef.add({
-          orgId,
+          orgName,
           userId,
           donationAmount,
         });
       // }
   
-      return res.status(204).send("Donations :)");
+      return res.status(204).send("Donations :");
     } catch (e) {
       return res.status(304).send("Something went wrong");
     }
   });
+
+  /**
+ * @route [DEL] /api/donations
+ * @desc Remove donation from Donations Page
+ * @return 204 good response
+ */
+router.delete("/:donationId", async (req, res) => {
+    try {
+      //const { userId, orgName, donationAmount } = req.params;
+      const { donationId } = req.params;
+
+      const donationsRef = db.collection("donations").doc(donationId);
+      await donationsRef
+    //   .where("userId", "==", userId)
+    //   .where("orgName", "==", orgName)
+    //   .where("donationAmount", "==", donationAmount)
+      .delete();
+  
+      return res.status(204).send(` was removed from your donations log`);
+    } catch (e) {
+      console.error("There's an error afoot...", e);
+    }
+  });
+
 
 export default router;
