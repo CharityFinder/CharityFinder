@@ -3,11 +3,8 @@ import { db } from "../config/firebase.js";
 import axios from "axios";
 
 const router = Router();
-
 const BASE_URL = process.env.CN_BASE_URL;
 const CREDENTIALS = `?app_id=${process.env.CN_APP_ID}&app_key=${process.env.CN_APP_KEY}`;
-
-// TODO: Determine the appropriate `pageSize` and `pageNum` for organization response
 
 /**
  * @route [GET] /api/cn/organizations
@@ -37,6 +34,7 @@ router.get("/organizations", async (req, res) => {
       donorPrivacy,
       scopeOfWork,
       cfcCharities,
+      sort /* NAME, RATING, RELEVANCE && APPEND :ASC, :DESC */,
     } = req.query;
 
     let orgs = `${BASE_URL}/Organizations${CREDENTIALS}`;
@@ -51,6 +49,15 @@ router.get("/organizations", async (req, res) => {
     orgs = donorPrivacy ? orgs.concat(`&donorPrivacy=${donorPrivacy}`) : orgs;
     orgs = scopeOfWork ? orgs.concat(`&scopeOfWork=${scopeOfWork}`) : orgs;
     orgs = cfcCharities ? orgs.concat(`&cfcCharities=${cfcCharities}`) : orgs;
+    orgs =
+      sort === "NAME%3AASC" ||
+      sort === "NAME%3ADESC" ||
+      sort === "RATING%3AASC" ||
+      sort === "RATING%3ADESC" ||
+      sort === "RELEVANCE%3AASC" ||
+      sort === "RELEVANCE%3ADESC"
+        ? orgs.concat(`&sort=${sort}`)
+        : orgs;
 
     const orgSnapshot = await axios.get(orgs);
 
@@ -103,12 +110,16 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
 
 /**
  * @route [GET] /api/cn/suggestions
- * @desc GET Interest Area Information
- * @return Interests object, if exists
+ * @desc GET List of Suggested Organizations
+ * @return List of organization objects, if exists
  */
 router.get("/suggestions", async (req, res) => {
   try {
     const { userId } = req.query;
+    const userSnapshot = await db.collection("users").doc(userId).get();
+    const userLocation = userSnapshot.data().state
+      ? userSnapshot.data().state
+      : undefined; // grab state that the user is in
 
     /* Grab Interests */
     const interestsRef = db.collection("interests");
@@ -122,7 +133,6 @@ router.get("/suggestions", async (req, res) => {
       });
     });
 
-    // const pageNum = Math.floor(Math.random() * 2);
     const pageSize = 3;
     const suggestions = [];
 
@@ -130,17 +140,25 @@ router.get("/suggestions", async (req, res) => {
       const causeID = userInterests[i].causeId;
 
       let orgs = `${BASE_URL}/Organizations${CREDENTIALS}&causeID=${causeID}&rated=true&pageSize=${pageSize}`;
+      orgs = userLocation ? orgs.concat(`&state=${userLocation}`) : orgs;
 
-      const orgSnapshot = await axios.get(orgs);
-      suggestions.push(...orgSnapshot.data);
+      try {
+        let orgSnapshot = await axios.get(orgs);
+        suggestions.push(...orgSnapshot.data);
+      } catch (e) {}
     }
-    return res.status(200).json(suggestions);
-
-    // POST-MVP: Keep a search history to provide suggestions
+    return res.status(200).json(removeDuplicates(suggestions));
   } catch (e) {
-    console.error("No organizations meet these requirements");
+    console.error("Suggestions: ", e);
     return res.status(200).json([]);
   }
 });
 
+/* Remove Duplicates */
+const removeDuplicates = (arr) => {
+  return arr.filter(
+    (el, index, self) =>
+      index === self.findIndex((t) => t.ein === el.ein && t.name === el.name)
+  );
+};
 export default router;

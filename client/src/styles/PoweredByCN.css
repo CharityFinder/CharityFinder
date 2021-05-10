@@ -1,0 +1,17 @@
+.powered-by-cn {
+  display: inline-block;
+  color: grey;
+  width: 12rem;
+  height: 2rem;
+  font-size: 60%;
+  font-weight: bold;
+}
+
+.powered-by-cn .logo {
+  height: 100%;
+}
+
+a.powered-by-cn:hover {
+  color: grey;
+  text-decoration: unset;
+}

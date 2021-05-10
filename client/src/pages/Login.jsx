@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
-import { Container, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Button } from "../components/Button";
-import "../styles/Form.css";
+import "../styles/Login.css";
+import { APP_NAME } from "../utils/constants";
 
 export const Login = () => {
   const history = useHistory();
-  const [loginData, setLoginData] = useState({email: "", password: ""});
-  const [errors, setErrors] = useState({})
+  const [loginData, setLoginData] = useState({ email: "", password: "" });
+  const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
@@ -17,30 +18,31 @@ export const Login = () => {
       [e.target.name]: e.target.value,
     });
     // Check and see if errors exist, and remove them from the error object:
-    if ( !!errors[e.target.name] ) setErrors({
-      ...errors,
-      [e.target.name]: null
-    })
+    if (!!errors[e.target.name])
+      setErrors({
+        ...errors,
+        [e.target.name]: null,
+      });
   };
 
   const findFormErrors = () => {
-    const { email, password } = loginData
-    const newErrors = {}
+    const { email, password } = loginData;
+    const newErrors = {};
     // email errors
-    if ( email === '' ) newErrors.email = 'cannot be blank!'
+    if (email === "") newErrors.email = "cannot be blank!";
     // password errors
-    if ( password === '' ) newErrors.password = 'cannot be blank!'
+    if (password === "") newErrors.password = "cannot be blank!";
 
-    return newErrors
-  }
+    return newErrors;
+  };
 
   /* Login User */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = findFormErrors()
-    if ( Object.keys(newErrors).length > 0 ) {
+    const newErrors = findFormErrors();
+    if (Object.keys(newErrors).length > 0) {
       // We got errors!
-      setErrors(newErrors)
+      setErrors(newErrors);
     } else {
       // No errors! Put any logic here for the form submission!
       const { user, error } = await loginUser(loginData);
@@ -48,31 +50,45 @@ export const Login = () => {
         setErrorMessage(error["message"]);
       } else {
         console.log("Logged In User", user);
-        history.push("/");
       }
     }
   };
 
   return (
-    <Container className="jumbotron vertical-center shadow-container shadow-lg">
-      <h1 className="mt-0">Charity Finder</h1>
-      <p>Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder</p>  
-      <h4>{errorMessage}</h4>
-      <Form onSubmit={handleSubmit} noValidate>
+    <div className="login-container">
+      <h5>
+        Welcome to <span className="charity-finder">{APP_NAME}</span>
+        {/* Welcome to {APP_NAME} */}
+      </h5>
+      <Form onSubmit={handleSubmit} noValidate className="login-form">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email</Form.Label>
-          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="email" isInvalid={ !!errors.email } />
+          <Form.Control
+            onChange={handleChange}
+            name="email"
+            isInvalid={!!errors.email}
+          />
         </Form.Group>
 
         <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-          <Form.Control style={{width: "50%", marginLeft: "25%"}} onChange={handleChange} name="password" type="password" isInvalid={ !!errors.password }/>
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            onChange={handleChange}
+            name="password"
+            type="password"
+            isInvalid={!!errors.password}
+          />
         </Form.Group>
 
-        <Form.Group>
-          <Button text="Log In"/>
+        <Form.Group className="submit">
+          <Button text="Log In" />
         </Form.Group>
+
+        <a href="/register" className="register-link">
+          New? Register here
+        </a>
       </Form>
-    </Container>
+      {errorMessage && <h6>{errorMessage}</h6>}
+    </div>
   );
 };

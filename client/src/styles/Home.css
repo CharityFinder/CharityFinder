@@ -1,16 +1,26 @@
-.description {
-  left: 50%;
-  position: absolute;
-  top: 45%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+.home-about p {
+  width: 70%;
+  margin: 0.7rem auto;
+  text-align: left;
+  color: var(--light);
 }
 
-.description h1 {
-  color: #179ca9;
+.home-about .charity-finder {
+  font-size: 1.2rem;
 }
 
-.description p {
-  font-size: 1.3rem;
-  line-height: 1.5;
+@media (max-width: 768px) {
+  .bubble {
+    flex-direction: column;
+  }
+  .login {
+    order: 1;
+  }
+  .home-about {
+    order: 2;
+  }
+  .home-about p {
+    width: 90%;
+    margin: auto;
+  }
 }

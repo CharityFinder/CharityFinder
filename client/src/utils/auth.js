@@ -6,6 +6,7 @@ import "firebase/firestore";
 export const UserContext = createContext({
   user: null,
   userData: null,
+  interests: [],
 });
 
 /**

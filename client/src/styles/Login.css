@@ -1,0 +1,39 @@
+.login-container {
+  width: 20rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-container h5 {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--light);
+}
+
+.login-container .charity-finder {
+  font-size: 140%;
+}
+
+.login-form {
+  text-align: left;
+}
+
+a.register-link {
+  color: white !important;
+  display: inline-block;
+  font-size: 0.8rem;
+  float: right;
+  margin-top: 0.5rem;
+}
+
+.login-form .submit {
+  display: inline-block;
+}
+
+@media (max-width: 500px) {
+  .login-container {
+    width: 100%;
+  }
+}

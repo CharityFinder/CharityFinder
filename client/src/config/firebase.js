@@ -19,5 +19,5 @@ if (!firebase.apps.length) {
 }
 
 export const auth = firebase.auth();
-export const db = firebase.firestore(); // TODO: Move to backend logic
+export const db = firebase.firestore();
 export const FieldValue = firebase.firestore.FieldValue;

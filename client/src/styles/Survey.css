@@ -1,0 +1,74 @@
+.interests-survey {
+  text-align: center;
+  padding-bottom: 2.5rem;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.options .card {
+  display: block;
+  max-height: 8.5rem;
+  max-width: 9rem;
+  overflow: hidden;
+  padding-top: 1rem;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  border-color: rgba(173, 233, 235, 0.466);
+  cursor: pointer;
+  background: var(--primary-extra-light);
+}
+
+.options .card:hover {
+  background: var(--primary-light);
+}
+
+.options .card.true {
+  background: var(--primary-light);
+}
+
+.options .card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 0.5;
+  /* background-image: linear-gradient(
+    130deg,
+    var(--primary-light) 10%,
+    pink 120%
+  ); */
+}
+
+.options .card svg {
+  /* margin-top: 0.25rem; */
+  height: 1.7rem;
+}
+
+.options .card .cause {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bolder;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.submit-survey.btn-primary {
+  color: white;
+  background-color: var(--primary);
+  border: none;
+  margin-top: 2rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+}
+
+.submit-survey.btn-primary:hover {
+  background-color: var(--primary-dark);
+}

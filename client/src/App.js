@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { UserContext, getUser, logoutUser } from "./utils/auth";
 import { auth } from "./config/firebase";
-import "./styles/App.css";
+import axios from "axios";
+
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 
-import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Home } from "./pages/Home";
 import { About } from "./pages/About";
@@ -16,13 +16,24 @@ import { Favorites } from "./pages/Favorites";
 import { Information } from "./pages/Information";
 import { Profile } from "./pages/Profile";
 import { Donations } from "./pages/Donations";
+import "./styles/App.css";
 
 const App = () => {
   const [user, setUser] = useState(auth.currentUser); // TODO: Setup Context or Redux Store
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [interests, setInterests] = useState([]);
 
   useEffect(() => {
+    const getInterests = async (id) => {
+      const res = await axios.get("/api/interests", {
+        params: {
+          userId: id,
+        },
+      });
+      setInterests(res.data);
+    };
+
     auth.onAuthStateChanged(async (user) => {
       setUser(user);
       if (user) {
@@ -30,10 +41,9 @@ const App = () => {
         const userInfo = await getUser(user.uid);
         console.log("User Logged In", userInfo);
         setUserData(userInfo);
-        setLoading(false);
-      } else {
-        setLoading(false);
+        getInterests(user.uid);
       }
+      setLoading(false);
     });
   }, []);
 
@@ -45,36 +55,43 @@ const App = () => {
       console.log(`${code}: ${message}`);
     }
     setUserData(null);
+    setInterests([]);
   };
 
   return (
-    <div className="App">
+    <>
       {loading ? (
-        <h2>Loading...</h2>
+        <h1 className="charity-finder mt-5">Loading...</h1>
       ) : (
-        <div className="home">
+        <>
           <BrowserRouter>
-            <UserContext.Provider value={{ user, userData }}>
-              <Navbar logoutHandler={handleLogout} />
-              
-              <Switch>
-                <Route path="/about" component={About} />
-                <Route path="/register" component={Register} />
-                <Route path="/login" component={Login} />
-                <Route path="/search" component={Search} />
-                <Route path="/survey" component={Survey} />
-                <Route path="/favorites" component={Favorites} />
-                <Route path="/donations" component={Donations} />
-                <Route path="/information" component={Information} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/" component={Home} />
-              </Switch>
+            <UserContext.Provider value={{ user, userData, interests }}>
+              <div className="App">
+                <Navbar logoutHandler={handleLogout} />
+                <Switch>
+                  <Route path="/about" component={About} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/search" component={Search} />
+                  <Route path="/survey" component={Survey} />
+                  <Route path="/favorites" component={Favorites} />
+                  <Route path="/donations" component={Donations} />
+                  <Route path="/information" component={Information} />
+                  <Route path="/profile" component={Profile} />
+                  {user &&
+                    (interests.length > 0 ? (
+                      <Route path="/" component={Search} />
+                    ) : (
+                      <Route path="/" component={Survey} />
+                    ))}
+                  <Route component={Home} />
+                </Switch>
+              </div>
               <Footer />
             </UserContext.Provider>
           </BrowserRouter>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

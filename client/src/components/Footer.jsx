@@ -1,27 +1,14 @@
-import { Navbar as BootstrapNavbar, Nav, Image } from "react-bootstrap";
 import React from "react";
-import Logo from "../images/charitynavigatorlogo.png"
+import "../styles/Footer.css";
+import { CONTACT } from "../utils/constants";
+import { PoweredByCN } from "./PoweredByCN";
 
-export const Footer = () => {
-  // TODO: make text-size scale with screen size
-  return (
-    <BootstrapNavbar fixed="bottom" className="navbar navbar-dark" style={{marginBottom: 0}}>
-      <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
-      <BootstrapNavbar.Collapse id="basic-navbar-nav">
-      <Nav className="mr-0">
-          <Image src={Logo} width="auto" height="auto" />
-      </Nav>
-      <Nav className="mr-auto">
-          <Nav.Item>Powered by: <a style={{color: "white"}} href="https://www.CharityNavigator.org" target=" ">Charity Navigator</a></Nav.Item>
-      </Nav>
-      <Nav className="ml-auto">
-        <Nav.Item>
-          Contact Us: <a href="mailto:contact@charityfinder.us">contact@charityfinder.us</a>  
-        </Nav.Item>          
-      </Nav>
-
-      </BootstrapNavbar.Collapse>
-    </BootstrapNavbar>
- 
-  );
-};
+export const Footer = () => (
+  <footer>
+    <PoweredByCN />
+    <p className="contact">
+      {CONTACT.contact_us}
+      <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+    </p>
+  </footer>
+);

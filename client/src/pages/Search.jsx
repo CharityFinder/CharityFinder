@@ -28,30 +28,8 @@ export const Search = () => {
       });
       setUserFavorites(res.data);
     };
-
     getFavorites();
-  }, [user]);
 
-  // used for printing out changes in searchData in testing
-  // useEffect(() => {console.log(searchData)}, [searchData]);
-
-  //used to filter out fields that the user didn't input
-  const removeEmpty = (obj) => {
-    return Object.fromEntries(Object.entries(obj).filter(([_, v]) => v !== "" && v !== "State"));
-  };
-
-  const getSearchResults = async () => {
-    const empty = removeEmpty(searchData);
-    const res = await axios.get("/api/cn/organizations", {
-      params: {
-        ...empty,
-        rated: true,
-      },
-    });
-    setOrganization(res.data);
-  };
-
-  useEffect(() => {
     const getSuggestions = async () => {
       const res = await axios.get("/api/cn/suggestions", {
         params: {
@@ -61,11 +39,18 @@ export const Search = () => {
 
       setOrganization(res.data);
     };
-
-    (async () => {
-      await getSuggestions();
-    })();
+    getSuggestions();
   }, [user]);
+
+  const getSearchResults = async () => {
+    const res = await axios.get("/api/cn/organizations", {
+      params: {
+        ...searchData,
+        rated: true,
+      },
+    });
+    setOrganization(res.data);
+  };
 
   /* Search */
   const handleSubmit = async (e) => {
@@ -87,7 +72,7 @@ export const Search = () => {
       search: searchData["search"],
       city: "",
       state: "",
-    }
+    };
     setSearchData(newSearchData);
   };
 
@@ -124,27 +109,15 @@ export const Search = () => {
       <Form onSubmit={handleSubmit} noValidate>
         <Searchbar changeHandler={handleChange} />
 
-        <Form.Check
-          className="mx-auto"
-          type="checkbox"
-          id={"default-checkbox-Toggle Advanced Search"}
-          style={{ textAlign: "left", width: "31.8vw", minWidth: "250px" }}
-        >
+        <Form.Check className="mx-auto" type="checkbox">
           <Form.Check.Input
             type="checkbox"
-            name={"Toggle Advanced Search"}
+            name="Advanced Search"
             onChange={toggleAdvanced}
           />
-          <Form.Check.Label> {"Toggle Advanced Search"} </Form.Check.Label>
+          <Form.Check.Label>Advanced Search</Form.Check.Label>
         </Form.Check>
-
-        
-
-        {!isAdvancedSearch ? (
-          <> </>
-        ) : (
-          <AdvancedSearchbar changeHandler={handleChange} />
-        )}
+        {isAdvancedSearch && <AdvancedSearchbar changeHandler={handleChange} />}
       </Form>
       {!hasSearched ? <>Recommendations</> : <>Results</>}
       <Row>{generateOrganizations()}</Row>

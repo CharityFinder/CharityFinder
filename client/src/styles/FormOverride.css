@@ -1,0 +1,16 @@
+.form-label {
+  letter-spacing: 1px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+form .btn {
+  border: none;
+  background: var(--primary-dark) !important;
+}
+
+input.form-control {
+  border-radius: 1rem;
+  border: none;
+}

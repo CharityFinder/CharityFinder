@@ -2,9 +2,6 @@ import { db } from "../config/firebase.js";
 import { Router } from "express";
 const router = Router();
 
-// TODO: Update documentation
-// TODO: Update Error Handling
-
 /**
  * @route [GET] /api/favorites
  * @desc Get All Favorites
@@ -36,12 +33,14 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { orgName, orgId, orgAddress, userId, tagLine } = req.query;
-
     const favoritesRef = db.collection("favorites");
+    const favSnapshot = await favoritesRef
+      .where("orgId", "==", orgId)
+      .where("userId", "==", userId)
+      .get();
 
-    const snapshot = await favoritesRef.where("orgId", "==", orgId).where("userId", "==", userId).get(); // does not favorite the same organization more than once for each user
-
-    if (snapshot._size === 0) {
+    /* Add to Favorites, Avoid Duplicates */
+    if (favSnapshot.docs.length === 0) {
       await favoritesRef.add({
         orgName,
         orgId,
@@ -51,9 +50,30 @@ router.post("/", async (req, res) => {
       });
     }
 
+    /* Append stats table to keep track of most favorited Organizations */
+    const statsRef = db.collection("stats");
+    const statsSnapshot = await statsRef.where("orgId", "==", orgId).get();
+
+    if (statsSnapshot.docs.length > 0) {
+      const documentSnapshot = statsSnapshot.docs[0];
+      const totalFavorites = documentSnapshot.data().totalFavorites + 1;
+      const statsDocRef = db.collection("stats").doc(documentSnapshot.id);
+
+      /* Increment Count for Charity */
+      await statsDocRef.update({ totalFavorites });
+    } else {
+      await statsRef.add({
+        orgId,
+        orgName,
+        tagLine,
+        orgAddress,
+        totalFavorites: 1,
+      });
+    }
+
     return res.status(204).send("Favorited :)");
   } catch (e) {
-    console.error("There's an error afoot...", e);
+    return res.status(304).send("Something went wrong");
   }
 });
 
@@ -121,7 +141,6 @@ router.delete("/:favoriteId", async (req, res) => {
     const { favoriteId } = req.params;
 
     const favoriteRef = db.collection("favorites").doc(favoriteId);
-
     await favoriteRef.delete();
 
     return res.status(204).send(`${orgName} was removed from your causes`);

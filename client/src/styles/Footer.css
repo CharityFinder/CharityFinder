@@ -1,0 +1,21 @@
+footer {
+  width: 100%;
+  height: var(--footer-height);
+  color: rgb(55, 74, 75);
+  font-weight: 400;
+  font-size: 80%;
+  padding: 0.6rem 0;
+}
+
+footer .contact {
+  display: inline-block;
+  float: right;
+  margin-right: 1rem;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+footer .powered-by-cn {
+  float: left;
+}
