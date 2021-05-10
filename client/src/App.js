@@ -16,6 +16,7 @@ import { Favorites } from "./pages/Favorites";
 import { Information } from "./pages/Information";
 import { Profile } from "./pages/Profile";
 import { Donations } from "./pages/Donations";
+import { Popular } from "./pages/Popular";
 import "./styles/App.css";
 
 const App = () => {
@@ -77,6 +78,7 @@ const App = () => {
                   <Route path="/donations" component={Donations} />
                   <Route path="/information" component={Information} />
                   <Route path="/profile" component={Profile} />
+                  <Route path="/popular" component={Popular} />
                   {user &&
                     (interests.length > 0 ? (
                       <Route path="/" component={Search} />
