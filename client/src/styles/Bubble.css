@@ -1,0 +1,9 @@
+.bubble {
+  width: 95%;
+  min-height: 80vh;
+  margin: auto;
+  margin-top: 1rem;
+  background: var(--primary);
+  border-radius: 1rem;
+  justify-content: center;
+}

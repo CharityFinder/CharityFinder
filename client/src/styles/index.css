@@ -60,47 +60,7 @@ a {
   letter-spacing: 2px;
 }
 
-.navbar-cf .navbar-nav .nav-link {
-  /* color: var(--primary-dark); */
-  /* color: rgb(116, 116, 116) !important; */
-}
-
-.navbar-cf.navbar-nav .nav-link:hover {
-  /* color: var(--primary); */
-}
-
 .nav-item {
   font-size: clamp(11px, 1vw, 16px);
   font-weight: 400;
-}
-
-/* For the bubble component, should be moved */
-.bubble {
-  width: 95%;
-  min-height: 80vh;
-  margin: auto;
-  margin-top: 1rem;
-  background: var(--primary);
-  border-radius: 1rem;
-}
-
-/* For the register component, should be moved */
-.register-form,
-.register-container p {
-  width: 80%;
-  min-width: 15rem;
-  max-width: 30rem;
-  margin: auto;
-}
-.register-form {
-  text-align: left;
-}
-.register-container h3 {
-  width: fit-content;
-  margin: auto;
-}
-.register-container p {
-  color: var(--light);
-  font-size: 0.8rem;
-  width: 60%;
 }

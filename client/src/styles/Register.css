@@ -1,0 +1,19 @@
+.register-form,
+.register-container p {
+  width: 80%;
+  min-width: 15rem;
+  max-width: 30rem;
+  margin: auto;
+}
+.register-form {
+  text-align: left;
+}
+.register-container h3 {
+  width: fit-content;
+  margin: auto;
+}
+.register-container p {
+  color: var(--light);
+  font-size: 0.8rem;
+  width: 60%;
+}
