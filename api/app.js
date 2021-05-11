@@ -4,6 +4,7 @@ import favoriteRouter from "./routes/favorites.js";
 import statsRouter from "./routes/stats.js";
 import interestRouter from "./routes/interests.js";
 import thirdpartyRouter from "./routes/thirdparty.js";
+import usersRouter from "./routes/users.js";
 import donationsRouter from "./routes/donations.js";
 
 (async () => {
@@ -34,6 +35,7 @@ import donationsRouter from "./routes/donations.js";
     app.use("/api/stats", statsRouter);
     app.use("/api/interests", interestRouter);
     app.use("/api/cn", thirdpartyRouter);
+    app.use("/api/users", usersRouter);
     app.use("/api/donations", donationsRouter);
 
     app.get("/api", async (req, res) => {
