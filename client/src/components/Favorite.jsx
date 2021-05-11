@@ -40,7 +40,7 @@ export const Favorite = ({ name, ein, isFavorited, organization }) => {
   const removeFavorite = async () => {
     await axios.delete("/api/favorites/" + isFavorited, {
       params: {
-        orgName: name,
+        orgId: ein,
       },
     });
   };
