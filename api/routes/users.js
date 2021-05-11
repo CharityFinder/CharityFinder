@@ -10,17 +10,19 @@ const router = Router();
  */
 router.put("/:userId", async (req, res) => {
   try {
-    const { firstName, lastName, city, state, zipcode } = req.query;
+    //const { firstName, lastName, city, state, zipcode } = req.query;
+    const { userBody } = req.query;
     const { userId } = req.params;
 
     const userRef = db.collection("users").doc(userId);
 
     await userRef.update({
-      firstName,
-      lastName,
-      city,
-      state,
-      zipcode,
+      // firstName,
+      // lastName,
+      // city,
+      // state,
+      // zipcode,
+      ...userBody
     });
 
     return res.status(204).send(`Information was updated`);
