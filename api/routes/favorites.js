@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
  */
 router.post("/", async (req, res) => {
   try {
-    const { orgName, orgId, orgAddress, userId, tagLine } = req.body; //CHANGEEUYBHCLSJFDHBCSLDJFH
+    const { orgName, orgId, orgAddress, userId, tagLine } = req.query;
     const favoritesRef = db.collection("favorites");
     const favSnapshot = await favoritesRef
       .where("orgId", "==", orgId)
@@ -136,7 +136,7 @@ router.put("/:favoriteId", async (req, res) => {
  */
 router.delete("/:favoriteId", async (req, res) => {
   try {
-    const { orgId } = req.body; //CHANQEYDHBLWIEURDHNW;EIDNJX
+    const { orgId } = req.query;
     const { favoriteId } = req.params;
 
     const favoriteRef = db.collection("favorites").doc(favoriteId);
