@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerUser } from "../utils/auth";
-import { Form } from "react-bootstrap";
-import { Button } from "../components/Button";
-import "../styles/Login.css";
-import { Bubble } from "../components/Bubble";
 import { STATE_ABBREVIATIONS } from "../utils/constants";
+import { Button } from "../components/Button";
+import { Bubble } from "../components/Bubble";
+import { Form } from "react-bootstrap";
+import "../styles/Register.css";
 
 export const Register = () => {
   const history = useHistory();

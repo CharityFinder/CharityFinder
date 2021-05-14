@@ -68,7 +68,7 @@ export const PROJECT_PEEPS = [
 
 export const CONTACT = {
   contact_us: "Contact Us:",
-  email: "contact@charityfinder.us",
+  email: "contact@charityfinder.co",
 };
 /* Cause Areas In CharityNavigator */
 export const CAUSES = [
