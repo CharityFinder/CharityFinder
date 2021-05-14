@@ -66,7 +66,14 @@ export const Donations = () => {
     refreshDonations();
   };
 
-
+  // parses through contributions and sums up results
+  const getTotalContributions = () => {
+    let retVal = 0;
+    contributions.forEach((contribution) => {
+      retVal += parseInt(contribution.donationAmount);
+    });
+    return retVal;
+  }
 
   const generateContributions = () => {
     return contributions.map((contribution) => {
@@ -113,7 +120,7 @@ export const Donations = () => {
       >
         My Donations:
       </h2>
-      Total Contributions:
+      Total Contributions: ${getTotalContributions()}
       <Table
         striped
         bordered
