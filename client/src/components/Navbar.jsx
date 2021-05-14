@@ -22,6 +22,7 @@ export const Navbar = ({ logoutHandler }) => {
             </>
           ) : (
             <>
+              <Nav.Link href="/popular">Popular</Nav.Link>
               <Nav.Link href="/favorites">Favorites</Nav.Link>
               <Nav.Link href="/profile">Profile</Nav.Link>
               <Nav.Link href="/donations">Donations</Nav.Link>

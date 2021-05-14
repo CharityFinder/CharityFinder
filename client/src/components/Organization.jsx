@@ -5,13 +5,14 @@ import queryString from 'query-string'
 import { Favorite } from '../components/Favorite'
 import "../styles/Cards.css"
 
-export const Organization = ({name, ein, isFavorited, organization}) => {
+export const Organization = ({name, ein, isFavorited, organization, numFavorited}) => {
     return (
         <Card className="column" style={{margin: 5}}>
         <Card.Body>
           <Card.Title>{name}</Card.Title>
           <Card.Text>
-            {organization.tagLine}
+            {organization.tagLine} <br/> <br/>
+            {numFavorited ? "Favorites:" : ""} {numFavorited}
           </Card.Text>
           <Favorite name={name} ein={ein} isFavorited={isFavorited} organization={organization} />
           <Link to={`/information/?${queryString.stringify({ein})}`} style={{textAlign:"center", position:"absolute", bottom:25, left: 89.5}}>
