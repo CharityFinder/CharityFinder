@@ -27,7 +27,7 @@ export const Popular = () => {
       setOrganization(res.data);
     };
     getPopular();
-  }, [organizations]);  
+  }, []);  
 
   const checkFavorited = (ein) => {
     // checks if this ein exists in userfavorites
