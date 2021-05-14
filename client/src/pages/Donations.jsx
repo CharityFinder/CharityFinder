@@ -32,6 +32,18 @@ export const Donations = () => {
     getDonations();
   }, [user]);
 
+  // finds form errors
+  const findFormErrors = () => {
+    const { name, amount } = donationData;
+    const newErrors = {};
+    // name errors
+    if (name === "") newErrors.name = "cannot be blank!";
+    // donation errors
+    if (amount === 0 || amount === NaN || amount === "") newErrors.amount = "cannot be blank!";
+
+    return newErrors;
+  };
+
   const handleChange = (e) => {
     setDonationData({
       ...donationData,
@@ -47,13 +59,22 @@ export const Donations = () => {
 
   //should make an axios call to add a donation to the user
   const handleSubmit = async (e) => {
-    await axios.post("/api/donations", null, {
-      params: {
-        orgName: donationData.name,
-        donationAmount: donationData.amount,
-        userId: user.uid,
-      },
-    });
+    e.preventDefault();
+    const newErrors = findFormErrors();
+    if (Object.keys(newErrors).length > 0) {
+      // We got errors!
+      setErrors(newErrors);
+    } else {
+      // No errors! Put any logic here for the form submission!
+      await axios.post("/api/donations", null, {
+        params: {
+          orgName: donationData.name,
+          donationAmount: donationData.amount,
+          userId: user.uid,
+        },
+      });
+      refreshDonations();
+    }
   };
 
   //pulls id from svg tag and then refreshes donations 
@@ -103,11 +124,11 @@ export const Donations = () => {
       <Form onSubmit={handleSubmit} className="mx-auto" style={{width: "31.8vw", minWidth: "250px"}}>
         <Form.Group controlId="formGroupOrganization" >
           <Form.Label>Organization Name</Form.Label>
-          <Form.Control type="text" name="name" placeholder="Enter Organization Name" style={{border:"1px solid #ced4da", borderRadius:".25rem"}} onChange={handleChange}/>
+          <Form.Control type="text" name="name" placeholder="Enter Organization Name" style={{border:"1px solid #ced4da", borderRadius:".25rem"}} onChange={handleChange} isInvalid={!!errors.name}/>
         </Form.Group>
         <Form.Group controlId="formGroupDonation">
           <Form.Label>Amount Donated</Form.Label>
-          <Form.Control type="number" name="amount" placeholder="Enter Amount Donated" style={{border:"1px solid #ced4da", borderRadius:".25rem"}} onChange={handleChange}/>
+          <Form.Control type="number" name="amount" placeholder="Enter Amount Donated" style={{border:"1px solid #ced4da", borderRadius:".25rem"}} onChange={handleChange} isInvalid={!!errors.amount}/>
         </Form.Group>
         <Button variant="primary" type="submit">
             Submit
