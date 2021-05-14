@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
 import { Form } from "react-bootstrap";
 import { Button } from "../components/Button";
@@ -7,7 +6,6 @@ import "../styles/Login.css";
 import { APP_NAME } from "../utils/constants";
 
 export const Login = () => {
-  const history = useHistory();
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
