@@ -48,32 +48,31 @@ router.post("/", async (req, res) => {
         userId,
         tagLine,
       });
+
+      /* Append stats table to keep track of most favorited organizations */
+      const statsRef = db.collection("stats");
+      const statsSnapshot = await statsRef.where("orgId", "==", orgId).get();
+
+      if (statsSnapshot.docs.length > 0) {
+        const documentSnapshot = statsSnapshot.docs[0];
+        const totalFavorites = documentSnapshot.data().totalFavorites + 1;
+        const statsDocRef = db.collection("stats").doc(documentSnapshot.id);
+
+        /* Increment Count for Charity */
+        await statsDocRef.update({ totalFavorites });
+      } else {
+        await statsRef.add({
+          orgId,
+          orgName,
+          tagLine,
+          orgAddress,
+          totalFavorites: 1,
+        });
+      }
     }
-
-    /* Append stats table to keep track of most favorited Organizations */
-    const statsRef = db.collection("stats");
-    const statsSnapshot = await statsRef.where("orgId", "==", orgId).get();
-
-    if (statsSnapshot.docs.length > 0) {
-      const documentSnapshot = statsSnapshot.docs[0];
-      const totalFavorites = documentSnapshot.data().totalFavorites + 1;
-      const statsDocRef = db.collection("stats").doc(documentSnapshot.id);
-
-      /* Increment Count for Charity */
-      await statsDocRef.update({ totalFavorites });
-    } else {
-      await statsRef.add({
-        orgId,
-        orgName,
-        tagLine,
-        orgAddress,
-        totalFavorites: 1,
-      });
-    }
-
     return res.status(204).send("Favorited :)");
   } catch (e) {
-    return res.status(304).send("Something went wrong");
+    return res.status(304).send("Something went wrong", e);
   }
 });
 
@@ -137,13 +136,35 @@ router.put("/:favoriteId", async (req, res) => {
  */
 router.delete("/:favoriteId", async (req, res) => {
   try {
-    const { orgName } = req.query;
+    const { orgId } = req.query;
     const { favoriteId } = req.params;
 
     const favoriteRef = db.collection("favorites").doc(favoriteId);
+
+    /* Update stats table to keep track of most favorited organizations */
+    const statsRef = db.collection("stats");
+    const statsSnapshot = await statsRef.where("orgId", "==", orgId).get();
+    const statData = statsSnapshot.docs[0].data();
+    const statId = statsSnapshot.docs[0].id;
+
+    if (statsSnapshot.docs.length > 0) {
+      const statsDocref = db.collection("stats").doc(statId);
+      const totalFavorites = statData.totalFavorites - 1;
+
+      if (totalFavorites === 0) {
+        /* Remove organization from stats */
+        await statsDocref.delete();
+      } else {
+        /* Decrement Count for Charity */
+        await statsDocref.update({ totalFavorites });
+      }
+    }
+
     await favoriteRef.delete();
 
-    return res.status(204).send(`${orgName} was removed from your causes`);
+    return res
+      .status(204)
+      .send(`An organization was successfully removed from your causes`);
   } catch (e) {
     console.error("There's an error afoot...", e);
   }
