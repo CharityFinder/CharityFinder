@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { loginUser } from "../utils/auth";
 import { Form } from "react-bootstrap";
 import { Button } from "../components/Button";
@@ -7,7 +6,6 @@ import "../styles/Login.css";
 import { APP_NAME } from "../utils/constants";
 
 export const Login = () => {
-  const history = useHistory();
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -29,9 +27,9 @@ export const Login = () => {
     const { email, password } = loginData;
     const newErrors = {};
     // email errors
-    if (email === "") newErrors.email = "cannot be blank!";
+    if (!email) newErrors.email = "cannot be blank!";
     // password errors
-    if (password === "") newErrors.password = "cannot be blank!";
+    if (!password) newErrors.password = "cannot be blank!";
 
     return newErrors;
   };
