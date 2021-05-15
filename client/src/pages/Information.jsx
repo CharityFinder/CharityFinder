@@ -9,7 +9,7 @@ export const Information = (props) => {
   const { user } = useContext(UserContext);
   const [info, setInfo] = useState([]);
   const [userFavorites, setUserFavorites] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   // gets user favorites and passes it down to the organization/favorite component whether or not it is favorited
   useEffect(() => {
     const getFavorites = async () => {
@@ -38,6 +38,7 @@ export const Information = (props) => {
 
     (async () => {
       await getInfo();
+      setLoading(false);
     })();
   }, [ein]);
 
@@ -53,22 +54,30 @@ export const Information = (props) => {
 
   const generateCard = () => {
     return (
-      <Card
-        key={ein}
-        name={info.charityName}
-        ein={ein}
-        isFavorited={checkFavorited(ein)}
-        organization={info}
-      />
+      <div className="flex">
+        <Card
+          key={ein}
+          name={info.charityName}
+          ein={ein}
+          isFavorited={checkFavorited(ein)}
+          organization={info}
+        />
+      </div>
     );
   };
 
   return (
     <Container>
-      <h2 className="mx-auto" style={{ width: "50%", paddingTop: "5rem" }}>
-        Information:{" "}
-      </h2>
-      <Row>{generateCard()}</Row>
+      {loading ? (
+        <h1 className="charity-finder mt-5">Loading...</h1>
+      ) : (
+        <>
+          <h2 className="mx-auto" style={{ width: "50%", paddingTop: "5rem" }}>
+            Information:{" "}
+          </h2>
+          <Row className="info-container">{generateCard()}</Row>
+        </>
+      )}
     </Container>
   );
 };

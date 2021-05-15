@@ -1,0 +1,13 @@
+.ratings {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0.7rem;
+}
+
+.ratings p {
+  text-align: right;
+}
+
+.ratings div {
+  text-align: left;
+}
