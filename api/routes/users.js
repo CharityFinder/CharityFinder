@@ -2,7 +2,6 @@ import { db } from "../config/firebase.js";
 import { Router } from "express";
 const router = Router();
 
-
 /**
  * @route [PUT] /api/users
  * @desc Update Users' information in the profile page
@@ -13,6 +12,7 @@ router.put("/:userId", async (req, res) => {
     //const { firstName, lastName, city, state, zipcode } = req.query;
     const { userBody } = req.query;
     const { userId } = req.params;
+    let newUserBody = JSON.parse(userBody);
 
     const userRef = db.collection("users").doc(userId);
 
@@ -22,7 +22,7 @@ router.put("/:userId", async (req, res) => {
       // city,
       // state,
       // zipcode,
-      ...userBody
+      ...newUserBody
     });
 
     return res.status(204).send(`Information was updated`);
