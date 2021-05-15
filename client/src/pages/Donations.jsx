@@ -28,9 +28,9 @@ export const Donations = () => {
     const { name, amount } = donationData;
     const newErrors = {};
     // name errors
-    if (name === "") newErrors.name = "cannot be blank!";
+    if (!name) newErrors.name = "cannot be blank!";
     // donation errors
-    if (amount === 0 || amount === NaN || amount === "")
+    if (!parseInt(amount))
       newErrors.amount = "cannot be blank!";
 
     return newErrors;

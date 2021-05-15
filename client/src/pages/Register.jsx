@@ -35,13 +35,13 @@ export const Register = () => {
     const { firstName, lastName, email, password } = loginData;
     const newErrors = {};
     // firstName errors
-    if (firstName === "") newErrors.firstName = "cannot be blank!";
+    if (!firstName) newErrors.firstName = "cannot be blank!";
     // lastName errors
-    if (lastName === "") newErrors.lastName = "cannot be blank!";
+    if (!lastName) newErrors.lastName = "cannot be blank!";
     // email errors
-    if (email === "") newErrors.email = "cannot be blank!";
+    if (!email) newErrors.email = "cannot be blank!";
     // password errors
-    if (password === "") newErrors.password = "cannot be blank!";
+    if (!password) newErrors.password = "cannot be blank!";
 
     return newErrors;
   };

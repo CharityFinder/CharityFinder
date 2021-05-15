@@ -27,9 +27,9 @@ export const Login = () => {
     const { email, password } = loginData;
     const newErrors = {};
     // email errors
-    if (email === "") newErrors.email = "cannot be blank!";
+    if (!email) newErrors.email = "cannot be blank!";
     // password errors
-    if (password === "") newErrors.password = "cannot be blank!";
+    if (!password) newErrors.password = "cannot be blank!";
 
     return newErrors;
   };
