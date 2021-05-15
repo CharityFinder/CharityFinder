@@ -11,7 +11,7 @@ export const Profile = () => {
   
   const generateInterests = () => {
     return interests.map((interest) => {
-      return <p key={interest.causeId}>{CAUSES.filter(cause => cause.causeId === interest.causeId)[0].causeName}</p>
+      return <p key={interest.causeId}>{CAUSES.filter(cause => parseInt(cause.causeId) === parseInt(interest.causeId))[0].causeName}</p>
     })
   }
 
