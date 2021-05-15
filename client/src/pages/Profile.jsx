@@ -79,15 +79,20 @@ export const Profile = () => {
       <p>Zipcode: {userData.zipcode}</p>
       <br/>
       <h3>Current Interests:</h3>
-      <Table
-        striped
-        bordered
-        hover
-        style={{ width: "31.8vw", minWidth: "250px", margin: "auto" }}
-      >
-        <tbody>{generateInterests()}</tbody>
-      </Table>
-      <Link to={`/survey/`}>Retake Survey</Link>
+      {!userInterests.length ? 
+        <p> No Current Interests </p>
+        : 
+        <Table
+          striped
+          bordered
+          hover
+          style={{ width: "31.8vw", minWidth: "250px", margin: "auto" }}
+        >
+          <tbody>{generateInterests()}</tbody>
+        </Table>
+      }
+
+      <Link to={`/survey/`}>Add Interests</Link>
     </Container>
   );
 };
