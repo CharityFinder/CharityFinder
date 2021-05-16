@@ -69,7 +69,7 @@ export const Donations = () => {
     }
   };
 
-  //pulls id from svg tag and then refreshes donations
+  //deletes donations and refreshes view
   const handleDelete = async (id) => {
     await axios.delete("/api/donations/" + id, {
       params: {
