@@ -1,10 +1,46 @@
 .bigcard {
-  width: 40rem;
+  width: 90%;
+  max-width: 40rem;
   height: auto;
-  justify-content: center;
-  
+  margin: auto;
+  padding-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 .row {
   margin-bottom: 150px;
+}
+
+.irs-info {
+  margin-top: 2rem;
+  border: var(--primary-light) 1px solid;
+  border-radius: 0.7rem;
+  text-align: left;
+  padding: 2rem;
+}
+
+.irs-info h5 {
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.irs-info .tag-container {
+  display: flex;
+  padding-top: 1rem;
+}
+
+.irs-info .tag-container .title {
+  font-weight: bold;
+  padding-right: 2rem;
+}
+
+.tagline,
+.address {
+  margin: 0;
+  color: rgb(107, 102, 102);
+  font-size: 90%;
+}
+
+.ratings-container {
+  margin: 1rem;
 }
