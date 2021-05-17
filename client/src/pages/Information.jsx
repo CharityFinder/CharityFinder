@@ -72,9 +72,6 @@ export const Information = (props) => {
         <h1 className="charity-finder mt-5">Loading...</h1>
       ) : (
         <>
-          <h2 className="mx-auto" style={{ width: "50%", paddingTop: "5rem" }}>
-            Information:{" "}
-          </h2>
           <Row className="info-container">{generateCard()}</Row>
         </>
       )}
