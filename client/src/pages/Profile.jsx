@@ -22,24 +22,23 @@ export const Profile = () => {
 
   //pulls the information from usercontext into a state to display with
   useEffect(() => {
-    const getInterests = async (id) => {
+    const getInterests = async () => {
       try {
         const res = await axios.get("/api/interests", {
           params: {
-            userId: id,
+            userId: user.uid,
           },
         });
-        setUserInterests(res.data || []);
+        console.log("Profile", res);
+        setUserInterests(res.data);
       } catch {
         console.log("no interests profile");
         setUserInterests([]);
       }
     };
 
-    if (userInterests.length === 0) {
-      setUserInterests(interests || []);
-    }
-  }, [interests]);
+    getInterests();
+  }, []);
 
   //pulls information into states
   const handleChange = (e) => {

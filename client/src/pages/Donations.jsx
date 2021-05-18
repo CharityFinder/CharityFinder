@@ -84,9 +84,12 @@ export const Donations = () => {
   const getTotalContributions = () => {
     let retVal = 0;
     contributions &&
-      contributions.forEach((contribution) => {
-        retVal += parseInt(contribution.donationAmount);
+      Array.prototype.forEach.call(contributions, (c) => {
+        retVal += parseInt(c.donationAmount);
       });
+    // contributions.forEach((contribution) => {
+    //     retVal += parseInt(contribution.donationAmount);
+    //   });
     return retVal;
   };
 

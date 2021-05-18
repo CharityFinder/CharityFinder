@@ -36,7 +36,7 @@ export const Search = () => {
           userId: user.uid,
         },
       });
-
+      console.log("suggestions", res.data, res);
       setOrganization(res.data || []);
     };
     getSuggestions();
@@ -49,6 +49,7 @@ export const Search = () => {
         rated: true,
       },
     });
+    console.log("organizations", res.data, res);
     setOrganization(res.data || []);
   };
 
@@ -90,6 +91,7 @@ export const Search = () => {
     if (organization.length === 0) {
       return "No Results";
     } else {
+      console.log("Orgs are", organization);
       return (
         organization &&
         organization.length > 0 &&
