@@ -9,6 +9,8 @@ export const Popular = () => {
   const [organizations, setOrganization] = useState([]); /* REST API enpoint */
   const [userFavorites, setUserFavorites] = useState([]);
 
+  console.log("Popular user", user);
+
   useEffect(() => {
     const getFavorites = async () => {
       const res = await axios.get("/api/favorites", {
@@ -16,7 +18,7 @@ export const Popular = () => {
           userId: user.uid,
         },
       });
-      setUserFavorites(res.data);
+      setUserFavorites(res.data || []);
     };
     getFavorites();
   }, [user]);
@@ -27,7 +29,7 @@ export const Popular = () => {
       setOrganization(res.data);
     };
     getPopular();
-  }, []);  
+  }, []);
 
   const checkFavorited = (ein) => {
     // checks if this ein exists in userfavorites
@@ -62,5 +64,5 @@ export const Popular = () => {
     <Container style={{ paddingTop: 60, paddingBottom: 83 }}>
       <Row>{generateOrganizations()}</Row>
     </Container>
-  )
-}
+  );
+};

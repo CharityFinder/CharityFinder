@@ -8,7 +8,7 @@ import { AdvancedSearchbar } from "../components/AdvancedSearchbar";
 
 export const Search = () => {
   const { user } = useContext(UserContext);
-  const [organizations, setOrganization] = useState([]); /* REST API enpoint */
+  const [organization, setOrganization] = useState([]); /* REST API enpoint */
   const [searchData, setSearchData] = useState({
     search: "",
     city: "",
@@ -37,7 +37,7 @@ export const Search = () => {
         },
       });
 
-      setOrganization(res.data);
+      setOrganization(res.data || []);
     };
     getSuggestions();
   }, [user]);
@@ -49,7 +49,7 @@ export const Search = () => {
         rated: true,
       },
     });
-    setOrganization(res.data);
+    setOrganization(res.data || []);
   };
 
   /* Search */
@@ -73,7 +73,7 @@ export const Search = () => {
       city: "",
       state: "",
     };
-    setSearchData(newSearchData);
+    setSearchData(newSearchData || []);
   };
 
   const checkFavorited = (ein) => {
@@ -87,20 +87,24 @@ export const Search = () => {
   };
 
   const generateOrganizations = () => {
-    if (organizations.length === 0) {
+    if (organization.length === 0) {
       return "No Results";
     } else {
-      return organizations.map((organization) => {
-        return (
-          <Organization
-            key={organization.ein}
-            name={organization.charityName}
-            ein={organization.ein}
-            isFavorited={checkFavorited(organization.ein)}
-            organization={organization}
-          />
-        );
-      });
+      return (
+        organization &&
+        organization.length > 0 &&
+        organization.map((organization) => {
+          return (
+            <Organization
+              key={organization.ein}
+              name={organization.charityName}
+              ein={organization.ein}
+              isFavorited={checkFavorited(organization.ein)}
+              organization={organization}
+            />
+          );
+        })
+      );
     }
   };
 

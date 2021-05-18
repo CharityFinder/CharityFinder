@@ -31,7 +31,11 @@ export const Survey = () => {
 
   /* TODO: ADD UPDATE/REMOVE INTERESTS IN PROFILE */
   const handleAddInterests = async () => {
-    await addInterest(user.uid, causeSelected);
+    try {
+      await addInterest(user.uid, causeSelected);
+    } catch {
+      console.log("did not add");
+    }
     history.push("/search");
   };
 
