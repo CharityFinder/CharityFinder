@@ -8,11 +8,15 @@ const router = Router();
  * @return List of all "interest" areas
  */
 router.get("/", async (req, res) => {
+  console.log("###1");
   try {
     const { userId } = req.query;
     const interestsRef = db.collection("interests");
 
+    console.log("###2", userId);
     const snapshot = await interestsRef.where("userId", "==", userId).get();
+
+    console.log("###3", snapshot, snapshot.size);
 
     let userInterests = [];
 
@@ -24,6 +28,7 @@ router.get("/", async (req, res) => {
 
     return res.status(200).json(userInterests);
   } catch (e) {
+    return res.status(200).json([]);
     console.error("Could not get user interests. There's an error afoot...", e);
   }
 });
@@ -43,7 +48,7 @@ router.post("/", async (req, res) => {
       .where("userId", "==", userId)
       .get();
 
-    // Check if organization has already been favorited
+    // Check if organization has already been added
     if (snapshot._size === 0) {
       await interestRef.add({
         causeId,

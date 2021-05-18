@@ -61,7 +61,9 @@ router.get("/organizations", async (req, res) => {
 
     const orgSnapshot = await axios.get(orgs);
 
-    return res.status(200).json(orgSnapshot.data || []);
+    return res
+      .status(200)
+      .json(Array.isArray(orgSnapshot.data) ? orgSnapshot.data : []);
   } catch (e) {
     // console.error("No organizations meet the requirements");
     return res.status(200).json([]);
@@ -81,10 +83,10 @@ router.get("/organizations/:ein", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}${CREDENTIALS}`
     );
 
-    return res.status(200).json(orgSnapshot.data || []);
+    return res.status(200).json(orgSnapshot.data || {});
   } catch (e) {
     // console.error("No organizations meet the requirements");
-    return res.status(200).json([]);
+    return res.status(200).json({});
   }
 });
 
