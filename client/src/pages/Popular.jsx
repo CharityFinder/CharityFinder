@@ -26,7 +26,7 @@ export const Popular = () => {
   useEffect(() => {
     const getPopular = async () => {
       const res = await axios.get("/api/stats");
-      setOrganization(res.data);
+      setOrganization(res.data || []);
     };
     getPopular();
   }, []);
@@ -42,10 +42,11 @@ export const Popular = () => {
   };
 
   const generateOrganizations = () => {
+    console.log("ORGS###", organizations);
     if (organizations.length === 0) {
       return "No Results";
     } else {
-      return organizations.map((organization) => {
+      return Array.prototype.organizations.map.call((organization) => {
         return (
           <Organization
             key={organization.orgId}

@@ -11,7 +11,7 @@ export const Favorites = () => {
   console.log("Favorites user", user);
   useEffect(() => {
     const getFavorites = async () => {
-      const res = await axios.get("/api/favorites", {
+      const res = await axios.get("api/favorites", {
         params: {
           userId: user.uid,
         },
@@ -23,10 +23,11 @@ export const Favorites = () => {
   }, [user]);
 
   const generateFavorites = () => {
+    console.log("FAVORITES###", userFavorites);
     if (userFavorites.length === 0) {
       return "No Favorites";
     } else {
-      return userFavorites.map((userFavorite) => (
+      return Array.prototype.userFavorites.map.call((userFavorite) => (
         <Organization
           key={userFavorite.orgId}
           name={userFavorite.orgName}

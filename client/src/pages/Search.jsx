@@ -8,7 +8,7 @@ import { AdvancedSearchbar } from "../components/AdvancedSearchbar";
 
 export const Search = () => {
   const { user } = useContext(UserContext);
-  const [organization, setOrganization] = useState([]); /* REST API enpoint */
+  const [organizations, setOrganizations] = useState([]); /* REST API enpoint */
   const [searchData, setSearchData] = useState({
     search: "",
     city: "",
@@ -37,7 +37,7 @@ export const Search = () => {
         },
       });
       console.log("suggestions", res.data, res);
-      setOrganization(res.data || []);
+      setOrganizations(res.data || []);
     };
     getSuggestions();
   }, [user]);
@@ -50,7 +50,7 @@ export const Search = () => {
       },
     });
     console.log("organizations", res.data, res);
-    setOrganization(res.data || []);
+    setOrganizations(res.data || []);
   };
 
   /* Search */
@@ -68,7 +68,7 @@ export const Search = () => {
   };
 
   const toggleAdvanced = (e) => {
-    setIsAdvancedSearch((previousAdvancedValue) => !previousAdvancedValue);
+    setIsAdvancedSearch((prevVal) => !prevVal);
     const newSearchData = {
       search: searchData["search"],
       city: "",
@@ -88,24 +88,25 @@ export const Search = () => {
   };
 
   const generateOrganizations = () => {
-    if (organization.length === 0) {
+    console.log("ORGS###", organizations);
+    if (organizations.length === 0) {
       return "No Results";
     } else {
-      console.log("Orgs are", organization);
+      console.log("Orgs are", organizations);
       return (
-        organization &&
-        organization.length > 0 &&
-        organization.map((organization) => {
-          return (
-            <Organization
-              key={organization.ein}
-              name={organization.charityName}
-              ein={organization.ein}
-              isFavorited={checkFavorited(organization.ein)}
-              organization={organization}
-            />
-          );
-        })
+        organizations && organizations.length > 0
+        // &&
+        // Array.prototype.organizations.map.call((org) => {
+        //   return (
+        //     <Organization
+        //       key={org.ein}
+        //       name={org.charityName}
+        //       ein={org.ein}
+        //       isFavorited={checkFavorited(org.ein)}
+        //       organization={org}
+        //     />
+        //   );
+        // })
       );
     }
   };

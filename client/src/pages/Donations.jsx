@@ -9,10 +9,10 @@ export const Donations = () => {
   const [errors, setErrors] = useState({});
   const [contributions, setContributions] = useState([]);
 
-  console.log("Donations user", user);
+  console.log("CONTRIBUTIONS after const ###", contributions);
 
   const refreshDonations = useCallback(async () => {
-    const res = await axios.get("/api/donations", {
+    const res = await axios.get("api/donations", {
       params: {
         userId: user.uid,
       },
@@ -59,7 +59,7 @@ export const Donations = () => {
       setErrors(newErrors);
     } else {
       // No errors! Put any logic here for the form submission!
-      await axios.post("/api/donations", null, {
+      await axios.post("api/donations", null, {
         params: {
           orgName: donationData.name,
           donationAmount: donationData.amount,
@@ -72,7 +72,7 @@ export const Donations = () => {
 
   //deletes donations and refreshes view
   const handleDelete = async (id) => {
-    await axios.delete("/api/donations/" + id, {
+    await axios.delete("api/donations/" + id, {
       params: {
         donationId: id,
       },
@@ -94,7 +94,9 @@ export const Donations = () => {
   };
 
   const generateContributions = () => {
-    return contributions.map((contribution) => {
+    console.log("CONTRIBUTIONS###", contributions);
+
+    return Array.prototype.contributions.map.call((contribution) => {
       return (
         <tr key={contribution.id}>
           <td>{contribution.orgName}</td>

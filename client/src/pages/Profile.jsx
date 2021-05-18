@@ -7,7 +7,7 @@ import { UserContext } from "../utils/auth";
 import { CAUSES } from "../utils/constants";
 
 export const Profile = () => {
-  const { user, userData, interests } = useContext(UserContext);
+  const { user, userData } = useContext(UserContext);
   const [userInterests, setUserInterests] = useState([]);
   const [editing, setEditing] = useState(false);
   const [errors, setErrors] = useState({});
@@ -24,13 +24,14 @@ export const Profile = () => {
   useEffect(() => {
     const getInterests = async () => {
       try {
-        const res = await axios.get("/api/interests", {
+        const res = await axios.get("api/interests", {
           params: {
             userId: user.uid,
           },
         });
-        console.log("Profile", res);
-        setUserInterests(res.data);
+        console.log("Profile", res.data);
+        console.log("Profilfewfewe", res);
+        setUserInterests(res.data || []);
       } catch {
         console.log("no interests profile");
         setUserInterests([]);
@@ -56,7 +57,7 @@ export const Profile = () => {
 
   //deletes interests and refreshes view
   const handleDelete = async (causeId, interestsId) => {
-    await axios.delete("/api/interests/" + interestsId, {
+    await axios.delete("api/interests/" + interestsId, {
       params: {
         causeId: causeId,
         interestId: interestsId,
@@ -72,9 +73,11 @@ export const Profile = () => {
   };
 
   const generateInterests = () => {
+    console.log("INTERESTS###", userInterests);
+
     return (
       userInterests &&
-      userInterests.map((interest) => {
+      Array.prototype.userInterests.map.call((interest) => {
         return (
           <tr key={interest.causeId}>
             <td>
