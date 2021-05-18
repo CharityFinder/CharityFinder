@@ -1,5 +1,5 @@
 service: api
-runtime: nodejs12
+runtime: nodejs14
 
 env_variables:
   GOOGLE_APPLICATION_CREDENTIALS: "cf-service-key.json"

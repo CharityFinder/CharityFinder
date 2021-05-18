@@ -1,4 +1,4 @@
-import { db } from "../config/firebase.js";
+import { db } from "../config/firebase.mjs";
 import { Router } from "express";
 const router = Router();
 
@@ -22,7 +22,7 @@ router.put("/:userId", async (req, res) => {
       // city,
       // state,
       // zipcode,
-      ...newUserBody
+      ...newUserBody,
     });
 
     return res.status(204).send(`Information was updated`);
@@ -30,6 +30,5 @@ router.put("/:userId", async (req, res) => {
     console.error("There's an error afoot...", e);
   }
 });
-
 
 export default router;

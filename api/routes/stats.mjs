@@ -1,4 +1,4 @@
-import { db } from "../config/firebase.js";
+import { db } from "../config/firebase.mjs";
 import { Router } from "express";
 const router = Router();
 
@@ -17,10 +17,12 @@ router.get("/", async (req, res) => {
       .get();
 
     let mostFavOrgs = [];
-    snapshot.forEach((doc) => {
-      mostFavOrgs.push({ ...doc.data(), id: doc.id });
-    });
 
+    if (snapshot.size > 0) {
+      snapshot.forEach((doc) => {
+        mostFavOrgs.push({ ...doc.data(), id: doc.id });
+      });
+    }
     return res.status(200).json(mostFavOrgs);
   } catch (e) {
     console.error("Could not get stats. There's an error afoot...", e);
