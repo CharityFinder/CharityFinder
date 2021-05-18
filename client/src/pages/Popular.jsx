@@ -11,7 +11,7 @@ export const Popular = () => {
 
   useEffect(() => {
     const getFavorites = async () => {
-      const res = await axios.get("/api/favorites", {
+      const res = await axios.get("/favorites", {
         params: {
           userId: user.uid,
         },
@@ -23,11 +23,11 @@ export const Popular = () => {
 
   useEffect(() => {
     const getPopular = async () => {
-      const res = await axios.get("/api/stats");
+      const res = await axios.get("/stats");
       setOrganization(res.data);
     };
     getPopular();
-  }, []);  
+  }, []);
 
   const checkFavorited = (ein) => {
     // checks if this ein exists in userfavorites
@@ -62,5 +62,5 @@ export const Popular = () => {
     <Container style={{ paddingTop: 60, paddingBottom: 83 }}>
       <Row>{generateOrganizations()}</Row>
     </Container>
-  )
-}
+  );
+};

@@ -31,14 +31,14 @@ import donationsRouter from "./routes/donations.mjs";
     }
 
     // Routes
-    app.use("/api/favorites", favoriteRouter);
-    app.use("/api/stats", statsRouter);
-    app.use("/api/interests.mjs", interestRouter);
-    app.use("/api/cn", thirdpartyRouter);
-    app.use("/api/users", usersRouter);
-    app.use("/api/donations", donationsRouter);
+    app.use("/favorites", favoriteRouter);
+    app.use("/stats", statsRouter);
+    app.use("/interests.mjs", interestRouter);
+    app.use("/cn", thirdpartyRouter);
+    app.use("/users", usersRouter);
+    app.use("/donations", donationsRouter);
 
-    app.get("/api", async (req, res) => {
+    app.get("", async (req, res) => {
       try {
         return res.json(
           `CharityFinder, the hassle free solution to solving your charity researching problems :D`

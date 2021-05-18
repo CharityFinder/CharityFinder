@@ -13,7 +13,7 @@ export const Information = (props) => {
   // gets user favorites and passes it down to the organization/favorite component whether or not it is favorited
   useEffect(() => {
     const getFavorites = async () => {
-      const res = await axios.get("/api/favorites", {
+      const res = await axios.get("/favorites", {
         params: {
           userId: user.uid,
         },
@@ -32,7 +32,7 @@ export const Information = (props) => {
 
   useEffect(() => {
     const getInfo = async () => {
-      const res = await axios.get(`/api/cn/organizations/` + ein);
+      const res = await axios.get(`/cn/organizations/` + ein);
       setInfo(res.data);
     };
 

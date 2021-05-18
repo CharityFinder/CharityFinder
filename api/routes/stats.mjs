@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 /**
- * @route [GET] /api/stats
+ * @route [GET] /stats
  * @desc Get Most Favorited Organizations in Desc Order
  * @return List of all "stats" areas
  */

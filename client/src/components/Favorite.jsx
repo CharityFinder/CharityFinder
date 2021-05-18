@@ -25,7 +25,7 @@ export const Favorite = ({ name, ein, isFavorited, organization }) => {
 
   const addFavorite = async () => {
     if (ein && user.uid) {
-      await axios.post("/api/favorites", null, {
+      await axios.post("/favorites", null, {
         params: {
           orgName: name || "",
           orgId: ein,
@@ -38,7 +38,7 @@ export const Favorite = ({ name, ein, isFavorited, organization }) => {
   };
 
   const removeFavorite = async () => {
-    await axios.delete("/api/favorites/" + isFavorited, {
+    await axios.delete("/favorites/" + isFavorited, {
       params: {
         orgId: ein,
       },

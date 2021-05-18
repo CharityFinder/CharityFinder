@@ -7,7 +7,7 @@ import axios from "axios";
 export const addInterest = async (userId, interests) => {
   console.log(userId, interests);
   for (let i = 0; i < interests.length; i++) {
-    await axios.post("/api/interests", null, {
+    await axios.post("/interests", null, {
       params: {
         userId: userId,
         causeId: interests[i],

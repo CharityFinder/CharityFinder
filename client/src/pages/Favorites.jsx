@@ -10,7 +10,7 @@ export const Favorites = () => {
 
   useEffect(() => {
     const getFavorites = async () => {
-      const res = await axios.get("/api/favorites", {
+      const res = await axios.get("/favorites", {
         params: {
           userId: user.uid,
         },

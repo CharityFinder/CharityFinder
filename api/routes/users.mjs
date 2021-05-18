@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 /**
- * @route [PUT] /api/users
+ * @route [PUT] /users
  * @desc Update Users' information in the profile page
  * @return 204 good response / 304 Not Modified [check user authentication]
  */

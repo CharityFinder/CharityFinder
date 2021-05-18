@@ -7,7 +7,7 @@ const BASE_URL = process.env.CN_BASE_URL;
 const CREDENTIALS = `?app_id=${process.env.CN_APP_ID}&app_key=${process.env.CN_APP_KEY}`;
 
 /**
- * @route [GET] /api/cn/organizations
+ * @route [GET] /cn/organizations
  * @desc Get All Organizations [No filters]
  * @return List of all organizations, JSON object array
  */
@@ -69,7 +69,7 @@ router.get("/organizations", async (req, res) => {
 });
 
 /**
- * @route [GET] /api/cn/organizations/:ein
+ * @route [GET] /cn/organizations/:ein
  * @desc Get Organizations with Identification Number ein
  * @return Organization JSON object
  */
@@ -89,7 +89,7 @@ router.get("/organizations/:ein", async (req, res) => {
 });
 
 /**
- * @route [GET] /api/cn/organizations
+ * @route [GET] /cn/organizations
  * @desc Get All Organizations [No filters]
  * @return List of all organizations, JSON object array
  */
@@ -109,7 +109,7 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
 });
 
 /**
- * @route [GET] /api/cn/suggestions
+ * @route [GET] /cn/suggestions
  * @desc GET List of Suggested Organizations
  * @return List of organization objects, if exists
  */
