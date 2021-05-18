@@ -33,7 +33,7 @@ import donationsRouter from "./routes/donations.mjs";
     // Routes
     app.use("/favorites", favoriteRouter);
     app.use("/stats", statsRouter);
-    app.use("/interests.mjs", interestRouter);
+    app.use("/interests", interestRouter);
     app.use("/cn", thirdpartyRouter);
     app.use("/users", usersRouter);
     app.use("/donations", donationsRouter);
