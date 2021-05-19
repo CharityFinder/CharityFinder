@@ -4,6 +4,8 @@
 
 Remove the hassle of finding charitable organizations that you’re passionate about with CharityFinder
 
+Deployed Site: (http://charityfinder.co/)[http://charityfinder.co/]
+
 ## Get Started
 
 ### Requirements
