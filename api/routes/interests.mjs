@@ -1,4 +1,4 @@
-import { db } from "../config/firebase.js";
+import { db } from "../config/firebase.mjs";
 import { Router } from "express";
 const router = Router();
 
@@ -15,9 +15,12 @@ router.get("/", async (req, res) => {
     const snapshot = await interestsRef.where("userId", "==", userId).get();
 
     let userInterests = [];
-    snapshot.forEach((doc) => {
-      userInterests.push({ ...doc.data(), id: doc.id });
-    });
+
+    if (snapshot.size > 0) {
+      snapshot.forEach((doc) => {
+        userInterests.push({ ...doc.data(), id: doc.id });
+      });
+    }
 
     return res.status(200).json(userInterests);
   } catch (e) {

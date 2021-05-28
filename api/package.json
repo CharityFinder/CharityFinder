@@ -4,14 +4,14 @@
   "license": "MIT",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "gang gang",
+  "author": "charity-finder-peeps",
   "engines": {
     "node": ">=14.0.0"
   },
   "scripts": {
-    "server": "node app.js",
-    "dev": "nodemon app.js",
-    "start": "node dist/app.js",
+    "server": "node server.mjs",
+    "dev": "nodemon server.mjs",
+    "start": "node server.mjs",
     "deploy": "gcloud app deploy"
   },
   "devDependencies": {

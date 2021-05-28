@@ -1,18 +1,18 @@
 import express from "express";
 import logger from "morgan";
-import favoriteRouter from "./routes/favorites.js";
-import statsRouter from "./routes/stats.js";
-import interestRouter from "./routes/interests.js";
-import thirdpartyRouter from "./routes/thirdparty.js";
-import usersRouter from "./routes/users.js";
-import donationsRouter from "./routes/donations.js";
+import favoriteRouter from "./routes/favorites.mjs";
+import statsRouter from "./routes/stats.mjs";
+import interestRouter from "./routes/interests.mjs";
+import thirdpartyRouter from "./routes/thirdparty.mjs";
+import usersRouter from "./routes/users.mjs";
+import donationsRouter from "./routes/donations.mjs";
 
 (async () => {
   try {
     // Initialize express
     const app = express();
-    const port = Number(process.env.PORT) || 8080;
-    app.set("port", port);
+    const PORT = Number(process.env.PORT) || 8080;
+    app.set("port", PORT);
 
     // Middleware
     app.use(express.urlencoded({ extended: false }));
@@ -49,8 +49,8 @@ import donationsRouter from "./routes/donations.js";
     });
 
     // Launch Server
-    app.listen(port, () => {
-      console.log(`📡 Server up! 📡 Listening on  http://localhost:${port}`);
+    app.listen(PORT, () => {
+      console.log(`📡 Server up! 📡 Listening on  http://localhost:${PORT}`);
     });
   } catch (err) {
     console.error(err);

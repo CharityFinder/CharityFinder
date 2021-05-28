@@ -27,7 +27,7 @@ export const Popular = () => {
       setOrganization(res.data);
     };
     getPopular();
-  }, []);  
+  }, []);
 
   const checkFavorited = (ein) => {
     // checks if this ein exists in userfavorites
@@ -62,5 +62,5 @@ export const Popular = () => {
     <Container style={{ paddingTop: 60, paddingBottom: 83 }}>
       <Row>{generateOrganizations()}</Row>
     </Container>
-  )
-}
+  );
+};

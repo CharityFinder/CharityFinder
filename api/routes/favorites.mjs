@@ -1,4 +1,4 @@
-import { db } from "../config/firebase.js";
+import { db } from "../config/firebase.mjs";
 import { Router } from "express";
 const router = Router();
 
@@ -16,9 +16,12 @@ router.get("/", async (req, res) => {
 
     let userFavorites = [];
 
-    snapshot.forEach((doc) => {
-      userFavorites.push({ ...doc.data(), id: doc.id });
-    });
+    if (snapshot.size > 0) {
+      snapshot.forEach((doc) => {
+        userFavorites.push({ ...doc.data(), id: doc.id });
+      });
+    }
+
     return res.status(200).json(userFavorites);
   } catch (e) {
     console.error("Could not get favorites. There's an error afoot...", e);

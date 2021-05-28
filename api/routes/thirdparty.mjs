@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { db } from "../config/firebase.js";
+import { db } from "../config/firebase.mjs";
 import axios from "axios";
 
 const router = Router();
@@ -61,7 +61,7 @@ router.get("/organizations", async (req, res) => {
 
     const orgSnapshot = await axios.get(orgs);
 
-    return res.status(200).json(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data || []);
   } catch (e) {
     // console.error("No organizations meet the requirements");
     return res.status(200).json([]);
@@ -81,9 +81,8 @@ router.get("/organizations/:ein", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}${CREDENTIALS}`
     );
 
-    return res.status(200).json(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data || []);
   } catch (e) {
-    // console.error("No organizations meet the requirements");
     return res.status(200).json([]);
   }
 });
@@ -101,9 +100,8 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
       `${BASE_URL}/Organizations/${ein}/advisories${CREDENTIALS}`
     );
 
-    return res.status(200).json(orgSnapshot.data);
+    return res.status(200).json(orgSnapshot.data || []);
   } catch (e) {
-    // console.error("No organizations meet the requirements");
     return res.status(200).json([]);
   }
 });
@@ -123,16 +121,18 @@ router.get("/suggestions", async (req, res) => {
 
     /* Grab Interests */
     const interestsRef = db.collection("interests");
+
     const snapshot = await interestsRef.where("userId", "==", userId).get();
     let userInterests = [];
 
-    snapshot.forEach((doc) => {
-      userInterests.push({
-        causeId: doc.data().causeId,
-        causeName: doc.data().causeName,
+    if (snapshot.size > 0) {
+      snapshot.forEach((doc) => {
+        userInterests.push({
+          causeId: doc.data().causeId,
+          causeName: doc.data().causeName,
+        });
       });
-    });
-
+    }
     const pageSize = 3;
     const suggestions = [];
 
@@ -144,12 +144,14 @@ router.get("/suggestions", async (req, res) => {
 
       try {
         let orgSnapshot = await axios.get(orgs);
+
         suggestions.push(...orgSnapshot.data);
-      } catch (e) {}
+      } catch (e) {
+        console.log("An error occured compiling the suggestions together");
+      }
     }
     return res.status(200).json(removeDuplicates(suggestions));
   } catch (e) {
-    console.error("Suggestions: ", e);
     return res.status(200).json([]);
   }
 });

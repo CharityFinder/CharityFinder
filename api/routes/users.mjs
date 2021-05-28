@@ -1,4 +1,4 @@
-import { db } from "../config/firebase.js";
+import { db } from "../config/firebase.mjs";
 import { Router } from "express";
 const router = Router();
 
@@ -9,20 +9,13 @@ const router = Router();
  */
 router.put("/:userId", async (req, res) => {
   try {
-    //const { firstName, lastName, city, state, zipcode } = req.query;
     const { userBody } = req.query;
     const { userId } = req.params;
     let newUserBody = JSON.parse(userBody);
 
     const userRef = db.collection("users").doc(userId);
-
     await userRef.update({
-      // firstName,
-      // lastName,
-      // city,
-      // state,
-      // zipcode,
-      ...newUserBody
+      ...newUserBody,
     });
 
     return res.status(204).send(`Information was updated`);
@@ -30,6 +23,5 @@ router.put("/:userId", async (req, res) => {
     console.error("There's an error afoot...", e);
   }
 });
-
 
 export default router;
