@@ -1,5 +1,9 @@
-service: client
 runtime: nodejs14
+handlers:
+  - url: /(.*\..+)$
+    static_files: build/\1
+    upload: build/(.*\..+)$
 
-env_variables:
-  GOOGLE_APPLICATION_CREDENTIALS: "cf-service-key.json"
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html

@@ -10,12 +10,12 @@ export const Favorites = () => {
 
   useEffect(() => {
     const getFavorites = async () => {
-      const res = await axios.get("/api/favorites", {
+      const res = await axios.get("api/favorites", {
         params: {
           userId: user.uid,
         },
       });
-      setUserFavorites(res.data);
+      setUserFavorites(res.data || []);
     };
 
     getFavorites();
@@ -25,8 +25,9 @@ export const Favorites = () => {
     if (userFavorites.length === 0) {
       return "No Favorites";
     } else {
-      return userFavorites.map((userFavorite) => {
-        return (
+      return (
+        userFavorites &&
+        userFavorites.map((userFavorite) => (
           <Organization
             key={userFavorite.orgId}
             name={userFavorite.orgName}
@@ -34,8 +35,8 @@ export const Favorites = () => {
             isFavorited={userFavorite.id}
             organization={userFavorite}
           />
-        );
-      });
+        ))
+      );
     }
   };
 
@@ -44,7 +45,7 @@ export const Favorites = () => {
       <h2 className="mx-auto" style={{ width: "50%", paddingTop: "5rem" }}>
         User Favorites:{" "}
       </h2>
-      <Row>{generateFavorites()}</Row>
+      <Row style={{ display: "flex" }}>{generateFavorites()}</Row>
     </Container>
   );
 };

@@ -59,8 +59,7 @@ export const Register = () => {
       if (error) {
         setErrorMessage(error["message"]);
       } else if (user !== undefined) {
-        history.push("/");
-        console.log("Registered User", user);
+        history.push("/survey");
       }
     }
   };

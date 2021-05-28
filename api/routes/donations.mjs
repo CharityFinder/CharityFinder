@@ -44,7 +44,6 @@ router.post("/", async (req, res) => {
       userId,
       donationAmount,
     });
-
     return res.status(204).send("Donations :");
   } catch (e) {
     return res.status(304).send("Something went wrong");
@@ -58,15 +57,10 @@ router.post("/", async (req, res) => {
  */
 router.delete("/:donationId", async (req, res) => {
   try {
-    //const { userId, orgName, donationAmount } = req.params;
     const { donationId } = req.params;
 
     const donationsRef = db.collection("donations").doc(donationId);
-    await donationsRef
-      //   .where("userId", "==", userId)
-      //   .where("orgName", "==", orgName)
-      //   .where("donationAmount", "==", donationAmount)
-      .delete();
+    await donationsRef.delete();
 
     return res.status(204).send(` was removed from your donations log`);
   } catch (e) {

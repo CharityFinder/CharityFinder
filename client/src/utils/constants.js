@@ -213,7 +213,6 @@ export const CAUSES = [
     causeId: 29,
     causeName: "Social Services",
     img: "NightShelter",
-    img: "GroupPeople",
   },
 
   /* OTHER */

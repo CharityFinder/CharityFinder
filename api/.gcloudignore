@@ -1,5 +1,6 @@
 #Exclude compiled .js files
-*.js
+*.js 
+*.mjs
 
 # Exclude dependencies
 node_modules/

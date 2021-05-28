@@ -8,7 +8,7 @@ import { AdvancedSearchbar } from "../components/AdvancedSearchbar";
 
 export const Search = () => {
   const { user } = useContext(UserContext);
-  const [organizations, setOrganization] = useState([]); /* REST API enpoint */
+  const [organizations, setOrganizations] = useState([]); /* REST API enpoint */
   const [searchData, setSearchData] = useState({
     search: "",
     city: "",
@@ -36,8 +36,7 @@ export const Search = () => {
           userId: user.uid,
         },
       });
-
-      setOrganization(res.data);
+      setOrganizations(res.data || []);
     };
     getSuggestions();
   }, [user]);
@@ -49,7 +48,7 @@ export const Search = () => {
         rated: true,
       },
     });
-    setOrganization(res.data);
+    setOrganizations(res.data || []);
   };
 
   /* Search */
@@ -67,13 +66,13 @@ export const Search = () => {
   };
 
   const toggleAdvanced = (e) => {
-    setIsAdvancedSearch((previousAdvancedValue) => !previousAdvancedValue);
+    setIsAdvancedSearch((prevVal) => !prevVal);
     const newSearchData = {
       search: searchData["search"],
       city: "",
       state: "",
     };
-    setSearchData(newSearchData);
+    setSearchData(newSearchData || []);
   };
 
   const checkFavorited = (ein) => {
@@ -90,17 +89,20 @@ export const Search = () => {
     if (organizations.length === 0) {
       return "No Results";
     } else {
-      return organizations.map((organization) => {
-        return (
-          <Organization
-            key={organization.ein}
-            name={organization.charityName}
-            ein={organization.ein}
-            isFavorited={checkFavorited(organization.ein)}
-            organization={organization}
-          />
-        );
-      });
+      return (
+        organizations &&
+        organizations.map((org) => {
+          return (
+            <Organization
+              key={org.ein}
+              name={org.charityName}
+              ein={org.ein}
+              isFavorited={checkFavorited(org.ein)}
+              organization={org}
+            />
+          );
+        })
+      );
     }
   };
 
@@ -120,7 +122,7 @@ export const Search = () => {
         {isAdvancedSearch && <AdvancedSearchbar changeHandler={handleChange} />}
       </Form>
       {!hasSearched ? <>Recommendations</> : <>Results</>}
-      <Row>{generateOrganizations()}</Row>
+      <Row style={{ display: "flex" }}>{generateOrganizations()}</Row>
     </Container>
   );
 };

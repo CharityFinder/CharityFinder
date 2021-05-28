@@ -15,7 +15,7 @@ export const Donations = () => {
         userId: user.uid,
       },
     });
-    setContributions(res.data);
+    setContributions(res.data || []);
   }, [user.uid]);
 
   //get all donations that the user currently has
@@ -81,44 +81,51 @@ export const Donations = () => {
   // parses through contributions and sums up results
   const getTotalContributions = () => {
     let retVal = 0;
-    contributions.forEach((contribution) => {
-      retVal += parseInt(contribution.donationAmount);
-    });
+    contributions &&
+      Array.prototype.forEach.call(contributions, (c) => {
+        retVal += parseInt(c.donationAmount);
+      });
+    // contributions.forEach((contribution) => {
+    //     retVal += parseInt(contribution.donationAmount);
+    //   });
     return retVal;
   };
 
   const generateContributions = () => {
-    return contributions.map((contribution) => {
-      return (
-        <tr key={contribution.id}>
-          <td>{contribution.orgName}</td>
-          <td>${contribution.donationAmount}</td>
-          <td
-            style={{
-              border: "1px solid white",
-              backgroundColor: "white",
-              width: "2rem",
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="bi bi-x-circle"
-              viewBox="0 0 16 16"
-              onClick={() => {
-                handleDelete(contribution.id);
+    return (
+      contributions &&
+      contributions.map((contribution) => {
+        return (
+          <tr key={contribution.id}>
+            <td>{contribution.orgName}</td>
+            <td>${contribution.donationAmount}</td>
+            <td
+              style={{
+                border: "1px solid white",
+                backgroundColor: "white",
+                width: "2rem",
               }}
-              style={{ cursor: "pointer" }}
             >
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-            </svg>
-          </td>
-        </tr>
-      );
-    });
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-x-circle"
+                viewBox="0 0 16 16"
+                onClick={() => {
+                  handleDelete(contribution.id);
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+              </svg>
+            </td>
+          </tr>
+        );
+      })
+    );
   };
 
   return (

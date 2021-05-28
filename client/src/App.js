@@ -20,43 +20,28 @@ import { Popular } from "./pages/Popular";
 import "./styles/App.css";
 
 const App = () => {
-  const [user, setUser] = useState(auth.currentUser); // TODO: Setup Context or Redux Store
-  const [userData, setUserData] = useState(null);
+  const [user, setUser] = useState(auth.currentUser);
+  const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
-  const [interests, setInterests] = useState([]);
 
   useEffect(() => {
-    const getInterests = async (id) => {
-      const res = await axios.get("/api/interests", {
-        params: {
-          userId: id,
-        },
-      });
-      setInterests(res.data);
-    };
-
     auth.onAuthStateChanged(async (user) => {
       setUser(user);
       if (user) {
         setLoading(true);
         const userInfo = await getUser(user.uid);
-        console.log("User Logged In", userInfo);
         setUserData(userInfo);
-        getInterests(user.uid);
       }
       setLoading(false);
     });
   }, []);
 
   const handleLogout = async () => {
-    console.log("logging off");
-
     const { code, message } = (await logoutUser()) || {};
     if (code) {
       console.log(`${code}: ${message}`);
     }
-    setUserData(null);
-    setInterests([]);
+    setUserData({});
   };
 
   return (
@@ -66,7 +51,7 @@ const App = () => {
       ) : (
         <>
           <BrowserRouter>
-            <UserContext.Provider value={{ user, userData, interests }}>
+            <UserContext.Provider value={{ user, userData }}>
               <div className="App">
                 <Navbar logoutHandler={handleLogout} />
                 <Switch>
@@ -79,13 +64,7 @@ const App = () => {
                   <Route path="/information" component={Information} />
                   <Route path="/profile" component={Profile} />
                   <Route path="/popular" component={Popular} />
-                  {user &&
-                    (interests.length > 0 ? (
-                      <Route path="/" component={Search} />
-                    ) : (
-                      <Route path="/" component={Survey} />
-                    ))}
-                  <Route component={Home} />
+                  <Route path="/" component={Home} />
                 </Switch>
               </div>
               <Footer />

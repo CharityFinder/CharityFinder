@@ -24,6 +24,7 @@ router.get("/", async (req, res) => {
 
     return res.status(200).json(userFavorites);
   } catch (e) {
+    return res.status(200).json([]);
     console.error("Could not get favorites. There's an error afoot...", e);
   }
 });

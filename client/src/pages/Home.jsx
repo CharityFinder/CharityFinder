@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Bubble } from "../components/Bubble";
-import "../styles/Home.css";
+import { UserContext } from "../utils/auth";
 import { Login } from "./Login";
+import "../styles/Home.css";
 
 export const Home = () => {
+  const { user } = useContext(UserContext);
   const [count, setCount] = useState("0000");
   const countInterval = useRef();
 
@@ -23,7 +25,6 @@ export const Home = () => {
 
           return `${++prev}`.padStart(4, "0");
         });
-        console.log("Home setInterval");
       }, 1);
     };
 
@@ -50,7 +51,7 @@ export const Home = () => {
         <p>Keep track of your favorite organizations</p>
       </div>
 
-      <Login />
+      {!user && <Login />}
     </Bubble>
   );
 };
