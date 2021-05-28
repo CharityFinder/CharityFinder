@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 /**
- * @route [GET] /favorites
+ * @route [GET] /api/favorites
  * @desc Get All Favorites
  * @return List of all "favorited" organizations
  */
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @route [POST] /favorites
+ * @route [POST] /api/favorites
  * @desc Add an Organization to your Favorites
  * @return 204 good response
  */
@@ -80,7 +80,7 @@ router.post("/", async (req, res) => {
 });
 
 /**
- * @route [GET] /favorites/:favoriteId
+ * @route [GET] /api/favorites/:favoriteId
  * @desc GET Favorite organization
  * @return Organization object, if in user's Favorites
  */
@@ -109,7 +109,7 @@ router.get("/:favoriteId", async (req, res) => {
 
 /**
  * EXPERIMENTAL
- * @route [PUT] /favorites
+ * @route [PUT] /api/favorites
  * @desc Update Favorited organization to your profile
  * @return 204 good response / 304 Not Modified [check user authentication]
  */
@@ -133,7 +133,7 @@ router.put("/:favoriteId", async (req, res) => {
 });
 
 /**
- * @route [DEL] /favorites
+ * @route [DEL] /api/favorites
  * @desc Remove favorited organization from to your profile
  * @return 204 good response
  */

@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 /**
- * @route [GET] /donations
+ * @route [GET] /api/donations
  * @desc Get All Donations
  * @return List of all organizations the user donated to
  */
@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @route [POST] /donations
+ * @route [POST] /api/donations
  * @desc Add an Organization to your Donations Log
  * @return 204 good response
  */
@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
 });
 
 /**
- * @route [DEL] /donations
+ * @route [DEL] /api/donations
  * @desc Remove donation from Donations Page
  * @return 204 good response
  */

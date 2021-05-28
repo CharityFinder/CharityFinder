@@ -3,7 +3,7 @@ import { Router } from "express";
 const router = Router();
 
 /**
- * @route [GET] /interests
+ * @route [GET] /api/interests
  * @desc Get All Interest Areas
  * @return List of all "interest" areas
  */
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
 });
 
 /**
- * @route [POST] /interests
+ * @route [POST] /api/interests
  * @desc Add an interest area to your profile
  * @return 204 good response
  */
@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
 });
 
 /**
- * @route [GET] /interests/:interestId
+ * @route [GET] /api/interests/:interestId
  * @desc GET Interest Area Information
  * @return Interests object, if exists
  */
@@ -85,7 +85,7 @@ router.get("/:interestId", async (req, res) => {
 
 /**
  * EXPERIMENTAL
- * @route [PUT] /interests
+ * @route [PUT] /api/interests
  * @desc Update interest area in your profile
  * @return 204 good response / 304 Not Modified [check user authentication]
  */
@@ -107,7 +107,7 @@ router.put("/:interestId", async (req, res) => {
 });
 
 /**
- * @route [DEL] /interests
+ * @route [DEL] /api/interests
  * @desc Remove interest area from your profile
  * @return 204 good response
  */
