@@ -83,7 +83,6 @@ router.get("/organizations/:ein", async (req, res) => {
 
     return res.status(200).json(orgSnapshot.data || []);
   } catch (e) {
-    // console.error("No organizations meet the requirements");
     return res.status(200).json([]);
   }
 });
@@ -103,7 +102,6 @@ router.get("/organizations/:ein/advisories", async (req, res) => {
 
     return res.status(200).json(orgSnapshot.data || []);
   } catch (e) {
-    // console.error("No organizations meet the requirements");
     return res.status(200).json([]);
   }
 });
@@ -154,7 +152,6 @@ router.get("/suggestions", async (req, res) => {
     }
     return res.status(200).json(removeDuplicates(suggestions));
   } catch (e) {
-    console.error("Suggestions: ", e);
     return res.status(200).json([]);
   }
 });

@@ -9,19 +9,12 @@ const router = Router();
  */
 router.put("/:userId", async (req, res) => {
   try {
-    //const { firstName, lastName, city, state, zipcode } = req.query;
     const { userBody } = req.query;
     const { userId } = req.params;
     let newUserBody = JSON.parse(userBody);
 
     const userRef = db.collection("users").doc(userId);
-
     await userRef.update({
-      // firstName,
-      // lastName,
-      // city,
-      // state,
-      // zipcode,
       ...newUserBody,
     });
 

@@ -15,7 +15,6 @@ router.get("/", async (req, res) => {
     const snapshot = await donationsRef.where("userId", "==", userId).get();
 
     //get user with corresponding userID
-
     let donations = [];
 
     if (snapshot.size > 0) {
@@ -38,7 +37,6 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { orgName, userId, donationAmount } = req.query;
-    // query parameters we are passing
     const donationsRef = db.collection("donations");
 
     await donationsRef.add({
@@ -46,7 +44,6 @@ router.post("/", async (req, res) => {
       userId,
       donationAmount,
     });
-    // }
 
     return res.status(204).send("Donations :");
   } catch (e) {
