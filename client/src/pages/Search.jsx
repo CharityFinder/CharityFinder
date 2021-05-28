@@ -36,7 +36,6 @@ export const Search = () => {
           userId: user.uid,
         },
       });
-      console.log("suggestions", res.data, res);
       setOrganizations(res.data || []);
     };
     getSuggestions();
@@ -49,7 +48,6 @@ export const Search = () => {
         rated: true,
       },
     });
-    console.log("organizations", res.data, res);
     setOrganizations(res.data || []);
   };
 
@@ -88,25 +86,22 @@ export const Search = () => {
   };
 
   const generateOrganizations = () => {
-    console.log("ORGS###", organizations);
     if (organizations.length === 0) {
       return "No Results";
     } else {
-      console.log("Orgs are", organizations);
       return (
-        organizations && organizations.length > 0
-        // &&
-        // Array.prototype.organizations.map.call((org) => {
-        //   return (
-        //     <Organization
-        //       key={org.ein}
-        //       name={org.charityName}
-        //       ein={org.ein}
-        //       isFavorited={checkFavorited(org.ein)}
-        //       organization={org}
-        //     />
-        //   );
-        // })
+        organizations &&
+        organizations.map((org) => {
+          return (
+            <Organization
+              key={org.ein}
+              name={org.charityName}
+              ein={org.ein}
+              isFavorited={checkFavorited(org.ein)}
+              organization={org}
+            />
+          );
+        })
       );
     }
   };
@@ -127,7 +122,7 @@ export const Search = () => {
         {isAdvancedSearch && <AdvancedSearchbar changeHandler={handleChange} />}
       </Form>
       {!hasSearched ? <>Recommendations</> : <>Results</>}
-      <Row>{generateOrganizations()}</Row>
+      <Row style={{ display: "flex" }}>{generateOrganizations()}</Row>
     </Container>
   );
 };

@@ -13,7 +13,6 @@ export const Card = ({ name, ein, isFavorited, organization }) => {
     postalCode: "",
   }); //used so that you don't try to render data before it is loaded
 
-  // console.log("BLOB", organization);
   useEffect(() => {
     if (organization.length !== 0) {
       setMailingAddress({

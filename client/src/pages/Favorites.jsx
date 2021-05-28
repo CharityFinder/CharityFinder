@@ -8,7 +8,6 @@ export const Favorites = () => {
   const { user } = useContext(UserContext);
   const [userFavorites, setUserFavorites] = useState([]);
 
-  console.log("Favorites user", user);
   useEffect(() => {
     const getFavorites = async () => {
       const res = await axios.get("api/favorites", {
@@ -23,19 +22,21 @@ export const Favorites = () => {
   }, [user]);
 
   const generateFavorites = () => {
-    console.log("FAVORITES###", userFavorites);
     if (userFavorites.length === 0) {
       return "No Favorites";
     } else {
-      return Array.prototype.userFavorites.map.call((userFavorite) => (
-        <Organization
-          key={userFavorite.orgId}
-          name={userFavorite.orgName}
-          ein={userFavorite.orgId}
-          isFavorited={userFavorite.id}
-          organization={userFavorite}
-        />
-      ));
+      return (
+        userFavorites &&
+        userFavorites.map((userFavorite) => (
+          <Organization
+            key={userFavorite.orgId}
+            name={userFavorite.orgName}
+            ein={userFavorite.orgId}
+            isFavorited={userFavorite.id}
+            organization={userFavorite}
+          />
+        ))
+      );
     }
   };
 
@@ -44,7 +45,7 @@ export const Favorites = () => {
       <h2 className="mx-auto" style={{ width: "50%", paddingTop: "5rem" }}>
         User Favorites:{" "}
       </h2>
-      <Row>{generateFavorites()}</Row>
+      <Row style={{ display: "flex" }}>{generateFavorites()}</Row>
     </Container>
   );
 };

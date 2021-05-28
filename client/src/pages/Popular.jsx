@@ -9,8 +9,6 @@ export const Popular = () => {
   const [organizations, setOrganization] = useState([]); /* REST API enpoint */
   const [userFavorites, setUserFavorites] = useState([]);
 
-  console.log("Popular user", user);
-
   useEffect(() => {
     const getFavorites = async () => {
       const res = await axios.get("/api/favorites", {
@@ -42,28 +40,44 @@ export const Popular = () => {
   };
 
   const generateOrganizations = () => {
-    console.log("ORGS###", organizations);
     if (organizations.length === 0) {
       return "No Results";
     } else {
-      return Array.prototype.organizations.map.call((organization) => {
-        return (
-          <Organization
-            key={organization.orgId}
-            name={organization.orgName}
-            ein={organization.orgId}
-            isFavorited={checkFavorited(organization.orgId)}
-            organization={organization}
-            numFavorited={organization.totalFavorites}
-          />
-        );
-      });
+      return (
+        organizations &&
+        organizations.map((organization, idx) => {
+          if (idx + 1 < 4) {
+            return (
+              <Organization
+                key={organization.orgId}
+                name={organization.orgName}
+                ein={organization.orgId}
+                isFavorited={checkFavorited(organization.orgId)}
+                number={idx + 1}
+                organization={organization}
+                numFavorited={organization.totalFavorites}
+              />
+            );
+          } else {
+            return (
+              <Organization
+                key={organization.orgId}
+                name={organization.orgName}
+                ein={organization.orgId}
+                isFavorited={checkFavorited(organization.orgId)}
+                organization={organization}
+                numFavorited={organization.totalFavorites}
+              />
+            );
+          }
+        })
+      );
     }
   };
 
   return (
     <Container style={{ paddingTop: 60, paddingBottom: 83 }}>
-      <Row>{generateOrganizations()}</Row>
+      <Row style={{ display: "flex" }}>{generateOrganizations()}</Row>
     </Container>
   );
 };

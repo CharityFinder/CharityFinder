@@ -5,7 +5,6 @@ import axios from "axios";
  * @param {*} interests list of interest objects
  */
 export const addInterest = async (userId, interests) => {
-  console.log(userId, interests);
   for (let i = 0; i < interests.length; i++) {
     await axios.post("/api/interests", null, {
       params: {
@@ -15,3 +14,4 @@ export const addInterest = async (userId, interests) => {
     });
   }
 };
+ 

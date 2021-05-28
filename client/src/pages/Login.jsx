@@ -52,14 +52,11 @@ export const Login = () => {
         if (error) {
           setErrorMessage(error["message"]);
         } else {
-          console.log("Logged In User", user.uid);
           const interestsRes = await axios.get("/api/interests", {
             params: {
               userId: user.uid,
             },
           });
-          console.log("Made it past interests", user.uid);
-
           if (interestsRes.data.length > 0) {
             history.push("/search");
           } else {

@@ -9,10 +9,8 @@ export const Donations = () => {
   const [errors, setErrors] = useState({});
   const [contributions, setContributions] = useState([]);
 
-  console.log("CONTRIBUTIONS after const ###", contributions);
-
   const refreshDonations = useCallback(async () => {
-    const res = await axios.get("api/donations", {
+    const res = await axios.get("/api/donations", {
       params: {
         userId: user.uid,
       },
@@ -59,7 +57,7 @@ export const Donations = () => {
       setErrors(newErrors);
     } else {
       // No errors! Put any logic here for the form submission!
-      await axios.post("api/donations", null, {
+      await axios.post("/api/donations", null, {
         params: {
           orgName: donationData.name,
           donationAmount: donationData.amount,
@@ -72,7 +70,7 @@ export const Donations = () => {
 
   //deletes donations and refreshes view
   const handleDelete = async (id) => {
-    await axios.delete("api/donations/" + id, {
+    await axios.delete("/api/donations/" + id, {
       params: {
         donationId: id,
       },
@@ -94,39 +92,40 @@ export const Donations = () => {
   };
 
   const generateContributions = () => {
-    console.log("CONTRIBUTIONS###", contributions);
-
-    return Array.prototype.contributions.map.call((contribution) => {
-      return (
-        <tr key={contribution.id}>
-          <td>{contribution.orgName}</td>
-          <td>${contribution.donationAmount}</td>
-          <td
-            style={{
-              border: "1px solid white",
-              backgroundColor: "white",
-              width: "2rem",
-            }}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              className="bi bi-x-circle"
-              viewBox="0 0 16 16"
-              onClick={() => {
-                handleDelete(contribution.id);
+    return (
+      contributions &&
+      contributions.map((contribution) => {
+        return (
+          <tr key={contribution.id}>
+            <td>{contribution.orgName}</td>
+            <td>${contribution.donationAmount}</td>
+            <td
+              style={{
+                border: "1px solid white",
+                backgroundColor: "white",
+                width: "2rem",
               }}
-              style={{ cursor: "pointer" }}
             >
-              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-            </svg>
-          </td>
-        </tr>
-      );
-    });
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-x-circle"
+                viewBox="0 0 16 16"
+                onClick={() => {
+                  handleDelete(contribution.id);
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+              </svg>
+            </td>
+          </tr>
+        );
+      })
+    );
   };
 
   return (

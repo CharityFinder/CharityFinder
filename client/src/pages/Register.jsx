@@ -60,7 +60,6 @@ export const Register = () => {
         setErrorMessage(error["message"]);
       } else if (user !== undefined) {
         history.push("/survey");
-        console.log("Registered User", user);
       }
     }
   };

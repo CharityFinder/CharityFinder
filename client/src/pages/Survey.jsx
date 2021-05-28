@@ -33,9 +33,7 @@ export const Survey = () => {
   const handleAddInterests = async () => {
     try {
       await addInterest(user.uid, causeSelected);
-    } catch {
-      console.log("did not add");
-    }
+    } catch {}
     history.push("/search");
   };
 

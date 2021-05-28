@@ -24,16 +24,13 @@ export const Profile = () => {
   useEffect(() => {
     const getInterests = async () => {
       try {
-        const res = await axios.get("api/interests", {
+        const res = await axios.get("/api/interests", {
           params: {
             userId: user.uid,
           },
         });
-        console.log("Profile", res.data);
-        console.log("Profilfewfewe", res);
         setUserInterests(res.data || []);
       } catch {
-        console.log("no interests profile");
         setUserInterests([]);
       }
     };
@@ -57,7 +54,7 @@ export const Profile = () => {
 
   //deletes interests and refreshes view
   const handleDelete = async (causeId, interestsId) => {
-    await axios.delete("api/interests/" + interestsId, {
+    await axios.delete("/api/interests/" + interestsId, {
       params: {
         causeId: causeId,
         interestId: interestsId,
@@ -73,11 +70,9 @@ export const Profile = () => {
   };
 
   const generateInterests = () => {
-    console.log("INTERESTS###", userInterests);
-
     return (
       userInterests &&
-      Array.prototype.userInterests.map.call((interest) => {
+      userInterests.map((interest) => {
         return (
           <tr key={interest.causeId}>
             <td>
