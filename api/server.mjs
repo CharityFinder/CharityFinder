@@ -31,12 +31,12 @@ import donationsRouter from "./routes/donations.mjs";
     }
 
     // Routes
-    // app.use("/api/favorites", favoriteRouter);
-    // app.use("/api/stats", statsRouter);
-    // app.use("/api/interests", interestRouter);
-    // app.use("/api/cn", thirdpartyRouter);
-    // app.use("/api/users", usersRouter);
-    // app.use("/api/donations", donationsRouter);
+    app.use("/api/favorites", favoriteRouter);
+    app.use("/api/stats", statsRouter);
+    app.use("/api/interests", interestRouter);
+    app.use("/api/cn", thirdpartyRouter);
+    app.use("/api/users", usersRouter);
+    app.use("/api/donations", donationsRouter);
 
     app.get("/api", async (req, res) => {
       try {

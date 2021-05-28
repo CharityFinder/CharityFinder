@@ -8,18 +8,13 @@ const router = Router();
  * @return List of all "interest" areas
  */
 router.get("/", async (req, res) => {
-  console.log("###1");
   try {
     const { userId } = req.query;
     const interestsRef = db.collection("interests");
 
-    console.log("###2", userId);
     const snapshot = await interestsRef.where("userId", "==", userId).get();
 
-    console.log("###3", snapshot, snapshot.size);
-
     let userInterests = [];
-
     if (snapshot.size > 0) {
       snapshot.forEach((doc) => {
         userInterests.push({ ...doc.data(), id: doc.id });
