@@ -25,7 +25,7 @@ export const Favorite = ({ name, ein, isFavorited, organization }) => {
 
   const addFavorite = async () => {
     if (ein && user.uid) {
-      await axios.post("/favorites", null, {
+      await axios.post("/api/favorites", null, {
         params: {
           orgName: name || "",
           orgId: ein,

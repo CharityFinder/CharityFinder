@@ -43,7 +43,7 @@ export const Profile = () => {
 
   //deletes interests and refreshes view
   const handleDelete = async (causeId, interestsId) => {
-    await axios.delete("/interests/" + interestsId, {
+    await axios.delete("/api/interests/" + interestsId, {
       params: {
         causeId: causeId,
         interestId: interestsId,
@@ -124,7 +124,7 @@ export const Profile = () => {
     } else {
       // No errors! Put any logic here for the form submission!
       // call axios to update user
-      await axios.put("/users/" + user.uid, null, {
+      await axios.put("/api/users/" + user.uid, null, {
         params: {
           userBody: JSON.stringify(loginData),
         },

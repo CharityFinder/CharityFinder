@@ -27,7 +27,7 @@ const App = () => {
 
   useEffect(() => {
     const getInterests = async (id) => {
-      const res = await axios.get("/interests", {
+      const res = await axios.get("/api/interests", {
         params: {
           userId: id,
         },

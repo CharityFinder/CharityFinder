@@ -11,7 +11,7 @@ export const Popular = () => {
 
   useEffect(() => {
     const getFavorites = async () => {
-      const res = await axios.get("/favorites", {
+      const res = await axios.get("/api/favorites", {
         params: {
           userId: user.uid,
         },
@@ -23,7 +23,7 @@ export const Popular = () => {
 
   useEffect(() => {
     const getPopular = async () => {
-      const res = await axios.get("/stats");
+      const res = await axios.get("/api/stats");
       setOrganization(res.data);
     };
     getPopular();

@@ -10,7 +10,7 @@ export const Donations = () => {
   const [contributions, setContributions] = useState([]);
 
   const refreshDonations = useCallback(async () => {
-    const res = await axios.get("/donations", {
+    const res = await axios.get("/api/donations", {
       params: {
         userId: user.uid,
       },
@@ -57,7 +57,7 @@ export const Donations = () => {
       setErrors(newErrors);
     } else {
       // No errors! Put any logic here for the form submission!
-      await axios.post("/donations", null, {
+      await axios.post("/api/donations", null, {
         params: {
           orgName: donationData.name,
           donationAmount: donationData.amount,
@@ -70,7 +70,7 @@ export const Donations = () => {
 
   //deletes donations and refreshes view
   const handleDelete = async (id) => {
-    await axios.delete("/donations/" + id, {
+    await axios.delete("/api/donations/" + id, {
       params: {
         donationId: id,
       },

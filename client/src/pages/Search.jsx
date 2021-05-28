@@ -21,7 +21,7 @@ export const Search = () => {
   // gets user favorites and passes it down to the organization/favorite component whether or not it is favorited
   useEffect(() => {
     const getFavorites = async () => {
-      const res = await axios.get("/favorites", {
+      const res = await axios.get("/api/favorites", {
         params: {
           userId: user.uid,
         },
@@ -31,7 +31,7 @@ export const Search = () => {
     getFavorites();
 
     const getSuggestions = async () => {
-      const res = await axios.get("/cn/suggestions", {
+      const res = await axios.get("/api/cn/suggestions", {
         params: {
           userId: user.uid,
         },
@@ -43,7 +43,7 @@ export const Search = () => {
   }, [user]);
 
   const getSearchResults = async () => {
-    const res = await axios.get("/cn/organizations", {
+    const res = await axios.get("/api/cn/organizations", {
       params: {
         ...searchData,
         rated: true,
